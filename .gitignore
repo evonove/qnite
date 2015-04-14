@@ -32,3 +32,7 @@ Makefile*
 #QtCtreator Qml
 *.qmlproject.user
 *.qmlproject.user.*
+
+# Vim YCM
+compile_commands.json
+.ycm_extra_conf.py
