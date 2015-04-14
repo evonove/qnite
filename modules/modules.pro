@@ -1,5 +1,5 @@
 TEMPLATE = subdirs
 SUBDIRS = \
     Qnite \
-    Qnite.plugin
+    Qnite/plugin
 

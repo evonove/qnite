@@ -1,2 +1,2 @@
-TEMPLATE = app
+TEMPLATE = aux
 
