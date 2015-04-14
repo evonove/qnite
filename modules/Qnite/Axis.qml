@@ -2,9 +2,6 @@ import QtQuick 2.4
 
 Item {
     id: axis
-    //width: plotArea.width; height: 30
-    //anchors.top: plotArea.bottom
-    //anchors.left: plotArea.left
 
     property real thickness: 1
 

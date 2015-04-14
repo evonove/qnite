@@ -1,10 +1,40 @@
 import QtQuick 2.4
 import Qnite 1.0
 
+/*! \qmltype Figure
+    \inqmlmodule Qnite 0.1
+    \ingroup figure
 
+    \brief The container of all the plot items.
+
+    TODO: add a long description
+
+    \qml
+
+    // TODO: add a code exampl
+
+    \endqml
+*/
 FocusScope {
     id: plot
+
+    /*! \qmlproperty string Figure::title
+
+        The title of the plot.
+    */
     property string title
+
+    /*! \qmlproperty Axis Figure::axisLeft
+
+        The y-axis placed on the left of the plot.
+    */
+    property alias axisLeft: yLeft
+
+    /*! \qmlproperty Axis Figure::axisBottom
+
+        The x-axis placed at the bottom of the plot.
+    */
+    property alias axisBottom: xBottom
 
     property real xMin: 0
     property real xMax: 10
@@ -32,10 +62,6 @@ FocusScope {
         property real xstep: plot.step * __xFactor
         property real ystep: plot.step * __yFactor
 
-        Component.onCompleted: {
-            console.debug(__dimX, __dimY, xSteps, ySteps,
-                          __xFactor, __yFactor, xstep, ystep);
-        }
     }
 
     Item {
@@ -51,7 +77,6 @@ FocusScope {
 
     Axis {
         id: yLeft
-
         width: 30; height: plotArea.height
         anchors.top: plotArea.top
         anchors.right: plotArea.left

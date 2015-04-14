@@ -10,8 +10,12 @@ ApplicationWindow {
         anchors.fill: parent
         color: "white"
 
-        Plot {
+        Figure {
+            id: figure
             anchors.fill: parent
+
+            axisBottom.color: "green"
+           //axisLeft.thickness: 2
         }
     }
 }
