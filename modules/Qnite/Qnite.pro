@@ -9,8 +9,8 @@ qmldir_file.files = $$PWD/qmldir
 qml_files.files = $$PWD/*.qml
 
 OTHER_FILES = \
-    qml_files \
-    qmldir_file
+    $$qml_files.files \
+    $$qmldir_file.files
 
 !equals(_PRO_FILE_PWD_, $$OUT_PWD) {
     copy_modules.target = qnite_copy_module
