@@ -1,5 +1,6 @@
 import QtQuick 2.4
 import QtTest 1.0
+import Qnite 1.0
 
 TestCase {
     name: "FooTests"
