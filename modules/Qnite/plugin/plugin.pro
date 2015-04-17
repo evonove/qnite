@@ -1,19 +1,21 @@
 TEMPLATE = lib
 TARGET = ../qnite
 QT += qml quick
-CONFIG += qt plugin
+CONFIG += qt plugin c++11
 
 TARGET = $$qtLibraryTarget($$TARGET)
 uri = Qnite
 
 # Input
 SOURCES += \
-    qnite_plugin.cpp \
-    myitem.cpp
+    plugin.cpp \
+    qnitecurve.cpp \
+    qnitescalemap.cpp
 
 HEADERS += \
-    qnite_plugin.h \
-    myitem.h
+    plugin.h \
+    qnitecurve.h \
+    qnitescalemap.h
 
 unix {
     installPath = $$[QT_INSTALL_QML]/$$replace(uri, \\., /)

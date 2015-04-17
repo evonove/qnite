@@ -11,7 +11,7 @@ import Qnite 1.0
 
     \qml
 
-    // TODO: add a code exampl
+    // TODO: add a code example
 
     \endqml
 */
@@ -35,6 +35,9 @@ FocusScope {
         The x-axis placed at the bottom of the plot.
     */
     property alias axisBottom: xBottom
+
+
+    default property alias data: plotArea.data
 
     property real xMin: 0
     property real xMax: 10
@@ -73,6 +76,12 @@ FocusScope {
             anchors.fill: parent
             color: "#FAFAFA"
         }
+
+        //Rectangle {
+            //width: parent.width; height: 20
+            //color: "#11000000"
+            //anchors.verticalCenter: parent.bottom
+        //}
     }
 
     Axis {
@@ -83,6 +92,7 @@ FocusScope {
 
         axisType: "left"
         scaleEngine: scaleEngine
+        //visible: false
     }
 
     Axis {
@@ -93,5 +103,6 @@ FocusScope {
 
         axisType: "bottom"
         scaleEngine: scaleEngine
+        //visible: false
     }
 }

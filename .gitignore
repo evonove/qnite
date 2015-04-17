@@ -36,3 +36,7 @@ Makefile*
 # Vim YCM
 compile_commands.json
 .ycm_extra_conf.py
+
+# other
+*.pyc
+.tmp

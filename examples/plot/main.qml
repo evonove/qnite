@@ -15,7 +15,20 @@ ApplicationWindow {
             anchors.fill: parent
 
             axisBottom.color: "green"
-           //axisLeft.thickness: 2
+            axisLeft.thickness: 2
+
+            Curve {
+              xValues: [1, 3, 5, 6]
+              anchors.fill: parent
+              color: "blue"
+
+              scaleMap: ScaleMap {
+                min: 0
+                max: 10
+
+                size: 200
+              }
+            }
         }
     }
 }
