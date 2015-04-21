@@ -14,6 +14,7 @@ class QniteTicker : public QObject
     Q_PROPERTY(QVariantList minorTicks READ minorTicks WRITE setMinorTicks)
     Q_PROPERTY(QVariantList midTicks READ midTicks WRITE setMidTicks)
     Q_PROPERTY(QVariantList majorTicks READ majorTicks WRITE setMajorTicks)
+    Q_PROPERTY(int numSteps READ numSteps WRITE setNumSteps)
 
 signals:
     void valuesChanged();
@@ -27,14 +28,15 @@ public:
     void setMinorTicks(QVariantList&);
     void setMidTicks(QVariantList&);
     void setMajorTicks(QVariantList&);
+    void setNumSteps(int);
 
     QVariantList values() const;
     QVariantList minorTicks() const;
     QVariantList midTicks() const;
     QVariantList majorTicks() const;
-
     float lower() const { return lowerBound_; }
     float upper() const { return upperBound_; }
+    int numSteps() const { return numSteps_; }
 
 protected:
     virtual void buildTicks() = 0;
@@ -46,6 +48,8 @@ protected:
 
     float lowerBound_;
     float upperBound_;
+
+    int numSteps_;
 };
 
 #endif // QNITETICKER_H

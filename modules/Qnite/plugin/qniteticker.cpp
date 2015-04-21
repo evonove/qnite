@@ -87,3 +87,8 @@ QVariantList QniteTicker::majorTicks() const
 {
     return toVariantList<float>(majorTicks_);
 }
+
+void QniteTicker::setNumSteps(int steps)
+{
+    numSteps_ = steps;
+}
