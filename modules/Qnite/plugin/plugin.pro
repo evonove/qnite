@@ -11,13 +11,15 @@ SOURCES += \
     plugin.cpp \
     qnitecurve.cpp \
     qnitescalemap.cpp \
-    qniteticker.cpp
+    qniteticker.cpp \
+    qnitelinearticker.cpp
 
 HEADERS += \
     plugin.h \
     qnitecurve.h \
     qnitescalemap.h \
-    qniteticker.h
+    qniteticker.h \
+    qnitelinearticker.h
 
 unix {
     installPath = $$[QT_INSTALL_QML]/$$replace(uri, \\., /)
