@@ -56,8 +56,6 @@ void QniteLinearTicker::buildTicks()
         majorTicks_.append(x);
         // TODO show nFrac fraction digits
     }
-
-    qDebug() << majorTicks_;
 }
 
 void QniteLinearTicker::setLooseNiceness(bool is_loose)
