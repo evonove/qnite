@@ -1,6 +1,4 @@
-TEMPLATE = app
-QT += testlib
-CONFIG += testcase
+include(../common.pri)
+
 TARGET = tst_qniteticker
 SOURCES = tst_qniteticker.cpp
-LIBS += -L../../../modules/Qnite/ -lqnite
