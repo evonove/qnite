@@ -14,6 +14,7 @@ public:
     explicit QniteLinearTicker(QObject * parent=0);
     virtual ~QniteLinearTicker() {}
 
+    virtual void reset();
     void setLooseNiceness(bool);
     bool looseNiceness() const;
 

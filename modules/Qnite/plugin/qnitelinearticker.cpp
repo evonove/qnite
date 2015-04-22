@@ -4,6 +4,7 @@
 
 // defines
 #define DEFAULT_NUM_STEPS 10
+#define DEFAULT_LOOSENESS true
 
 
 namespace {
@@ -37,7 +38,7 @@ namespace {
 
 
 QniteLinearTicker::QniteLinearTicker(QObject *parent)
-    : QniteTicker(parent), loose_(true)
+    : QniteTicker(parent), loose_(DEFAULT_LOOSENESS)
 {
     numSteps_ = DEFAULT_NUM_STEPS;
 }
@@ -68,3 +69,9 @@ bool QniteLinearTicker::looseNiceness() const
     return loose_;
 }
 
+void QniteLinearTicker::reset()
+{
+    QniteTicker::reset();
+    loose_ = DEFAULT_LOOSENESS;
+    numSteps_ = DEFAULT_NUM_STEPS;
+}
