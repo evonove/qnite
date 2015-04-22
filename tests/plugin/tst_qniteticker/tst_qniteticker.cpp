@@ -93,6 +93,5 @@ private slots:
     }
 
 };
-
 QTEST_MAIN(TestQniteTicker)
 #include "tst_qniteticker.moc"

@@ -1,6 +1,6 @@
 TEMPLATE = app
 QT += testlib
 CONFIG += testcase
-TARGET = tst_qniteticker
-SOURCES = tst_qniteticker.cpp
+TARGET = tst_qnitelinearticker
+SOURCES = tst_qnitelinearticker.cpp
 LIBS += -L../../../modules/Qnite/ -lqnite

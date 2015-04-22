@@ -1,4 +1,4 @@
 TEMPLATE = subdirs
 SUBDIRS +=\
-  foo \
-  tst_qniteticker
+  tst_qniteticker \
+  tst_qnitelinearticker
