@@ -9,6 +9,9 @@
 */
 #include "qniteticker.h"
 
+#define DEFAULT_NUM_STEPS 0
+#define DEFAULT_LOWER_B 0
+#define DEFAULT_UPPER_B 0
 
 // utility functions
 namespace {
@@ -36,22 +39,23 @@ namespace {
 }
 
 QniteTicker::QniteTicker(QObject * parent)
-    : QObject(parent)
+    : QObject(parent), lowerBound_(DEFAULT_LOWER_B),
+      upperBound_(DEFAULT_UPPER_B), numSteps_(DEFAULT_NUM_STEPS)
 {
 
 }
 
 QVariantList QniteTicker::values() const
 {
-    return toVariantList<float>(values_);
+    return toVariantList<double>(values_);
 }
 
 void QniteTicker::setValues(QVariantList& values)
 {
-    values_ = fromVariantList<float>(values);
+    values_ = fromVariantList<double>(values);
 
     // compute min and max bounds
-    qSort(values_.begin(), values_.end(), std::greater<float>());
+    std::sort(values_.begin(), values_.end(), std::less<double>());
     lowerBound_ = values_.first();
     upperBound_ = values_.last();
 
@@ -60,35 +64,52 @@ void QniteTicker::setValues(QVariantList& values)
 
 void QniteTicker::setMinorTicks(QVariantList& ticks)
 {
-    minorTicks_ = fromVariantList<float>(ticks);
+    minorTicks_ = fromVariantList<double>(ticks);
 }
 
 void QniteTicker::setMidTicks(QVariantList& ticks)
 {
-    midTicks_ = fromVariantList<float>(ticks);
+    midTicks_ = fromVariantList<double>(ticks);
 }
 
 void QniteTicker::setMajorTicks(QVariantList& ticks)
 {
-    majorTicks_ = fromVariantList<float>(ticks);
+    majorTicks_ = fromVariantList<double>(ticks);
 }
 
 QVariantList QniteTicker::minorTicks() const
 {
-    return toVariantList<float>(minorTicks_);
+    return toVariantList<double>(minorTicks_);
 }
 
 QVariantList QniteTicker::midTicks() const
 {
-    return toVariantList<float>(midTicks_);
+    return toVariantList<double>(midTicks_);
 }
 
 QVariantList QniteTicker::majorTicks() const
 {
-    return toVariantList<float>(majorTicks_);
+    return toVariantList<double>(majorTicks_);
 }
 
 void QniteTicker::setNumSteps(int steps)
 {
     numSteps_ = steps;
+}
+
+void QniteTicker::setBoundaries(double lower, double upper)
+{
+    lowerBound_ = lower;
+    upperBound_ = upper;
+}
+
+void QniteTicker::reset()
+{
+    lowerBound_ = DEFAULT_LOWER_B;
+    upperBound_ = DEFAULT_UPPER_B;
+    numSteps_ = DEFAULT_NUM_STEPS;
+    values_.clear();
+    minorTicks_.clear();
+    midTicks_.clear();
+    majorTicks_.clear();
 }
