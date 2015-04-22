@@ -13,7 +13,9 @@ public:
     void buildTicks()
     {
         majorTicks_.clear();
-        majorTicks_ << 10. << 20. << 30.;
+        for (int i=0; i<numSteps_; ++i) {
+            majorTicks_ << i * 1.5;
+        }
     }
 };
 
@@ -51,11 +53,15 @@ private slots:
         ticker.setValues(alist);
 
         QVariantList l;
-        l << QVariant(10.) << QVariant(20.) << QVariant(30.);
 
         QCOMPARE(ticker.values(), alist);
         QCOMPARE(ticker.lower(), 1.);
         QCOMPARE(ticker.upper(), 4.);
+        QCOMPARE(ticker.majorTicks(), l);
+
+        ticker.setNumSteps(3);
+        // build l according to builTicks() implementation from FooTicker
+        l << QVariant(0.) << QVariant(1.5) << QVariant(3.0);
         QCOMPARE(ticker.majorTicks(), l);
     }
 
@@ -98,6 +104,16 @@ private slots:
         QCOMPARE(foo.minorTicks(), QVariantList());
         QCOMPARE(foo.midTicks(), QVariantList());
         QCOMPARE(foo.majorTicks(), QVariantList());
+    }
+
+    void testSetNumSteps()
+    {
+        ticker.reset();
+        ticker.setNumSteps(5);
+        ticker.setValues(alist);
+        QCOMPARE(ticker.majorTicks().size(), 5);
+        ticker.setNumSteps(6);
+        QCOMPARE(ticker.majorTicks().size(), 6);
     }
 
 };
