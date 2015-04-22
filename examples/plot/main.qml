@@ -14,20 +14,11 @@ ApplicationWindow {
             id: figure
             anchors.fill: parent
 
-            axisBottom.color: "green"
-            axisLeft.thickness: 2
-
             Curve {
-              xValues: [1, 3, 5, 6]
+              xValues: [0, 1, 3, 5, 6, 10]
+              yValues: [0, 2, 6, 3, 4, 10]
               anchors.fill: parent
               color: "blue"
-
-              scaleMap: ScaleMap {
-                min: 0
-                max: 10
-
-                size: 200
-              }
             }
         }
     }

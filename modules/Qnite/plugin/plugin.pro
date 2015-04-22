@@ -9,15 +9,21 @@ uri = Qnite
 # Input
 SOURCES += \
     plugin.cpp \
+    qniteartist.cpp \
+    qniteaxis.cpp \
+    qniteaxes.cpp \
     qnitecurve.cpp \
-    qnitescalemap.cpp \
+    qnitemapper.cpp \
     qniteticker.cpp \
     qnitelinearticker.cpp
 
 HEADERS += \
     plugin.h \
+    qniteartist.h \
+    qniteaxis.h \
+    qniteaxes.h \
     qnitecurve.h \
-    qnitescalemap.h \
+    qnitemapper.h \
     qniteticker.h \
     qnitelinearticker.h
 

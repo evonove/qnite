@@ -1,5 +1,5 @@
 #include "qnitecurve.h"
-#include "qnitescalemap.h"
+#include "qnitemapper.h"
 
 #include <QDebug>
 
@@ -9,8 +9,7 @@
 
 
 QniteCurve::QniteCurve(QQuickItem *parent):
-  QQuickItem(parent),
-  m_scaleMap(0)
+  QniteArtist(parent)
 {
   setFlag(ItemHasContents, true);
 }
@@ -19,79 +18,51 @@ QniteCurve::~QniteCurve()
 {
 }
 
-QColor QniteCurve::color() const
-{
-  return m_color;
-}
-
-void QniteCurve::setColor(const QColor& color)
-{
-  if (m_color != color) {
-    m_color = color;
-    emit colorChanged();
-  }
-}
-
-QVariantList QniteCurve::xValues()
-{
-  return m_xValues;
-}
-
-void QniteCurve::setXValues(const QVariantList& values)
-{
-  m_xValues = values;
-  emit xValuesChanged();
-}
-
-QniteScaleMap* QniteCurve::scaleMap() const
-{
-  return m_scaleMap;
-}
-
-void QniteCurve::setScaleMap(QniteScaleMap* scaleMap)
-{
-  if (scaleMap != m_scaleMap) {
-    m_scaleMap = scaleMap;
-    emit scaleMapChanged();
-  }
-}
-
 QSGNode* QniteCurve::updatePaintNode(QSGNode* oldNode, UpdatePaintNodeData*)
 {
   QSGGeometryNode *node = 0;
   QSGGeometry *geometry = 0;
 
+  int dataSize = qMin(xValues().size(), yValues().size());
+  if (xValues().size() != yValues().size())
+    qWarning() << "xValues and yValues size for the artists are different";
+
   if (!oldNode) {
     node = new QSGGeometryNode;
-    geometry = new QSGGeometry(QSGGeometry::defaultAttributes_Point2D(), m_xValues.size());
+    geometry = new QSGGeometry(QSGGeometry::defaultAttributes_Point2D(), dataSize);
     geometry->setLineWidth(3);
     geometry->setDrawingMode(GL_LINE_STRIP);
     node->setGeometry(geometry);
     node->setFlag(QSGNode::OwnsGeometry);
 
     QSGFlatColorMaterial *material = new QSGFlatColorMaterial;
-    material->setColor(m_color);
+    material->setColor(color());
     node->setMaterial(material);
     node->setFlag(QSGNode::OwnsMaterial);
   } else {
     node = static_cast<QSGGeometryNode *>(oldNode);
     geometry = node->geometry();
-    geometry->allocate(m_xValues.size());
+    geometry->allocate(dataSize);
   }
 
   QSGGeometry::Point2D *vertices = geometry->vertexDataAsPoint2D();
-  for(int i = 0; i < m_xValues.size(); ++i) {
-    const QVariant& v = m_xValues.at(i);
-
-    // TODO: this is bad here! move transformation elsewhere
-    qreal value;
-    if (m_scaleMap)
-      value = m_scaleMap->transform(v.toReal());
+  for(int i = 0; i < dataSize; ++i) {
+    // TODO: this is bad here! move transformation in the setters
+    const QVariant& vx = xValues().at(i);
+    const QVariant& vy = yValues().at(i);
+    float x;
+    if (xMapper() != nullptr)
+      x = xMapper()->transform(vx.toFloat());
     else
-      value = v.toReal();
+      x = vx.toFloat();
+    float y;
+    if (yMapper() != nullptr)
+      y = yMapper()->transform(vy.toFloat());
+    else
+      y = vy.toFloat();
 
-    vertices[i].set(static_cast<float>(value), i*10);
-    qDebug() << "point" << value << i*10;
+    vertices[i].set(x, y);
+    qDebug() << "point" << x << y;
   }
 
   node->markDirty(QSGNode::DirtyGeometry | QSGNode::DirtyMaterial);

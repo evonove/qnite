@@ -1,41 +1,40 @@
 import QtQuick 2.4
+import Qnite 1.0
 
-Item {
+BasicAxis {
     id: axis
-
-    property real thickness: 1
-
-    property real majorTickSize: 10
-
-    property color color
-
-    property var scaleEngine
 
     property string axisType
 
-    Rectangle {
-        id: baseline
-        implicitWidth: axis.axisType === "bottom" ? parent.width : axis.thickness
-        implicitHeight: axis.axisType === "left" ? parent.height : axis.thickness
+    QtObject {
+      id: ticker
+      property int numMajTicks: 11
 
-        anchors.right: axis.axisType === "left" ? parent.right : undefined
-        color: axis.color
+      property var values: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     }
+
     Item {
         id: ticksnlabels
         anchors.fill: parent
 
         Repeater {
-            model: scaleEngine.xSteps
+            model: ticker.numMajTicks
             Rectangle {
-                implicitWidth: axis.axisType === "bottom" ? axis.thickness : axis.majorTickSize
-                implicitHeight: axis.axisType === "left" ? axis.thickness : axis.majorTickSize
+                implicitWidth: axis.axisType === "bottom" ? tick.thick : tick.majSize
+                implicitHeight: axis.axisType === "left" ? tick.thick : tick.majSize
                 anchors.right: axis.axisType === "left" ? parent.right : undefined
 
-                // FIXME: subtracting width to align the first tick. find something reliable
-                x: axis.axisType === "bottom" ? model.index * scaleEngine.xstep - width : 0
-                y: axis.axisType === "left" ? axis.height - model.index * scaleEngine.ystep : 0
-                color: axis.color
+                Binding on x {
+                  when: axis.axisType === "bottom"
+                  value: mapper.factor * ticker.values[index] - tick.thick / 2
+                }
+
+                Binding on y {
+                  when: axis.axisType === "left"
+                  value: axis.height - (mapper.factor * ticker.values[index] + tick.thick / 2)
+                }
+
+                color: tick.color
             }
         }
     }
