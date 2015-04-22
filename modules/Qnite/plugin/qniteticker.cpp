@@ -99,6 +99,12 @@ QVariantList QniteTicker::majorTicks() const
 void QniteTicker::setNumSteps(int steps)
 {
     numSteps_ = steps;
+
+    if (majorTicks_.size() != steps) {
+        // rebuild ticks if needed
+        buildTicks();
+        emit valuesChanged();
+    }
 }
 
 void QniteTicker::setBoundaries(double lower, double upper)
