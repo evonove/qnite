@@ -59,6 +59,10 @@ void QniteTicker::setValues(QVariantList& values)
     lowerBound_ = values_.first();
     upperBound_ = values_.last();
 
+    // build ticks
+    buildTicks();
+
+    // notify
     emit valuesChanged();
 }
 

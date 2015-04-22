@@ -10,7 +10,11 @@ class FooTicker : public QniteTicker
 
 public:
     FooTicker(QObject * p=0) : QniteTicker(p) {}
-    void buildTicks() {}
+    void buildTicks()
+    {
+        majorTicks_.clear();
+        majorTicks_ << 10. << 20. << 30.;
+    }
 };
 
 
@@ -46,9 +50,13 @@ private slots:
         ticker.reset();
         ticker.setValues(alist);
 
+        QVariantList l;
+        l << QVariant(10.) << QVariant(20.) << QVariant(30.);
+
         QCOMPARE(ticker.values(), alist);
         QCOMPARE(ticker.lower(), 1.);
         QCOMPARE(ticker.upper(), 4.);
+        QCOMPARE(ticker.majorTicks(), l);
     }
 
     void testSetTicks()
