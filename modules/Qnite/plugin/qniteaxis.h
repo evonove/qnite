@@ -4,6 +4,7 @@
 #include <QQuickItem>
 
 class QniteMapper;
+class QniteTicker;
 class QniteAxisTick: public QObject
 {
     Q_OBJECT
@@ -43,21 +44,34 @@ class QniteAxis: public QQuickItem
     Q_OBJECT
     Q_PROPERTY(QniteAxisTick* tick READ tick CONSTANT)
     Q_PROPERTY(QniteMapper* mapper READ mapper WRITE setMapper NOTIFY mapperChanged)
+    Q_PROPERTY(QniteTicker* ticker READ ticker CONSTANT)
+
+    Q_PROPERTY(QList<qreal> majorTicks READ majorTicks NOTIFY majorTicksChanged)
   public:
     explicit QniteAxis(QQuickItem* parent = 0);
     virtual ~QniteAxis();
 
     QniteAxisTick* tick() const;
+    QniteTicker* ticker() const;
+
+    QList<qreal> majorTicks() const;
 
     QniteMapper* mapper() const;
     void setMapper(QniteMapper* mapper);
 
   Q_SIGNALS:
     void mapperChanged();
+    void majorTicksChanged();
+
+  protected Q_SLOTS:
+    void initTicker();
 
   private:
     QniteAxisTick* m_tick;
     QniteMapper* m_mapper;
+    QniteTicker* m_ticker;
+
+    QList<qreal> m_majorTicks;
 };
 
 #endif // QNITE_AXIS_H
