@@ -111,19 +111,22 @@ void QniteAxis::setMapper(QniteMapper* mapper)
 
 void QniteAxis::initTicker()
 {
-  if (m_mapper == nullptr && m_mapper->factor() == 0)
+  // avoid ticker initialization when mapper is invalid
+  if (m_mapper == nullptr || m_mapper->factor() <= 0) {
     m_ticker->reset();
-  else {
-    // TODO: change when setBoundaries works
-    m_ticker->setValues({m_mapper->min(), m_mapper->max()});
-
-    m_majorTicks.clear(); // TODO: avoid computation when mapper is invalid
-    for(const auto& tick: m_ticker->majorTicks()) {
-      m_majorTicks.append(m_mapper->transform(tick));
-    }
-    qDebug() << "ticker major ticks" << m_ticker->majorTicks();
-    qDebug() << "mapper major ticks" << m_majorTicks;
     emit majorTicksChanged();
+    return;
   }
+
+  // TODO: change when setBoundaries works
+  m_ticker->setValues({m_mapper->min(), m_mapper->max()});
+  m_majorTicks.clear();
+  for(const auto& tick: m_ticker->majorTicks()) {
+    m_majorTicks.append(m_mapper->transform(tick));
+  }
+  qDebug() << "current factor" << m_mapper->factor();
+  qDebug() << "ticker major ticks" << m_ticker->majorTicks();
+  qDebug() << "mapper major ticks" << m_majorTicks;
+  emit majorTicksChanged();
 }
 
