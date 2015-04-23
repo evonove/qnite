@@ -6,8 +6,6 @@
 class QniteLinearTicker: public QniteTicker
 {
     Q_OBJECT
-    Q_DISABLE_COPY(QniteLinearTicker)
-
     Q_PROPERTY(bool looseNiceness READ looseNiceness WRITE setLooseNiceness)
 
 public:
@@ -21,7 +19,7 @@ public:
 protected:
     virtual void buildTicks();
 
-    bool loose_;
+    bool m_loose;
 };
 
 #endif // QNITELINEARTICKER_H

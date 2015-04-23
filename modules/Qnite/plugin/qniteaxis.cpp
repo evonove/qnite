@@ -111,22 +111,19 @@ void QniteAxis::setMapper(QniteMapper* mapper)
 
 void QniteAxis::initTicker()
 {
-  if (m_mapper == nullptr)
+  if (m_mapper == nullptr && m_mapper->factor() == 0)
     m_ticker->reset();
   else {
     // TODO: change when setBoundaries works
-    QVariantList l {m_mapper->min(), m_mapper->max()};
-    m_ticker->setValues(l);
+    m_ticker->setValues({m_mapper->min(), m_mapper->max()});
 
     m_majorTicks.clear(); // TODO: avoid computation when mapper is invalid
     for(const auto& tick: m_ticker->majorTicks()) {
-      qreal v = tick.toReal();
-      m_majorTicks.append(m_mapper->transform(v));
+      m_majorTicks.append(m_mapper->transform(tick));
     }
     qDebug() << "ticker major ticks" << m_ticker->majorTicks();
     qDebug() << "mapper major ticks" << m_majorTicks;
     emit majorTicksChanged();
   }
-  update();
 }
 

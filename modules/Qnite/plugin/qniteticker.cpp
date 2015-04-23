@@ -1,126 +1,110 @@
-/*!
-    \qmltype Ticker
-    \instantiates QniteTicker
-    \ingroup scaling
-    \inqmlmodule Qnite
-    \brief Divide axes scales into tickers
-
-    TODO: add a long description
-*/
 #include "qniteticker.h"
 
 #define DEFAULT_NUM_STEPS 0
 #define DEFAULT_LOWER_B 0
 #define DEFAULT_UPPER_B 0
 
-// utility functions
-namespace {
+/*!
+  \qmltype Ticker
+  \instantiates QniteTicker
+  \ingroup scaling
+  \inqmlmodule Qnite
+  \brief Divide axes scales into tickers
 
-    template<typename T>
-    QList<T> fromVariantList(const QVariantList& in)
-    {
-        QList<T> out;
-        foreach(QVariant val, in) {
-            out.append(val.value<T>());
-        }
-        return out;
-    }
+TODO: add a long description
+*/
 
-    template<typename T>
-    QVariantList toVariantList(const QList<T>& in)
-    {
-        QVariantList out;
-        foreach(T val, in) {
-            out.append(QVariant(val));
-        }
-        return out;
-    }
-
-}
-
-QniteTicker::QniteTicker(QObject * parent)
-    : QObject(parent), lowerBound_(DEFAULT_LOWER_B),
-      upperBound_(DEFAULT_UPPER_B), numSteps_(DEFAULT_NUM_STEPS)
+QniteTicker::QniteTicker(QObject * parent):
+  QObject(parent),
+  m_lowerBound{DEFAULT_LOWER_B},
+  m_upperBound{DEFAULT_UPPER_B},
+  m_numSteps{DEFAULT_NUM_STEPS}
 {
 
 }
 
-QVariantList QniteTicker::values() const
+QList<qreal> QniteTicker::values() const
 {
-    return toVariantList<double>(values_);
+  return m_values;
 }
-
-void QniteTicker::setValues(QVariantList& values)
+void QniteTicker::setValues(const QList<qreal>& values)
 {
-    values_ = fromVariantList<double>(values);
+  if (m_values != values) {
+    m_values = values;
 
     // compute min and max bounds
-    std::sort(values_.begin(), values_.end(), std::less<double>());
-    lowerBound_ = values_.first();
-    upperBound_ = values_.last();
+    std::sort(m_values.begin(), m_values.end(), std::less<qreal>());
+    m_lowerBound = m_values.first();
+    m_upperBound = m_values.last();
 
     // build ticks
     buildTicks();
 
     // notify
     emit valuesChanged();
+  }
 }
 
-void QniteTicker::setMinorTicks(QVariantList& ticks)
+QList<qreal> QniteTicker::minorTicks() const
 {
-    minorTicks_ = fromVariantList<double>(ticks);
+  return m_minorTicks;
+}
+void QniteTicker::setMinorTicks(const QList<qreal>& ticks)
+{
+  if (m_minorTicks != ticks) {
+    m_minorTicks = ticks;
+    emit minorTicksChanged();
+  }
 }
 
-void QniteTicker::setMidTicks(QVariantList& ticks)
+QList<qreal> QniteTicker::midTicks() const
 {
-    midTicks_ = fromVariantList<double>(ticks);
+  return m_midTicks;
+}
+void QniteTicker::setMidTicks(const QList<qreal>& ticks)
+{
+  if (m_midTicks != ticks) {
+    m_midTicks = ticks;
+    emit midTicksChanged();
+  }
 }
 
-void QniteTicker::setMajorTicks(QVariantList& ticks)
+QList<qreal> QniteTicker::majorTicks() const
 {
-  majorTicks_ = fromVariantList<double>(ticks);
-  emit majorTicksChanged();
+  return m_majorTicks;
 }
-
-QVariantList QniteTicker::minorTicks() const
+void QniteTicker::setMajorTicks(const QList<qreal>& ticks)
 {
-    return toVariantList<double>(minorTicks_);
-}
-
-QVariantList QniteTicker::midTicks() const
-{
-    return toVariantList<double>(midTicks_);
-}
-
-QVariantList QniteTicker::majorTicks() const
-{
-    return toVariantList<double>(majorTicks_);
+  if (m_majorTicks != ticks) {
+    m_majorTicks = ticks;
+    emit majorTicksChanged();
+  }
 }
 
 void QniteTicker::setNumSteps(int steps)
 {
-    numSteps_ = steps;
+  m_numSteps = steps;
 
-    if (majorTicks_.size() != steps) {
-        // rebuild ticks if needed
-        buildTicks();
-        emit valuesChanged();
-    }
+  if (m_majorTicks.size() != steps) {
+    // rebuild ticks if needed
+    buildTicks();
+    emit valuesChanged();
+  }
 }
 
-void QniteTicker::setBoundaries(double lower, double upper)
+void QniteTicker::setBoundaries(qreal lower, qreal upper)
 {
-    lowerBound_ = lower;
-    upperBound_ = upper;
+  m_lowerBound = lower;
+  m_upperBound = upper;
 }
 
 void QniteTicker::reset()
 {
-    lowerBound_ = DEFAULT_LOWER_B;
-    upperBound_ = DEFAULT_UPPER_B;
-    numSteps_ = DEFAULT_NUM_STEPS;
-    values_.clear();
-    minorTicks_.clear();
-    midTicks_.clear();
-    majorTicks_.clear();
+  m_lowerBound = DEFAULT_LOWER_B;
+  m_upperBound = DEFAULT_UPPER_B;
+  m_numSteps = DEFAULT_NUM_STEPS;
+  m_values.clear();
+  m_minorTicks.clear();
+  m_midTicks.clear();
+  m_majorTicks.clear();
 }

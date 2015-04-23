@@ -8,13 +8,12 @@ class TestQniteLinearTicker: public QObject
     Q_OBJECT
 
     QniteLinearTicker ticker;
-    QVariantList alist;
+    QList<qreal> alist;
 
 private slots:
     void initTestCase()
     {
-        alist << QVariant(105.) << QVariant(343.)
-              << QVariant(443.) << QVariant(543.);
+        alist << 105. << 343. << 443. << 543.;
     }
 
     void testReset()
@@ -44,9 +43,8 @@ private slots:
         ticker.reset();
         ticker.setNumSteps(5);
         ticker.setValues(alist);
-        QVariantList l;
-        l << QVariant(100.) << QVariant(200.) << QVariant(300.)
-          << QVariant(400.) << QVariant(500.) << QVariant(600.);
+        QList<qreal> l;
+        l << 100. << 200. << 300. << 400. << 500. << 600.;
         QCOMPARE(ticker.majorTicks(), l);
     }
 

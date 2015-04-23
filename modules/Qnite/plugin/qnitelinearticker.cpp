@@ -38,40 +38,42 @@ namespace {
 
 
 QniteLinearTicker::QniteLinearTicker(QObject *parent)
-    : QniteTicker(parent), loose_(DEFAULT_LOOSENESS)
+    : QniteTicker(parent),
+    m_loose{DEFAULT_LOOSENESS}
 {
-    numSteps_ = DEFAULT_NUM_STEPS;
+    m_numSteps = DEFAULT_NUM_STEPS;
 }
 
 void QniteLinearTicker::buildTicks()
 {
-    majorTicks_.clear();
+    m_majorTicks.clear();
 
-    double range = nice(upperBound_-lowerBound_, false);
-    double d = nice(range/(numSteps_-1), true);
-    double graph_min = floor(lowerBound_/d) * d;  // loose version of the algo
-    double graph_max = ceil(upperBound_/d) * d;  // loose version of the algo
+    double range = nice(m_upperBound-m_lowerBound, false);
+    double d = nice(range/(m_numSteps-1), true);
+    double graph_min = floor(m_lowerBound/d) * d;  // loose version of the algo
+    double graph_max = ceil(m_upperBound/d) * d;  // loose version of the algo
     // double nFrac = std::max(-floor(log10(d)), 0.);
 
     for (double x=graph_min; x<=graph_max + .5*d; x+=d) {
-        majorTicks_.append(x);
+        m_majorTicks.append(x);
         // TODO show nFrac fraction digits
     }
 }
 
 void QniteLinearTicker::setLooseNiceness(bool is_loose)
 {
-    loose_ = is_loose;
+    m_loose = is_loose;
 }
 
 bool QniteLinearTicker::looseNiceness() const
 {
-    return loose_;
+    return m_loose;
 }
 
 void QniteLinearTicker::reset()
 {
     QniteTicker::reset();
-    loose_ = DEFAULT_LOOSENESS;
-    numSteps_ = DEFAULT_NUM_STEPS;
+    m_loose = DEFAULT_LOOSENESS;
+    m_numSteps = DEFAULT_NUM_STEPS;
 }
+

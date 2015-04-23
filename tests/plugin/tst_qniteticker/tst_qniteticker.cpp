@@ -6,36 +6,35 @@
 
 class FooTicker : public QniteTicker
 {
-    Q_OBJECT
+  Q_OBJECT
 
 public:
-    FooTicker(QObject * p=0) : QniteTicker(p) {}
-    void buildTicks()
-    {
-        majorTicks_.clear();
-        for (int i=0; i<numSteps_; ++i) {
-            majorTicks_ << i * 1.5;
-        }
-    }
+  FooTicker(QObject * p=0) : QniteTicker(p) {}
+  void buildTicks()
+  {
+      m_majorTicks.clear();
+      for (int i=0; i<m_numSteps; ++i) {
+          m_majorTicks << i * 1.5;
+      }
+  }
 };
 
 
 class TestQniteTicker: public QObject
 {
-    Q_OBJECT
+  Q_OBJECT
 
-    FooTicker ticker;
-    QVariantList alist;
-    QVariantList anotherlist;
-    QVariantList anotherlistagain;
+  FooTicker ticker;
+  QList<qreal> alist;
+  QList<qreal> anotherlist;
+  QList<qreal> anotherlistagain;
 
 private slots:
     void initTestCase()
     {
-        alist << QVariant(1.) << QVariant(2.) << QVariant(3.) << QVariant(4.);
-        anotherlist << QVariant(-1.) << QVariant(1.1) << QVariant(1.2);
-        anotherlistagain << QVariant(-1.) << QVariant(1.1) << QVariant(1.2) <<
-                            QVariant(2.) << QVariant(2.2);
+        alist << 1. << 2. << 3. << 4.;
+        anotherlist << -1. << 1.1 << 1.2;
+        anotherlistagain << -1. << 1.1 << 1.2 << 2. << 2.2;
     }
 
     void testBoundaries()
@@ -52,7 +51,7 @@ private slots:
         ticker.reset();
         ticker.setValues(alist);
 
-        QVariantList l;
+        QList<qreal> l;
 
         QCOMPARE(ticker.values(), alist);
         QCOMPARE(ticker.lower(), 1.);
@@ -61,7 +60,7 @@ private slots:
 
         ticker.setNumSteps(3);
         // build l according to builTicks() implementation from FooTicker
-        l << QVariant(0.) << QVariant(1.5) << QVariant(3.0);
+        l << 0. << 1.5 << 3.0;
         QCOMPARE(ticker.majorTicks(), l);
     }
 
@@ -88,10 +87,10 @@ private slots:
         QCOMPARE(ticker.numSteps(), 0);
         QCOMPARE(ticker.lower(), 0.);
         QCOMPARE(ticker.upper(), 0.);
-        QCOMPARE(ticker.values(), QVariantList());
-        QCOMPARE(ticker.minorTicks(), QVariantList());
-        QCOMPARE(ticker.midTicks(), QVariantList());
-        QCOMPARE(ticker.majorTicks(), QVariantList());
+        QCOMPARE(ticker.values(), QList<qreal>());
+        QCOMPARE(ticker.minorTicks(), QList<qreal>());
+        QCOMPARE(ticker.midTicks(), QList<qreal>());
+        QCOMPARE(ticker.majorTicks(), QList<qreal>());
     }
 
     void testDefaults()
@@ -100,10 +99,10 @@ private slots:
         QCOMPARE(foo.numSteps(), 0);
         QCOMPARE(foo.lower(), 0.);
         QCOMPARE(foo.upper(), 0.);
-        QCOMPARE(foo.values(), QVariantList());
-        QCOMPARE(foo.minorTicks(), QVariantList());
-        QCOMPARE(foo.midTicks(), QVariantList());
-        QCOMPARE(foo.majorTicks(), QVariantList());
+        QCOMPARE(foo.values(), QList<qreal>());
+        QCOMPARE(foo.minorTicks(), QList<qreal>());
+        QCOMPARE(foo.midTicks(), QList<qreal>());
+        QCOMPARE(foo.majorTicks(), QList<qreal>());
     }
 
     void testSetNumSteps()

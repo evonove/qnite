@@ -45,7 +45,7 @@ BasicAxes {
         mapper: Mapper { // TODO: a readonly grouped property???
           size: __plotarea.width
           // TODO: these values should be taken from the parent Axes
-          min: 0; max: 10
+          min: -10; max: 20
         }
     }
 
@@ -72,7 +72,7 @@ BasicAxes {
         mapper: Mapper {
           size: __plotarea.height
           // TODO: these values should be taken from the parent Axes
-          min: 0; max: 10
+          min: -20; max: 50
           flip: true
         }
     }
