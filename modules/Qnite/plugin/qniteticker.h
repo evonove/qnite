@@ -13,11 +13,12 @@ class QniteTicker : public QObject
     Q_PROPERTY(QVariantList values READ values WRITE setValues NOTIFY valuesChanged)
     Q_PROPERTY(QVariantList minorTicks READ minorTicks WRITE setMinorTicks)
     Q_PROPERTY(QVariantList midTicks READ midTicks WRITE setMidTicks)
-    Q_PROPERTY(QVariantList majorTicks READ majorTicks WRITE setMajorTicks)
+    Q_PROPERTY(QVariantList majorTicks READ majorTicks WRITE setMajorTicks NOTIFY majorTicksChanged)
     Q_PROPERTY(int numSteps READ numSteps WRITE setNumSteps)
 
 signals:
     void valuesChanged();
+    void majorTicksChanged();
 
 public:
     explicit QniteTicker(QObject * parent=0);

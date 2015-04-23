@@ -78,7 +78,8 @@ void QniteTicker::setMidTicks(QVariantList& ticks)
 
 void QniteTicker::setMajorTicks(QVariantList& ticks)
 {
-    majorTicks_ = fromVariantList<double>(ticks);
+  majorTicks_ = fromVariantList<double>(ticks);
+  emit majorTicksChanged();
 }
 
 QVariantList QniteTicker::minorTicks() const
