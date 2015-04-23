@@ -82,15 +82,21 @@ qreal QniteMapper::factor() const
 {
   // TODO: maybe we should cache this value instead
   // of computing it every time
-  qreal sSize = qAbs(m_max - m_min);
-  return m_size / sSize;
+  qreal dataSize = qAbs(m_max - m_min);
+  return m_size / dataSize;
 }
 
 qreal QniteMapper::transform(qreal value)
 {
-  if (m_flip)
-    return m_size - this->factor() * value;
+  qreal v = factor() * qAbs(m_min - value);
 
-  return this->factor() * value;
+  // TODO: maybe raise an exception when the value is out-of-bounds
+  if (value < m_min)
+    v *= -1;
+
+  if (m_flip)
+    return m_size - v;
+
+  return v;
 }
 
