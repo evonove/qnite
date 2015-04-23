@@ -30,7 +30,7 @@ QSGNode* QniteCurve::updatePaintNode(QSGNode* oldNode, UpdatePaintNodeData*)
   if (!oldNode) {
     node = new QSGGeometryNode;
     geometry = new QSGGeometry(QSGGeometry::defaultAttributes_Point2D(), dataSize);
-    geometry->setLineWidth(3);
+    geometry->setLineWidth(2);
     geometry->setDrawingMode(GL_LINE_STRIP);
     node->setGeometry(geometry);
     node->setFlag(QSGNode::OwnsGeometry);
