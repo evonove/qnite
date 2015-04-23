@@ -6,35 +6,68 @@ BasicAxis {
 
     property string axisType
 
-    QtObject {
-      id: ticker
-      property int numMajTicks: 11
-
-      property var values: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-    }
-
     Item {
         id: ticksnlabels
         anchors.fill: parent
 
         Repeater {
-            model: ticker.numMajTicks
+            model: axis.majorTicks.length
+            Loader {
+                property int modelIndex: index
+
+                anchors {
+                    right: axis.axisType === "left" ? parent.right : undefined
+                    rightMargin: axis.axisType === "left" ? tick.thick / 2 : 0
+                }
+                sourceComponent: axis.axisType === "left" ? leftTick : bottomTick
+            }
+        }
+    }
+
+    Component {
+        id: leftTick
+        Row {
+            spacing: 5
+
+            Binding on y {
+                // align the center of the tick with the data value
+                value: axis.majorTicks[modelIndex] - tick.thick / 2
+            }
+            Text {
+                id: __text
+                anchors.verticalCenter: __tick.verticalCenter
+                text: axis.ticker.majorTicks[modelIndex]
+            }
             Rectangle {
-                implicitWidth: axis.axisType === "bottom" ? tick.thick : tick.majSize
-                implicitHeight: axis.axisType === "left" ? tick.thick : tick.majSize
-                anchors.right: axis.axisType === "left" ? parent.right : undefined
-
-                Binding on x {
-                  when: axis.axisType === "bottom"
-                  value: mapper.factor * ticker.values[index] - tick.thick / 2
-                }
-
-                Binding on y {
-                  when: axis.axisType === "left"
-                  value: axis.height - (mapper.factor * ticker.values[index] + tick.thick / 2)
-                }
+                id: __tick
+                implicitWidth: tick.majSize
+                implicitHeight: tick.thick
 
                 color: tick.color
+            }
+        }
+    }
+
+    Component {
+        id: bottomTick
+        Column {
+            spacing: 5
+
+            Binding on x {
+                // align the center of the tick with the data value
+                value: axis.majorTicks[modelIndex] - tick.thick / 2
+            }
+            Rectangle {
+                id: __tick
+                implicitWidth: tick.thick
+                implicitHeight: tick.majSize
+
+                color: tick.color
+            }
+            Text {
+                id: __text
+                anchors.horizontalCenter: __tick.horizontalCenter
+                text: axis.ticker.majorTicks[modelIndex]
             }
         }
     }
