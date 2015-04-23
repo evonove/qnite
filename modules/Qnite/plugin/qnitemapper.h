@@ -10,7 +10,6 @@ class QniteMapper : public QObject
     Q_PROPERTY(qreal max READ max WRITE setMax NOTIFY maxChanged)
     Q_PROPERTY(qreal size READ size WRITE setSize NOTIFY sizeChanged)
     Q_PROPERTY(bool flip READ flip WRITE setFlip NOTIFY flipChanged)
-    Q_PROPERTY(qreal factor READ factor NOTIFY factorChanged)
 
   public:
     explicit QniteMapper(QObject *parent = 0);
@@ -25,9 +24,8 @@ class QniteMapper : public QObject
     bool flip() const;
     void setFlip(bool flip);
 
-    qreal factor() const;
-
-    Q_INVOKABLE qreal transform(qreal value);
+    virtual qreal factor() const = 0;
+    virtual qreal transform(qreal value) = 0;
 
   Q_SIGNALS:
     void minChanged();
@@ -36,7 +34,7 @@ class QniteMapper : public QObject
     void flipChanged();
     void factorChanged();
 
-  private:
+  protected:
     qreal m_min;
     qreal m_max;
     qreal m_size;

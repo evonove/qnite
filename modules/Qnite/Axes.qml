@@ -42,7 +42,7 @@ BasicAxes {
           color: Qt.rgba(0,0,0,0.2)
         }
         axisType: "bottom"
-        mapper: Mapper { // TODO: a readonly grouped property???
+        mapper: LinearMapper { // TODO: a readonly grouped property???
           size: __plotarea.width
           // TODO: these values should be taken from the parent Axes
           min: -10; max: 20
@@ -69,7 +69,7 @@ BasicAxes {
         }
 
         axisType: "left"
-        mapper: Mapper {
+        mapper: LinearMapper {
           size: __plotarea.height
           // TODO: these values should be taken from the parent Axes
           min: -20; max: 50

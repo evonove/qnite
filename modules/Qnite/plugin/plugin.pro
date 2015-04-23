@@ -14,6 +14,7 @@ SOURCES += \
     qniteaxes.cpp \
     qnitecurve.cpp \
     qnitemapper.cpp \
+    qnitelinearmapper.cpp \
     qniteticker.cpp \
     qnitelinearticker.cpp
 
@@ -24,6 +25,7 @@ HEADERS += \
     qniteaxes.h \
     qnitecurve.h \
     qnitemapper.h \
+    qnitelinearmapper.h \
     qniteticker.h \
     qnitelinearticker.h
 
