@@ -37,15 +37,15 @@ BasicAxes {
         anchors.left: __plotarea.left
 
         tick {
-          thick: 1
-          majSize: 10
-          color: Qt.rgba(0,0,0,0.2)
+            thick: 1
+            majSize: 10
+            color: Qt.rgba(0,0,0,0.2)
         }
         axisType: "bottom"
-        mapper: LinearMapper { // TODO: a readonly grouped property???
-          size: __plotarea.width
-          // TODO: these values should be taken from the parent Axes
-          min: -10; max: 20
+        mapper {
+            size: __plotarea.width
+            // TODO: move this assignement to C++ layer
+            min: __bottom.lowerBound; max: __bottom.upperBound
         }
     }
 
@@ -62,18 +62,19 @@ BasicAxes {
         width: 30; height: __plotarea.height
         anchors.bottom: __plotarea.bottom
         anchors.right: __plotarea.left
+        axisType: "left"
+
         tick {
-          thick: 1
-          majSize: 10
-          color: Qt.rgba(0,0,0,0.2)
+            thick: 1
+            majSize: 10
+            color: Qt.rgba(0,0,0,0.2)
         }
 
-        axisType: "left"
-        mapper: LinearMapper {
-          size: __plotarea.height
-          // TODO: these values should be taken from the parent Axes
-          min: -20; max: 50
-          flip: true
+        mapper {
+            size: __plotarea.height
+            // TODO: move this assignement to C++ layer
+            min: __left.lowerBound; max: __left.upperBound
+            flip: true
         }
     }
 }
