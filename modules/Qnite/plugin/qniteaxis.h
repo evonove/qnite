@@ -42,14 +42,23 @@ class QniteAxisTick: public QObject
 class QniteAxis: public QQuickItem
 {
     Q_OBJECT
+    Q_PROPERTY(qreal lowerBound READ lowerBound WRITE setLowerBound NOTIFY lowerBoundChanged)
+    Q_PROPERTY(qreal upperBound READ upperBound WRITE setUpperBound NOTIFY upperBoundChanged)
+
     Q_PROPERTY(QniteAxisTick* tick READ tick CONSTANT)
     Q_PROPERTY(QniteMapper* mapper READ mapper WRITE setMapper NOTIFY mapperChanged)
     Q_PROPERTY(QniteTicker* ticker READ ticker CONSTANT)
 
     Q_PROPERTY(QList<qreal> majorTicks READ majorTicks NOTIFY majorTicksChanged)
+
   public:
     explicit QniteAxis(QQuickItem* parent = 0);
     virtual ~QniteAxis();
+
+    qreal lowerBound() const;
+    void setLowerBound(qreal bound);
+    qreal upperBound() const;
+    void setUpperBound(qreal bound);
 
     QniteAxisTick* tick() const;
     QniteTicker* ticker() const;
@@ -60,6 +69,9 @@ class QniteAxis: public QQuickItem
     void setMapper(QniteMapper* mapper);
 
   Q_SIGNALS:
+    void lowerBoundChanged();
+    void upperBoundChanged();
+
     void mapperChanged();
     void majorTicksChanged();
 
@@ -67,6 +79,9 @@ class QniteAxis: public QQuickItem
     void initTicker();
 
   private:
+    qreal m_lowerBound;
+    qreal m_upperBound;
+
     QniteAxisTick* m_tick;
     QniteMapper* m_mapper;
     QniteTicker* m_ticker;

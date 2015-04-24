@@ -78,6 +78,30 @@ QniteAxis::~QniteAxis()
 {
 }
 
+qreal QniteAxis::lowerBound() const
+{
+  return m_lowerBound;
+}
+void QniteAxis::setLowerBound(qreal bound)
+{
+  if (m_lowerBound != bound) {
+    m_lowerBound = bound;
+    emit lowerBoundChanged();
+  }
+}
+qreal QniteAxis::upperBound() const
+{
+  return m_upperBound;;
+}
+void QniteAxis::setUpperBound(qreal bound)
+{
+  if (m_upperBound != bound) {
+    qDebug() << "upper changed" << bound;
+    m_upperBound = bound;
+    emit upperBoundChanged();
+  }
+}
+
 QniteAxisTick* QniteAxis::tick() const
 {
   return m_tick;
