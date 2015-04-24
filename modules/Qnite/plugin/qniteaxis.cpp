@@ -1,5 +1,5 @@
 #include "qniteaxis.h"
-#include "qnitemapper.h"
+#include "qnitelinearmapper.h"
 #include "qnitelinearticker.h"
 
 /*! TODO: add docs
@@ -68,10 +68,14 @@ void QniteAxisTick::setColor(const QColor& color)
 */
 QniteAxis::QniteAxis(QQuickItem* parent):
   QQuickItem(parent),
+  m_lowerBound{0},
+  m_upperBound{0},
   m_tick{new QniteAxisTick(this)},
-  m_mapper{nullptr},
+  m_mapper{new QniteLinearMapper(this)},
   m_ticker{new QniteLinearTicker(this)}
 {
+  initTicker();
+  connect(m_mapper, SIGNAL(factorChanged()), this, SLOT(initTicker()));
 }
 
 QniteAxis::~QniteAxis()
@@ -85,6 +89,7 @@ qreal QniteAxis::lowerBound() const
 void QniteAxis::setLowerBound(qreal bound)
 {
   if (m_lowerBound != bound) {
+    qDebug() << "lower changed" << bound;
     m_lowerBound = bound;
     emit lowerBoundChanged();
   }
@@ -112,25 +117,14 @@ QniteTicker* QniteAxis::ticker() const
   return m_ticker;
 }
 
-QList<qreal> QniteAxis::majorTicks() const
-{
-  return m_majorTicks;
-}
-
 QniteMapper* QniteAxis::mapper() const
 {
   return m_mapper;
 }
 
-void QniteAxis::setMapper(QniteMapper* mapper)
+QList<qreal> QniteAxis::majorTicks() const
 {
-  if (m_mapper != mapper) {
-    m_mapper = mapper;
-    initTicker();
-    connect(m_mapper, SIGNAL(factorChanged()),
-            this, SLOT(initTicker()));
-    emit mapperChanged();
-  }
+  return m_majorTicks;
 }
 
 void QniteAxis::initTicker()
