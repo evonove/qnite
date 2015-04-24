@@ -48,18 +48,18 @@ QSGNode* QniteCurve::updatePaintNode(QSGNode* oldNode, UpdatePaintNodeData*)
   QSGGeometry::Point2D *vertices = geometry->vertexDataAsPoint2D();
   for(int i = 0; i < dataSize; ++i) {
     // TODO: this is bad here! move transformation in the setters
-    const QVariant& vx = xValues().at(i);
-    const QVariant& vy = yValues().at(i);
+    auto vx = xValues().at(i);
+    auto vy = yValues().at(i);
     float x;
     if (xMapper() != nullptr)
-      x = xMapper()->transform(vx.toFloat());
+      x = xMapper()->transform(vx);
     else
-      x = vx.toFloat();
+      x = vx;
     float y;
     if (yMapper() != nullptr)
-      y = yMapper()->transform(vy.toFloat());
+      y = yMapper()->transform(vy);
     else
-      y = vy.toFloat();
+      y = vy;
 
     vertices[i].set(x, y);
     qDebug() << "point" << x << y;

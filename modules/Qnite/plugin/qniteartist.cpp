@@ -24,12 +24,12 @@ void QniteArtist::setColor(const QColor& color)
   }
 }
 
-QVariantList QniteArtist::xValues()
+QList<qreal> QniteArtist::xValues()
 {
   return m_xValues;
 }
 
-void QniteArtist::setXValues(const QVariantList& values)
+void QniteArtist::setXValues(const QList<qreal>& values)
 {
   if (m_xValues != values) {
     m_xValues = values;
@@ -37,12 +37,12 @@ void QniteArtist::setXValues(const QVariantList& values)
     emit xValuesChanged();
   }
 }
-QVariantList QniteArtist::yValues()
+QList<qreal> QniteArtist::yValues()
 {
   return m_yValues;
 }
 
-void QniteArtist::setYValues(const QVariantList& values)
+void QniteArtist::setYValues(const QList<qreal>& values)
 {
   if (m_yValues != values) {
     m_yValues = values;
