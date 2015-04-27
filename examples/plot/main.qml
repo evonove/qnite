@@ -18,10 +18,18 @@ ApplicationWindow {
             axes.bottomBounds: [0, 10]
 
             Curve {
-              xValues: [0, 1, 3, 5, 6, 10]
-              yValues: [0, 2, 6, 3, 4, 10]
-              anchors.fill: parent
-              color: "blue"
+                xValues: [0, 1, 3, 5, 6, 10]
+                yValues: [0, 3, 6, 3, 4, 10]
+                anchors.fill: parent
+                color: "#3f51b5"
+            }
+            Circle {
+                id: circle
+                xValues: [0, 1, 3, 5, 6, 10]
+                yValues: [0, 3, 6, 3, 4, 10]
+                anchors.fill: parent
+                radius: 5
+                color: "#3f51b5"
             }
         }
     }

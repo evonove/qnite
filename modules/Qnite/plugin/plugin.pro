@@ -12,6 +12,8 @@ SOURCES += \
     qniteartist.cpp \
     qniteaxis.cpp \
     qniteaxes.cpp \
+    qnitecircle.cpp \
+    qnitecirclenode.cpp \
     qnitecurve.cpp \
     qnitemapper.cpp \
     qnitelinearmapper.cpp \
@@ -23,6 +25,8 @@ HEADERS += \
     qniteartist.h \
     qniteaxis.h \
     qniteaxes.h \
+    qnitecircle.h \
+    qnitecirclenode.h \
     qnitecurve.h \
     qnitemapper.h \
     qnitelinearmapper.h \
