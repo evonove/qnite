@@ -1,5 +1,6 @@
 #include <QtTest/QtTest>
 #include <QDebug>
+#include <QSignalSpy>
 
 #include "../../../modules/Qnite/plugin/qniteticker.h"
 
@@ -12,10 +13,10 @@ public:
   FooTicker(QObject * p=0) : QniteTicker(p) {}
   void buildTicks()
   {
-      m_majorTicks.clear();
-      for (int i=0; i<m_numSteps; ++i) {
-          m_majorTicks << i * 1.5;
-      }
+    m_majorTicks.clear();
+    for (int i=0; i<m_numSteps; ++i) {
+      m_majorTicks << i * 1.5;
+    }
   }
 };
 
@@ -30,92 +31,108 @@ class TestQniteTicker: public QObject
   QList<qreal> anotherlistagain;
 
 private slots:
-    void initTestCase()
-    {
-        alist << 1. << 2. << 3. << 4.;
-        anotherlist << -1. << 1.1 << 1.2;
-        anotherlistagain << -1. << 1.1 << 1.2 << 2. << 2.2;
-    }
+  void initTestCase()
+  {
+    alist << 1. << 2. << 3. << 4.;
+    anotherlist << -1. << 1.1 << 1.2;
+    anotherlistagain << -1. << 1.1 << 1.2 << 2. << 2.2;
+  }
 
-    void testBoundaries()
-    {
-        ticker.reset();
-        QList<qreal> b;
-        b << -1. << 1.;
-        ticker.setBoundaries(b);
+  void testBoundaries()
+  {
+    ticker.reset();
 
-        QCOMPARE(ticker.lower(), -1.);
-        QCOMPARE(ticker.upper(), 1.);
-    }
+    QList<qreal> b;
+    b << -1. << 1.;
 
-    void testSetValues()
-    {
-        ticker.reset();
-        ticker.setValues(alist);
+    QSignalSpy spy(&ticker, SIGNAL(boundariesChanged()));
 
-        QList<qreal> l;
+    ticker.setBoundaries(b);
 
-        QCOMPARE(ticker.values(), alist);
-        QCOMPARE(ticker.lower(), 1.);
-        QCOMPARE(ticker.upper(), 4.);
-        QCOMPARE(ticker.majorTicks(), l);
+    QCOMPARE(ticker.lower(), -1.);
+    QCOMPARE(ticker.upper(), 1.);
+    QCOMPARE(spy.count(), 1);
+  }
 
-        ticker.setNumSteps(3);
-        // build l according to builTicks() implementation from FooTicker
-        l << 0. << 1.5 << 3.0;
-        QCOMPARE(ticker.majorTicks(), l);
-    }
+  void testSetValues()
+  {
+    ticker.reset();
 
-    void testSetTicks()
-    {
-        ticker.reset();
-        ticker.setMinorTicks(alist);
-        ticker.setMidTicks(anotherlist);
-        ticker.setMajorTicks(anotherlistagain);
+    QSignalSpy spy(&ticker, SIGNAL(valuesChanged()));
 
-        QCOMPARE(ticker.minorTicks(), alist);
-        QCOMPARE(ticker.midTicks(), anotherlist);
-        QCOMPARE(ticker.majorTicks(), anotherlistagain);
-    }
+    ticker.setValues(alist);
 
-    void testReset()
-    {
-        ticker.setValues(alist);
-        ticker.setNumSteps(5);
-        ticker.buildTicks();
+    QList<qreal> l;
 
-        ticker.reset();
+    QCOMPARE(ticker.values(), alist);
+    QCOMPARE(ticker.lower(), 1.);
+    QCOMPARE(ticker.upper(), 4.);
+    QCOMPARE(ticker.majorTicks(), l);
+    QCOMPARE(spy.count(), 1);
+  }
 
-        QCOMPARE(ticker.numSteps(), 0);
-        QCOMPARE(ticker.lower(), 0.);
-        QCOMPARE(ticker.upper(), 0.);
-        QCOMPARE(ticker.values(), QList<qreal>());
-        QCOMPARE(ticker.minorTicks(), QList<qreal>());
-        QCOMPARE(ticker.midTicks(), QList<qreal>());
-        QCOMPARE(ticker.majorTicks(), QList<qreal>());
-    }
+  void testSetTicks()
+  {
+    ticker.reset();
 
-    void testDefaults()
-    {
-        FooTicker foo;
-        QCOMPARE(foo.numSteps(), 0);
-        QCOMPARE(foo.lower(), 0.);
-        QCOMPARE(foo.upper(), 0.);
-        QCOMPARE(foo.values(), QList<qreal>());
-        QCOMPARE(foo.minorTicks(), QList<qreal>());
-        QCOMPARE(foo.midTicks(), QList<qreal>());
-        QCOMPARE(foo.majorTicks(), QList<qreal>());
-    }
+    QSignalSpy spy1(&ticker, SIGNAL(minorTicksChanged()));
+    QSignalSpy spy2(&ticker, SIGNAL(midTicksChanged()));
+    QSignalSpy spy3(&ticker, SIGNAL(midTicksChanged()));
 
-    void testSetNumSteps()
-    {
-        ticker.reset();
-        ticker.setNumSteps(5);
-        ticker.setValues(alist);
-        QCOMPARE(ticker.majorTicks().size(), 5);
-        ticker.setNumSteps(6);
-        QCOMPARE(ticker.majorTicks().size(), 6);
-    }
+    ticker.setMinorTicks(alist);
+    ticker.setMidTicks(anotherlist);
+    ticker.setMajorTicks(anotherlistagain);
+
+    QCOMPARE(ticker.minorTicks(), alist);
+    QCOMPARE(ticker.midTicks(), anotherlist);
+    QCOMPARE(ticker.majorTicks(), anotherlistagain);
+    QCOMPARE(spy1.count(), 1);
+    QCOMPARE(spy2.count(), 1);
+    QCOMPARE(spy3.count(), 1);
+  }
+
+  void testReset()
+  {
+    ticker.setValues(alist);
+    ticker.setNumSteps(5);
+    ticker.buildTicks();
+
+    ticker.reset();
+
+    QCOMPARE(ticker.numSteps(), 0);
+    QCOMPARE(ticker.lower(), 0.);
+    QCOMPARE(ticker.upper(), 0.);
+    QCOMPARE(ticker.values(), QList<qreal>());
+    QCOMPARE(ticker.minorTicks(), QList<qreal>());
+    QCOMPARE(ticker.midTicks(), QList<qreal>());
+    QCOMPARE(ticker.majorTicks(), QList<qreal>());
+  }
+
+  void testDefaults()
+  {
+    FooTicker foo;
+    QCOMPARE(foo.numSteps(), 0);
+    QCOMPARE(foo.lower(), 0.);
+    QCOMPARE(foo.upper(), 0.);
+    QCOMPARE(foo.values(), QList<qreal>());
+    QCOMPARE(foo.minorTicks(), QList<qreal>());
+    QCOMPARE(foo.midTicks(), QList<qreal>());
+    QCOMPARE(foo.majorTicks(), QList<qreal>());
+  }
+
+  void testSetNumSteps()
+  {
+    ticker.reset();
+
+    QSignalSpy spy(&ticker, SIGNAL(numStepsChanged()));
+
+    ticker.setNumSteps(5);
+    ticker.setValues(alist);
+    QCOMPARE(ticker.majorTicks().size(), 5);
+    ticker.setNumSteps(6);
+    QCOMPARE(ticker.majorTicks().size(), 6);
+    QCOMPARE(spy.count(), 2);
+  }
 
 };
 QTEST_MAIN(TestQniteTicker)
