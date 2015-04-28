@@ -44,6 +44,7 @@ public:
 protected:
     virtual void buildTicks() = 0;
 
+private:
     QList<qreal> m_minorTicks;
     QList<qreal> m_midTicks;
     QList<qreal> m_majorTicks;

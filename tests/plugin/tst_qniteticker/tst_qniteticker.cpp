@@ -13,10 +13,12 @@ public:
   FooTicker(QObject * p=0) : QniteTicker(p) {}
   void buildTicks()
   {
-    m_majorTicks.clear();
-    for (int i=0; i<m_numSteps; ++i) {
-      m_majorTicks << i * 1.5;
+    QList<qreal> t;
+    for (int i=0; i<numSteps(); ++i) {
+      t << i * 1.5;
     }
+
+    setMajorTicks(t);
   }
 };
 
