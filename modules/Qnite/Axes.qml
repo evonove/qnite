@@ -14,8 +14,8 @@ BasicAxes {
     anchors.fill: parent
     anchors.margins: 50
 
-    yLeft: __left
-    xBottom: __bottom
+    leftAxis: __left
+    bottomAxis: __bottom
 
     Rectangle {
         anchors.fill: parent

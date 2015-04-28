@@ -12,8 +12,8 @@ class QniteAxes: public QQuickItem
     Q_PROPERTY(QList<qreal> leftBounds READ leftBounds WRITE setLeftBounds NOTIFY leftBoundsChanged)
 
     Q_PROPERTY(QQmlListProperty<QniteArtist> artists READ artists)
-    Q_PROPERTY(QniteAxis* yLeft READ yLeft WRITE setYLeft NOTIFY yLeftChanged)
-    Q_PROPERTY(QniteAxis* xBottom READ xBottom WRITE setXBottom NOTIFY xBottomChanged)
+    Q_PROPERTY(QniteAxis* leftAxis READ leftAxis WRITE setLeftAxis NOTIFY leftAxisChanged)
+    Q_PROPERTY(QniteAxis* bottomAxis READ bottomAxis WRITE setBottomAxis NOTIFY bottomAxisChanged)
   public:
     explicit QniteAxes(QQuickItem* parent = 0);
     virtual ~QniteAxes();
@@ -25,22 +25,22 @@ class QniteAxes: public QQuickItem
     QList<qreal> leftBounds() const;
     void setLeftBounds(const QList<qreal>& bounds);
 
-    QniteAxis* yLeft() const;
-    void setYLeft(QniteAxis* yLeft);
-    QniteAxis* xBottom() const;
-    void setXBottom(QniteAxis* xBottom);
+    QniteAxis* leftAxis() const;
+    void setLeftAxis(QniteAxis* leftAxis);
+    QniteAxis* bottomAxis() const;
+    void setBottomAxis(QniteAxis* bottomAxis);
 
   Q_SIGNALS:
     void bottomBoundsChanged();
     void leftBoundsChanged();
-    void yLeftChanged();
-    void xBottomChanged();
+    void leftAxisChanged();
+    void bottomAxisChanged();
 
   protected:
     void initLeftAxis();
     void initBottomAxis();
-    void bindToXBottom();
-    void bindToYLeft();
+    void bindToBottomAxis();
+    void bindToLeftAxis();
 
   private:
     static void append_artists(QQmlListProperty<QniteArtist>* property, QniteArtist* value);
@@ -54,8 +54,8 @@ class QniteAxes: public QQuickItem
     qreal m_upperLeftBound;
 
     QList<QniteArtist*> m_artists;
-    QniteAxis* m_yLeft;
-    QniteAxis* m_xBottom;
+    QniteAxis* m_leftAxis;
+    QniteAxis* m_bottomAxis;
 };
 
 #endif // QNITE_AXES_H

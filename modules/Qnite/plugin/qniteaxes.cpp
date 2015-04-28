@@ -9,8 +9,8 @@ QniteAxes::QniteAxes(QQuickItem* parent) :
   m_upperBottomBound{0},
   m_lowerLeftBound{0},
   m_upperLeftBound{0},
-  m_yLeft{nullptr},
-  m_xBottom{nullptr}
+  m_leftAxis{nullptr},
+  m_bottomAxis{nullptr}
 {
 }
 
@@ -75,77 +75,77 @@ void QniteAxes::setLeftBounds(const QList<qreal>& bounds)
   }
 }
 
-QniteAxis* QniteAxes::yLeft() const
+QniteAxis* QniteAxes::leftAxis() const
 {
-  return m_yLeft;
+  return m_leftAxis;
 }
 
-void QniteAxes::setYLeft(QniteAxis* yLeft)
+void QniteAxes::setLeftAxis(QniteAxis* leftAxis)
 {
-  if (m_yLeft != yLeft) {
-    m_yLeft = yLeft;
-    m_yLeft->setParentItem(this);
-    emit yLeftChanged();
+  if (m_leftAxis != leftAxis) {
+    m_leftAxis = leftAxis;
+    m_leftAxis->setParentItem(this);
+    emit leftAxisChanged();
 
     // TODO: use signals?
     initLeftAxis();
-    this->bindToYLeft();
+    this->bindToLeftAxis();
   }
 }
 
-QniteAxis* QniteAxes::xBottom() const
+QniteAxis* QniteAxes::bottomAxis() const
 {
-  return m_xBottom;
+  return m_bottomAxis;
 }
 
-void QniteAxes::setXBottom(QniteAxis* xBottom)
+void QniteAxes::setBottomAxis(QniteAxis* bottomAxis)
 {
-  if (m_xBottom != xBottom) {
-    m_xBottom = xBottom;
-    m_xBottom->setParentItem(this);
-    emit xBottomChanged();
+  if (m_bottomAxis != bottomAxis) {
+    m_bottomAxis = bottomAxis;
+    m_bottomAxis->setParentItem(this);
+    emit bottomAxisChanged();
 
     // TODO: use signals?
     initBottomAxis();
-    bindToXBottom();
+    bindToBottomAxis();
   }
 }
 
 void QniteAxes::initLeftAxis()
 {
-  if (m_yLeft == nullptr)
+  if (m_leftAxis == nullptr)
     return;
 
-  m_yLeft->setLowerBound(m_lowerLeftBound);
-  m_yLeft->setUpperBound(m_upperLeftBound);
+  m_leftAxis->setLowerBound(m_lowerLeftBound);
+  m_leftAxis->setUpperBound(m_upperLeftBound);
 }
 
 void QniteAxes::initBottomAxis()
 {
-  if (m_xBottom == nullptr)
+  if (m_bottomAxis == nullptr)
     return;
 
-  m_xBottom->setLowerBound(m_lowerBottomBound);
-  m_xBottom->setUpperBound(m_upperBottomBound);
+  m_bottomAxis->setLowerBound(m_lowerBottomBound);
+  m_bottomAxis->setUpperBound(m_upperBottomBound);
 }
 
-void QniteAxes::bindToXBottom()
+void QniteAxes::bindToBottomAxis()
 {
-  if (this->xBottom() == nullptr)
+  if (this->bottomAxis() == nullptr)
     return;
 
   for(const auto& artist: m_artists) {
-    artist->setXMapper(this->xBottom()->mapper());
+    artist->setXMapper(this->bottomAxis()->mapper());
   }
 }
 
-void QniteAxes::bindToYLeft()
+void QniteAxes::bindToLeftAxis()
 {
-  if (this->yLeft() == nullptr)
+  if (this->leftAxis() == nullptr)
     return;
 
   for(const auto& artist: m_artists) {
-    artist->setYMapper(this->yLeft()->mapper());
+    artist->setYMapper(this->leftAxis()->mapper());
   }
 }
 
