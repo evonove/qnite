@@ -98,9 +98,14 @@ void QniteTicker::setNumSteps(int steps)
 
 void QniteTicker::setBoundaries(const QList<qreal>& bounds)
 {
-  if (bounds.size() == 2 && bounds != boundaries()) {
+  if (bounds.size() != 2) {
+    qWarning() << "Boundaries arg must contain 2 values exactly";
+  }
+  else if (bounds != boundaries()) {
     m_lowerBound = bounds.first();
     m_upperBound = bounds.last();
+
+    emit boundariesChanged();
 
     // ticks need to be rebuilt
     doBuildTicks();
