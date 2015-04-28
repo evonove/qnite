@@ -19,6 +19,9 @@ public:
 protected:
   virtual void buildTicks();
 
+private:
+
+
   bool m_loose;
 };
 

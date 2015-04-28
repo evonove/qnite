@@ -34,6 +34,21 @@ namespace {
     return nicef*pow(10., exp);
   }
 
+  void fill(QList<qreal>& ticks, qreal min, qreal max, int steps)
+  {
+    double range = nice(max-min, false);
+    double d = nice(range/(steps-1), true);
+    double graph_min = floor(min/d) * d;  // loose version of the algo
+    double graph_max = ceil(max/d) * d;  // loose version of the algo
+    // nFrac is the number of decimal numbers it'd be nice to show
+    // not used at the moment
+    // double nFrac = std::max(-floor(log10(d)), 0.);
+
+    for (double x=graph_min; x<=graph_max + .5*d; x+=d) {
+      ticks.append(x);
+    }
+  }
+
 }
 
 
@@ -47,17 +62,9 @@ QniteLinearTicker::QniteLinearTicker(QObject *parent)
 void QniteLinearTicker::buildTicks()
 {
   QList<qreal> majorTicks;
+  fill(majorTicks, lower(), upper(), numSteps());
 
-  double range = nice(upper()-lower(), false);
-  double d = nice(range/(numSteps()-1), true);
-  double graph_min = floor(lower()/d) * d;  // loose version of the algo
-  double graph_max = ceil(upper()/d) * d;  // loose version of the algo
-  // double nFrac = std::max(-floor(log10(d)), 0.);
-
-  for (double x=graph_min; x<=graph_max + .5*d; x+=d) {
-    majorTicks.append(x);
-    // TODO show nFrac fraction digits
-  }
+  QList<qreal> midTicks;
 
   setMajorTicks(majorTicks);
 }
