@@ -4,7 +4,7 @@
 #include <QColor>
 #include <QSGFlatColorMaterial>
 
-QniteCircleNode::QniteCircleNode(qreal cx, qreal cy, qreal radius, qreal segments, QColor color)
+QniteCircleNode::QniteCircleNode(qreal cx, qreal cy, qreal radius, int segments, QColor color)
 {
   auto geometry = new QSGGeometry(QSGGeometry::defaultAttributes_Point2D(), segments);
   geometry->setLineWidth(2);
@@ -21,7 +21,7 @@ QniteCircleNode::QniteCircleNode(qreal cx, qreal cy, qreal radius, qreal segment
   QSGGeometry::Point2D* vertices = geometry->vertexDataAsPoint2D();
 
   // tranform matrix factors
-  qreal t = 2.0f * M_PI / static_cast<qreal>(segments);
+  qreal t = 2.0 * M_PI / static_cast<qreal>(segments);
   qreal c = qCos(t);
   qreal s = qSin(t);
 
@@ -37,6 +37,4 @@ QniteCircleNode::QniteCircleNode(qreal cx, qreal cy, qreal radius, qreal segment
     x = x * c - y * s;
     y = xp * s + y * c;
   }
-
-  //markDirty(QSGNode::DirtyGeometry);
 }

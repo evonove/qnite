@@ -6,7 +6,7 @@
 class QniteCircleNode: public QSGGeometryNode
 {
   public:
-    QniteCircleNode(qreal cx, qreal cy, qreal radius, qreal segments, QColor color);
+    QniteCircleNode(qreal cx, qreal cy, qreal radius, int segments, QColor color);
 };
 
 #endif // QNITE_CIRCLE_NODE_H
