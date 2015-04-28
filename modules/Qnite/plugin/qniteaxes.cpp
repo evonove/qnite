@@ -9,13 +9,24 @@ QniteAxes::QniteAxes(QQuickItem* parent) :
   m_upperBottomBound{0},
   m_lowerLeftBound{0},
   m_upperLeftBound{0},
+  m_canvas{new QQuickItem},
   m_leftAxis{nullptr},
   m_bottomAxis{nullptr}
 {
+  m_canvas->setParentItem(this);
+  m_canvas->setClip(true);
+
+  connect(this, &QQuickItem::widthChanged, [=](){ this->m_canvas->setWidth(width()); });
+  connect(this, &QQuickItem::heightChanged, [=](){ this->m_canvas->setHeight(height()); });
 }
 
 QniteAxes::~QniteAxes()
 {
+}
+
+QQuickItem* QniteAxes::canvas() const
+{
+  return m_canvas;
 }
 
 QQmlListProperty<QniteArtist> QniteAxes::artists()
@@ -153,7 +164,8 @@ void QniteAxes::append_artists(QQmlListProperty<QniteArtist>* property, QniteArt
 {
   QniteAxes* axes = qobject_cast<QniteAxes*>(property->object);
   if (axes != nullptr) {
-    value->setParentItem(axes);
+    value->setAxes(axes);
+    value->setParentItem(axes->canvas()); // TODO: move down into artist?
     axes->m_artists.append(value);
   }
 }

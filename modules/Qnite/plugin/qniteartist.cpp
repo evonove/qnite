@@ -2,13 +2,27 @@
 
 QniteArtist::QniteArtist(QQuickItem* parent):
   QQuickItem(parent),
-  m_xMapper(nullptr),
-  m_yMapper(nullptr)
+  m_axes{nullptr},
+  m_xMapper{nullptr},
+  m_yMapper{nullptr}
 {
 }
 
 QniteArtist::~QniteArtist()
 {
+}
+
+QniteAxes* QniteArtist::axes() const
+{
+  return m_axes;
+}
+
+void QniteArtist::setAxes(QniteAxes* axes)
+{
+  if (m_axes != axes) {
+    m_axes = axes;
+    emit axesChanged();
+  }
 }
 
 QColor QniteArtist::color() const

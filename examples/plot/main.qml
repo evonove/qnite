@@ -29,6 +29,9 @@ ApplicationWindow {
             axes.leftBounds: [2.5, 10.8]
             axes.bottomBounds: [0, 10]
 
+            Grid {
+                anchors.fill: parent
+            }
             Curve {
                 xValues: [0, 1, 3, 5, 6, 10]
                 yValues: [0, 3, 6, 3, 4, 10]

@@ -17,9 +17,12 @@ BasicAxes {
     leftAxis: __left
     bottomAxis: __bottom
 
+    // TODO: expose as a property so it is customizable
     Rectangle {
+        id: background
         anchors.fill: parent
         color: "#FAFAFA"
+        z: -1
     }
 
     Rectangle {
@@ -75,39 +78,6 @@ BasicAxes {
             // TODO: move this assignement to C++ layer
             min: __left.lowerBound; max: __left.upperBound
             flip: true
-        }
-    }
-
-    // TODO: move this hardcode grid artist to c++
-    Item {
-        id: grid
-
-        Repeater {
-            model: __left.majorTicks.length
-            Rectangle {
-                Binding on y {
-                    // align the center of the tick with the data value
-                    value: __left.majorTicks[index] - __left.tick.thick / 2
-                }
-
-                implicitWidth: __plotarea.width
-                implicitHeight: __left.tick.thick
-                color: __left.tick.color
-            }
-        }
-
-        Repeater {
-            model: __bottom.majorTicks.length
-            Rectangle {
-                Binding on x {
-                    // align the center of the tick with the data value
-                    value: __bottom.majorTicks[index] - __bottom.tick.thick / 2
-                }
-
-                implicitWidth: __bottom.tick.thick
-                implicitHeight: __plotarea.height
-                color: __bottom.tick.color
-            }
         }
     }
 }

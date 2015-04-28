@@ -8,6 +8,7 @@ class QniteAxis;
 class QniteAxes: public QQuickItem
 {
     Q_OBJECT
+    Q_PROPERTY(QQuickItem* canvas READ canvas CONSTANT)
     Q_PROPERTY(QList<qreal> bottomBounds READ bottomBounds WRITE setBottomBounds NOTIFY bottomBoundsChanged)
     Q_PROPERTY(QList<qreal> leftBounds READ leftBounds WRITE setLeftBounds NOTIFY leftBoundsChanged)
 
@@ -18,6 +19,7 @@ class QniteAxes: public QQuickItem
     explicit QniteAxes(QQuickItem* parent = 0);
     virtual ~QniteAxes();
 
+    QQuickItem* canvas() const;
     QQmlListProperty<QniteArtist> artists();
 
     QList<qreal> bottomBounds() const;
@@ -53,6 +55,7 @@ class QniteAxes: public QQuickItem
     qreal m_lowerLeftBound;
     qreal m_upperLeftBound;
 
+    QQuickItem* m_canvas;
     QList<QniteArtist*> m_artists;
     QniteAxis* m_leftAxis;
     QniteAxis* m_bottomAxis;

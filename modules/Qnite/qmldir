@@ -2,5 +2,6 @@ module Qnite
 plugin qnite
 Axis 1.0 Axis.qml
 Axes 1.0 Axes.qml
+Grid 1.0 Grid.qml
 Figure 1.0 Figure.qml
 

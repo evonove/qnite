@@ -3,16 +3,21 @@
 
 #include <QQuickItem>
 
+class QniteAxes;
 class QniteMapper;
 class QniteArtist: public QQuickItem
 {
     Q_OBJECT
+    Q_PROPERTY(QniteAxes* axes READ axes NOTIFY axesChanged)
     Q_PROPERTY(QColor color READ color WRITE setColor NOTIFY colorChanged)
     Q_PROPERTY(QList<qreal> xValues READ xValues WRITE setXValues NOTIFY xValuesChanged)
     Q_PROPERTY(QList<qreal> yValues READ yValues WRITE setYValues NOTIFY yValuesChanged)
   public:
     explicit QniteArtist(QQuickItem* parent = 0);
     virtual ~QniteArtist();
+
+    QniteAxes* axes() const;
+    void setAxes(QniteAxes* axes);
 
     QColor color() const;
     void setColor(const QColor& color);
@@ -28,11 +33,13 @@ class QniteArtist: public QQuickItem
     void setYMapper(QniteMapper* mapper);
 
   Q_SIGNALS:
+    void axesChanged();
     void colorChanged();
     void xValuesChanged();
     void yValuesChanged();
 
   private:
+    QniteAxes* m_axes;
     QColor m_color;
     QList<qreal> m_xValues;
     QList<qreal> m_yValues;
