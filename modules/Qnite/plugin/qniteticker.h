@@ -25,14 +25,14 @@ public:
     virtual ~QniteTicker() {}
 
     virtual void reset();
-    virtual void setValues(const QList<qreal>&);
+    void setValues(const QList<qreal>&);
     void setBoundaries(const QList<qreal>&);
     void setMinorTicks(const QList<qreal>&);
     void setMidTicks(const QList<qreal>&);
     void setMajorTicks(const QList<qreal>&);
     void setNumSteps(int);
 
-    virtual QList<qreal> values() const;
+    QList<qreal> values() const;
     QList<qreal> minorTicks() const;
     QList<qreal> midTicks() const;
     QList<qreal> majorTicks() const;
