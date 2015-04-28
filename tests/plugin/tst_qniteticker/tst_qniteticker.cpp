@@ -50,6 +50,7 @@ private slots:
     QSignalSpy spy(&ticker, SIGNAL(boundariesChanged()));
 
     ticker.setBoundaries(b);
+    ticker.setBoundaries(b); // ensure the signal isn't emitted twice
 
     QCOMPARE(ticker.lower(), -1.);
     QCOMPARE(ticker.upper(), 1.);
@@ -63,6 +64,7 @@ private slots:
     QSignalSpy spy(&ticker, SIGNAL(valuesChanged()));
 
     ticker.setValues(alist);
+    ticker.setValues(alist); // ensure the signal isn't emitted twice
 
     QList<qreal> l;
 
@@ -82,8 +84,11 @@ private slots:
     QSignalSpy spy3(&ticker, SIGNAL(midTicksChanged()));
 
     ticker.setMinorTicks(alist);
+    ticker.setMinorTicks(alist); // ensure the signal isn't emitted twice
     ticker.setMidTicks(anotherlist);
+    ticker.setMidTicks(anotherlist); // idem
     ticker.setMajorTicks(anotherlistagain);
+    ticker.setMajorTicks(anotherlistagain); // idem
 
     QCOMPARE(ticker.minorTicks(), alist);
     QCOMPARE(ticker.midTicks(), anotherlist);
@@ -132,6 +137,7 @@ private slots:
     ticker.setValues(alist);
     QCOMPARE(ticker.majorTicks().size(), 5);
     ticker.setNumSteps(6);
+    ticker.setNumSteps(6); // ensure the signal isn't emitted twice
     QCOMPARE(ticker.majorTicks().size(), 6);
     QCOMPARE(spy.count(), 2);
   }
