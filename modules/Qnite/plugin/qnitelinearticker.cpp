@@ -1,6 +1,7 @@
 #include "qnitelinearticker.h"
 
 #include <algorithm>
+#include <QDebug>
 
 // defines
 #define DEFAULT_NUM_STEPS 10
@@ -61,12 +62,42 @@ QniteLinearTicker::QniteLinearTicker(QObject *parent)
 
 void QniteLinearTicker::buildTicks()
 {
+  if (lower() >= upper()) {
+    qWarning() << QString("Illegal values for ticker bounds: %1,%2")
+                          .arg(lower()).arg(upper());
+    return;
+  }
+
   QList<qreal> majorTicks;
   fill(majorTicks, lower(), upper(), numSteps());
-
-  QList<qreal> midTicks;
-
   setMajorTicks(majorTicks);
+
+  QList<qreal> segment;
+  // build mid ticks for the first segment of major ones
+  fill(segment, majorTicks[0], majorTicks[1], numSteps());
+  // get rid of the boundaries
+  segment.removeFirst(); segment.removeLast();
+  // start building midTicks
+  QList<qreal> midTicks(segment);
+  // translate first segment into the whole range
+  for (int i=0; i<majorTicks.size()-2; i++) {
+    foreach(qreal val, segment) {
+      midTicks.append(val + majorTicks[i]);
+    }
+  }
+  setMidTicks(midTicks);
+
+  // same as above
+  segment.clear();
+  fill(segment, midTicks[0], midTicks[1], numSteps());
+  segment.removeFirst(); segment.removeLast();
+  QList<qreal> minorTicks(segment);
+  for (int i=0; i<midTicks.size()-2; i++) {
+    foreach(qreal val, segment) {
+      minorTicks.append(val + midTicks[i]);
+    }
+  }
+  setMinorTicks(minorTicks);
 }
 
 void QniteLinearTicker::setLooseNiceness(bool is_loose)
