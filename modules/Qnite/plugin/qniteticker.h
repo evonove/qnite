@@ -17,6 +17,7 @@ Q_SIGNALS:
     void minorTicksChanged();
     void midTicksChanged();
     void majorTicksChanged();
+    void numStepsChanged();
 
 public:
     explicit QniteTicker(QObject * parent=0);
