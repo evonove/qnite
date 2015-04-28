@@ -19,6 +19,7 @@ Q_SIGNALS:
     void majorTicksChanged();
     void numStepsChanged();
     void boundariesChanged();
+    void tickersBuilt();
 
 public:
     explicit QniteTicker(QObject * parent=0);
@@ -45,6 +46,8 @@ protected:
     virtual void buildTicks() = 0;
 
 private:
+    void doBuildTicks();
+
     QList<qreal> m_minorTicks;
     QList<qreal> m_midTicks;
     QList<qreal> m_majorTicks;

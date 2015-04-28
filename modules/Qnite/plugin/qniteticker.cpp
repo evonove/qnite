@@ -42,7 +42,7 @@ void QniteTicker::setValues(const QList<qreal>& values)
     m_upperBound = m_values.last();
 
     // build ticks
-    buildTicks();
+    doBuildTicks();
   }
 }
 
@@ -92,7 +92,7 @@ void QniteTicker::setNumSteps(int steps)
     emit numStepsChanged();
 
     // ticks need to be rebuilt
-    buildTicks();
+    doBuildTicks();
   }
 }
 
@@ -103,10 +103,7 @@ void QniteTicker::setBoundaries(const QList<qreal>& bounds)
     m_upperBound = bounds.last();
 
     // ticks need to be rebuilt
-    buildTicks();
-  }
-  else {
-    qWarning() << "Boundaries arg must contain 2 values exactly";
+    doBuildTicks();
   }
 }
 
@@ -126,4 +123,10 @@ QList<qreal> QniteTicker::boundaries() const
     QList<qreal> ret;
     ret << m_lowerBound << m_upperBound;
     return ret;
+}
+
+void QniteTicker::doBuildTicks()
+{
+  buildTicks();
+  emit tickersBuilt();
 }
