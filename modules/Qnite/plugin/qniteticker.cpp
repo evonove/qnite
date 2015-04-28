@@ -1,3 +1,12 @@
+/*!
+    \qmltype Ticker
+    \instantiates QniteTicker
+    \ingroup scaling
+    \inqmlmodule Qnite
+    \brief Divide axes scales into tickers
+
+    TODO: add a long description
+*/
 #include "qniteticker.h"
 
 #define DEFAULT_NUM_STEPS 0
