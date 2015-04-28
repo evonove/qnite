@@ -40,7 +40,9 @@ private slots:
     void testBoundaries()
     {
         ticker.reset();
-        ticker.setBoundaries(-1., 1.);
+        QList<qreal> b;
+        b << -1. << 1.;
+        ticker.setBoundaries(b);
 
         QCOMPARE(ticker.lower(), -1.);
         QCOMPARE(ticker.upper(), 1.);

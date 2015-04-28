@@ -1,13 +1,6 @@
-/*!
-    \qmltype Ticker
-    \instantiates QniteTicker
-    \ingroup scaling
-    \inqmlmodule Qnite
-    \brief Divide axes scales into tickers
-
-    TODO: add a long description
-*/
 #include "qniteticker.h"
+
+#include <QDebug>
 
 #define DEFAULT_NUM_STEPS 0
 #define DEFAULT_LOWER_B 0
@@ -22,7 +15,6 @@
 
 TODO: add a long description
 */
-
 QniteTicker::QniteTicker(QObject * parent):
   QObject(parent),
   m_lowerBound{DEFAULT_LOWER_B},
@@ -36,10 +28,13 @@ QList<qreal> QniteTicker::values() const
 {
   return m_values;
 }
+
 void QniteTicker::setValues(const QList<qreal>& values)
 {
   if (m_values != values) {
+
     m_values = values;
+    emit valuesChanged();
 
     // compute min and max bounds
     std::sort(m_values.begin(), m_values.end(), std::less<qreal>());
@@ -48,9 +43,6 @@ void QniteTicker::setValues(const QList<qreal>& values)
 
     // build ticks
     buildTicks();
-
-    // notify
-    emit valuesChanged();
   }
 }
 
@@ -58,6 +50,7 @@ QList<qreal> QniteTicker::minorTicks() const
 {
   return m_minorTicks;
 }
+
 void QniteTicker::setMinorTicks(const QList<qreal>& ticks)
 {
   if (m_minorTicks != ticks) {
@@ -70,6 +63,7 @@ QList<qreal> QniteTicker::midTicks() const
 {
   return m_midTicks;
 }
+
 void QniteTicker::setMidTicks(const QList<qreal>& ticks)
 {
   if (m_midTicks != ticks) {
@@ -82,6 +76,7 @@ QList<qreal> QniteTicker::majorTicks() const
 {
   return m_majorTicks;
 }
+
 void QniteTicker::setMajorTicks(const QList<qreal>& ticks)
 {
   if (m_majorTicks != ticks) {
@@ -92,19 +87,24 @@ void QniteTicker::setMajorTicks(const QList<qreal>& ticks)
 
 void QniteTicker::setNumSteps(int steps)
 {
-  m_numSteps = steps;
+  if (m_numSteps != steps) {
+    m_numSteps = steps;
+    emit numStepsChanged();
 
-  if (m_majorTicks.size() != steps) {
-    // rebuild ticks if needed
+    // ticks need to be rebuilt
     buildTicks();
-    emit valuesChanged();
   }
 }
 
-void QniteTicker::setBoundaries(qreal lower, qreal upper)
+void QniteTicker::setBoundaries(const QList<qreal>& bounds)
 {
-  m_lowerBound = lower;
-  m_upperBound = upper;
+  if (bounds.size() == 2) {
+    m_lowerBound = bounds.first();
+    m_upperBound = bounds.last();
+  }
+  else {
+    qWarning() << "Boundaries arg must contain 2 values exactly";
+  }
 }
 
 void QniteTicker::reset()
@@ -116,4 +116,11 @@ void QniteTicker::reset()
   m_minorTicks.clear();
   m_midTicks.clear();
   m_majorTicks.clear();
+}
+
+QList<qreal> QniteTicker::boundaries() const
+{
+    QList<qreal> ret;
+    ret << m_lowerBound << m_upperBound;
+    return ret;
 }

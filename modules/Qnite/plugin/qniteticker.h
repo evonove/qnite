@@ -18,6 +18,7 @@ Q_SIGNALS:
     void midTicksChanged();
     void majorTicksChanged();
     void numStepsChanged();
+    void boundariesChanged();
 
 public:
     explicit QniteTicker(QObject * parent=0);
@@ -25,7 +26,7 @@ public:
 
     virtual void reset();
     virtual void setValues(const QList<qreal>&);
-    void setBoundaries(qreal lower, qreal upper);
+    void setBoundaries(const QList<qreal>&);
     void setMinorTicks(const QList<qreal>&);
     void setMidTicks(const QList<qreal>&);
     void setMajorTicks(const QList<qreal>&);
@@ -35,6 +36,7 @@ public:
     QList<qreal> minorTicks() const;
     QList<qreal> midTicks() const;
     QList<qreal> majorTicks() const;
+    QList<qreal> boundaries() const;
     qreal lower() const { return m_lowerBound; }
     qreal upper() const { return m_upperBound; }
     int numSteps() const { return m_numSteps; }
