@@ -5,21 +5,21 @@
 
 class QniteLinearTicker: public QniteTicker
 {
-    Q_OBJECT
-    Q_PROPERTY(bool looseNiceness READ looseNiceness WRITE setLooseNiceness)
+  Q_OBJECT
+  Q_PROPERTY(bool looseNiceness READ looseNiceness WRITE setLooseNiceness)
 
 public:
-    explicit QniteLinearTicker(QObject * parent=0);
-    virtual ~QniteLinearTicker() {}
+  explicit QniteLinearTicker(QObject * parent=0);
+  virtual ~QniteLinearTicker() {}
 
-    virtual void reset();
-    void setLooseNiceness(bool);
-    bool looseNiceness() const;
+  virtual void reset();
+  void setLooseNiceness(bool);
+  bool looseNiceness() const;
 
 protected:
-    virtual void buildTicks();
+  virtual void buildTicks();
 
-    bool m_loose;
+  bool m_loose;
 };
 
 #endif // QNITELINEARTICKER_H

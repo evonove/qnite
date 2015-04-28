@@ -9,39 +9,39 @@
 
 namespace {
 
-    double nice(double x, bool round)
-    {
-        int exp;
-        double f;
-        double nicef;
+  double nice(double x, bool round)
+  {
+    int exp;
+    double f;
+    double nicef;
 
-        exp = floor(log10(x));
-        f = x / pow(10., exp);
+    exp = floor(log10(x));
+    f = x / pow(10., exp);
 
-        if (round) {
-            if (f<1.5) nicef=1.;
-            else if (f<3.) nicef=2.;
-            else if (f<7.) nicef=5.;
-            else nicef=10.;
-        }
-        else {
-            if (f<=1.) nicef=1.;
-            else if (f<=2.) nicef=2.;
-            else if (f<=5.) nicef=5.;
-            else nicef=10.;
-        }
-
-        return nicef*pow(10., exp);
+    if (round) {
+      if (f<1.5) nicef=1.;
+      else if (f<3.) nicef=2.;
+      else if (f<7.) nicef=5.;
+      else nicef=10.;
     }
+    else {
+      if (f<=1.) nicef=1.;
+      else if (f<=2.) nicef=2.;
+      else if (f<=5.) nicef=5.;
+      else nicef=10.;
+    }
+
+    return nicef*pow(10., exp);
+  }
 
 }
 
 
 QniteLinearTicker::QniteLinearTicker(QObject *parent)
-    : QniteTicker(parent),
+  : QniteTicker(parent),
     m_loose{DEFAULT_LOOSENESS}
 {
-    setNumSteps(DEFAULT_NUM_STEPS);
+  setNumSteps(DEFAULT_NUM_STEPS);
 }
 
 void QniteLinearTicker::buildTicks()
@@ -64,18 +64,18 @@ void QniteLinearTicker::buildTicks()
 
 void QniteLinearTicker::setLooseNiceness(bool is_loose)
 {
-    m_loose = is_loose;
+  m_loose = is_loose;
 }
 
 bool QniteLinearTicker::looseNiceness() const
 {
-    return m_loose;
+  return m_loose;
 }
 
 void QniteLinearTicker::reset()
 {
-    QniteTicker::reset();
-    m_loose = DEFAULT_LOOSENESS;
-    setNumSteps(DEFAULT_NUM_STEPS);
+  QniteTicker::reset();
+  m_loose = DEFAULT_LOOSENESS;
+  setNumSteps(DEFAULT_NUM_STEPS);
 }
 
