@@ -20,6 +20,7 @@ QniteMapper::QniteMapper(QObject *parent):
   connect(this, SIGNAL(minChanged()), this, SIGNAL(factorChanged()));
   connect(this, SIGNAL(maxChanged()), this, SIGNAL(factorChanged()));
   connect(this, SIGNAL(sizeChanged()), this, SIGNAL(factorChanged()));
+  connect(this, SIGNAL(flipChanged()), this, SIGNAL(factorChanged()));
 }
 
 QniteMapper::~QniteMapper()
