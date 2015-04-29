@@ -6,7 +6,6 @@
 class QniteLinearTicker: public QniteTicker
 {
   Q_OBJECT
-  Q_PROPERTY(bool looseNiceness READ looseNiceness WRITE setLooseNiceness)
 
 public:
   explicit QniteLinearTicker(QObject * parent=0);
