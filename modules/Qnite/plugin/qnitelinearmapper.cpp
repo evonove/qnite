@@ -24,6 +24,9 @@ qreal QniteLinearMapper::factor() const
   // TODO: maybe we should cache this value instead
   // of computing it every time
   qreal dataSize = qAbs(m_max - m_min);
+  if (dataSize == 0.0 || m_size == 0.0)
+    return 0.0;
+
   return m_size / dataSize;
 }
 
