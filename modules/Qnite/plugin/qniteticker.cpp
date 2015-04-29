@@ -96,15 +96,21 @@ void QniteTicker::setNumSteps(int steps)
   }
 }
 
-void QniteTicker::setBoundaries(const QList<qreal>& bounds)
+void QniteTicker::setBoundaries(qreal lower, qreal upper)
 {
-  if (bounds.size() != 2) {
-    qWarning() << "Boundaries arg must contain 2 values exactly";
-  }
-  else if (bounds != boundaries()) {
-    m_lowerBound = bounds.first();
-    m_upperBound = bounds.last();
+  bool modified = false;
 
+  if (m_lowerBound != lower) {
+    m_lowerBound = lower;
+    modified = true;
+  }
+
+  if (m_upperBound != upper) {
+    m_upperBound = upper;
+    modified = true;
+  }
+
+  if (modified) {
     emit boundariesChanged();
 
     // ticks need to be rebuilt

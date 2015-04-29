@@ -27,7 +27,7 @@ public:
 
   virtual void reset();
   void setValues(const QList<qreal>&);
-  void setBoundaries(const QList<qreal>&);
+  void setBoundaries(qreal lower, qreal upper);
   void setMinorTicks(const QList<qreal>&);
   void setMidTicks(const QList<qreal>&);
   void setMajorTicks(const QList<qreal>&);

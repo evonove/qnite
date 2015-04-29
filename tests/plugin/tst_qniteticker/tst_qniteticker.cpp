@@ -44,23 +44,20 @@ private slots:
   {
     ticker.reset();
 
-    QList<qreal> b;
-    b << -1. << 1.;
-
     QSignalSpy spy(&ticker, SIGNAL(boundariesChanged()));
     QSignalSpy buildSpy(&ticker, SIGNAL(tickersBuilt()));
 
-    ticker.setBoundaries(b);
-    ticker.setBoundaries(b); // ensure the signal isn't emitted twice
+    ticker.setBoundaries(-1., 1.);
+    ticker.setBoundaries(-1., 1.); // ensure the signal isn't emitted twice
 
     QCOMPARE(ticker.lower(), -1.);
     QCOMPARE(ticker.upper(), 1.);
     QCOMPARE(spy.count(), 1);
     QCOMPARE(buildSpy.count(), 1);
 
-    b << 0; // add a third value
-    ticker.setBoundaries(b);
-    QCOMPARE(buildSpy.count(), 1); // boundaries were not set with bad input
+    // check the signal is emitted also if only one value changes
+    ticker.setBoundaries(-1., 2.);
+    QCOMPARE(buildSpy.count(), 2);
   }
 
   void testSetValues()
