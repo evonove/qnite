@@ -1,6 +1,5 @@
 #include "qnitemapper.h"
 
-
 /*!
     \qmltype Mapper
     \instantiates QniteMapper
@@ -11,71 +10,23 @@
     TODO: add a long description
 */
 QniteMapper::QniteMapper(QObject *parent):
-  QObject(parent),
-  m_min{0},
-  m_max{0},
-  m_size{0},
-  m_flip{false}
+  QObject(parent)
 {
-  connect(this, SIGNAL(minChanged()), this, SIGNAL(factorChanged()));
-  connect(this, SIGNAL(maxChanged()), this, SIGNAL(factorChanged()));
-  connect(this, SIGNAL(sizeChanged()), this, SIGNAL(factorChanged()));
-  connect(this, SIGNAL(flipChanged()), this, SIGNAL(factorChanged()));
 }
 
 QniteMapper::~QniteMapper()
 {
 }
 
-qreal QniteMapper::min() const
+QList<qreal> QniteMapper::mapTo(qreal sourceLower, qreal sourceUpper,
+                                qreal destLower, qreal destUpper,
+                                const QList<qreal>& values, bool flip)
 {
-  return m_min;
-}
-
-void QniteMapper::setMin(qreal min)
-{
-  if (min != m_min) {
-    m_min = min;
-    emit minChanged();
+  QList<qreal> out;
+  for(const auto& value: values) {
+    auto v = mapTo(sourceLower, sourceUpper, destLower, destUpper, value, flip);
+    out.append(v);
   }
-}
 
-qreal QniteMapper::max() const
-{
-  return m_max;
+  return out;
 }
-
-void QniteMapper::setMax(qreal max)
-{
-  if (max != m_max) {
-    m_max = max;
-    emit maxChanged();
-  }
-}
-
-qreal QniteMapper::size() const
-{
-  return m_size;
-}
-
-void QniteMapper::setSize(qreal size)
-{
-  if (size != m_size) {
-    m_size = size;
-    emit sizeChanged();
-  }
-}
-
-bool QniteMapper::flip() const
-{
-  return m_flip;
-}
-
-void QniteMapper::setFlip(bool flip)
-{
-  if (flip != m_flip) {
-    m_flip = flip;
-    emit flipChanged();
-  }
-}
-

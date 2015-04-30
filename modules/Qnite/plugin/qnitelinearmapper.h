@@ -11,8 +11,11 @@ class QniteLinearMapper: public QniteMapper
     explicit QniteLinearMapper(QObject *parent = 0);
     virtual ~QniteLinearMapper();
 
-    virtual qreal factor() const;
-    virtual qreal transform(qreal value);
+    using QniteMapper::mapTo;
+
+    virtual qreal mapTo(qreal sourceLower, qreal sourceUpper,
+                        qreal destLower, qreal destUpper,
+                        qreal value, bool flip=false);
 };
 
 #endif // QNITE_LINEAR_MAPPER_H

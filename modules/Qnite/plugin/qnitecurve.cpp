@@ -1,5 +1,7 @@
 #include "qnitecurve.h"
 #include "qnitemapper.h"
+#include "qniteaxes.h"
+#include "qniteaxis.h"
 
 #include <QDebug>
 
@@ -45,24 +47,19 @@ QSGNode* QniteCurve::updatePaintNode(QSGNode* oldNode, UpdatePaintNodeData*)
     geometry->allocate(dataSize);
   }
 
+  // TODO: move the transform into a pipeline
+  qreal xLower = axes()->bottomAxis()->lowerBound();
+  qreal xUpper = axes()->bottomAxis()->upperBound();
+  qreal yLower = axes()->leftAxis()->lowerBound();
+  qreal yUpper = axes()->leftAxis()->upperBound();
+
   QSGGeometry::Point2D *vertices = geometry->vertexDataAsPoint2D();
   for(int i = 0; i < dataSize; ++i) {
     // TODO: this is bad here! move transformation in the setters
-    auto vx = xValues().at(i);
-    auto vy = yValues().at(i);
-    float x;
-    if (xMapper() != nullptr)
-      x = xMapper()->transform(vx);
-    else
-      x = vx;
-    float y;
-    if (yMapper() != nullptr)
-      y = yMapper()->transform(vy);
-    else
-      y = vy;
+    qreal cx = xMapper()->mapTo(xLower, xUpper, 0, width(), xValues().at(i));
+    qreal cy = yMapper()->mapTo(yLower, yUpper, 0, height(), yValues().at(i), true);
 
-    vertices[i].set(x, y);
-    qDebug() << "point" << x << y;
+    vertices[i].set(cx, cy);
   }
 
   node->markDirty(QSGNode::DirtyGeometry | QSGNode::DirtyMaterial);

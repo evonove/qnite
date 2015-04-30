@@ -1,6 +1,4 @@
 #include <QtTest/QtTest>
-#include <QDebug>
-#include <QSignalSpy>
 
 #include "../../../modules/Qnite/plugin/qnitemapper.h"
 
@@ -10,10 +8,9 @@ class FooMapper : public QniteMapper
   Q_OBJECT
 
 public:
-  FooMapper(QObject *parent = 0): QniteMapper(parent) {}
+  FooMapper(QObject *parent=0): QniteMapper(parent) {}
 
-  qreal factor() const { return 1.0; }
-  qreal transform(qreal value) { return value; };
+  qreal mapTo(qreal, qreal, qreal, qreal, qreal, bool) { return 1; }
 };
 
 
@@ -21,31 +18,26 @@ class TestQniteMapper: public QObject
 {
   Q_OBJECT
 
-  FooMapper mapper;
+  QniteMapper* mapper;
 
 private slots:
-    void testFactorChangedSignal();
+    void testMapTo();
 };
 
 
-// tests that the factorChanged signal is emitted
-// when at least one of the min, max, size and flip
-// properties changes
-void TestQniteMapper::testFactorChangedSignal()
+void TestQniteMapper::testMapTo()
 {
-    QSignalSpy spy(&mapper, SIGNAL(factorChanged()));
+    mapper = new FooMapper();
 
-    mapper.setMin(1);
-    QCOMPARE(spy.count(), 1);
+    auto result = mapper->mapTo(0, 0, 0, 0, 0);
+    QCOMPARE(result, 1.);
 
-    mapper.setMax(1);
-    QCOMPARE(spy.count(), 2);
+    auto results = mapper->mapTo(0, 0, 0, 0, {0, 0});
+    for(auto v: results) {
+      QCOMPARE(v, 1.);
+    }
 
-    mapper.setSize(1);
-    QCOMPARE(spy.count(), 3);
-
-    mapper.setFlip(true);
-    QCOMPARE(spy.count(), 4);
+    delete mapper;
 }
 
 QTEST_MAIN(TestQniteMapper)
