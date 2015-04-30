@@ -1,2 +1,5 @@
 TEMPLATE = subdirs
-SUBDIRS = qml plugin
+SUBDIRS +=\
+  setup \
+  qml \
+  plugin
