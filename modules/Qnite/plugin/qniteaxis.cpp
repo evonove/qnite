@@ -20,6 +20,7 @@ qreal QniteAxisTick::thick() const
 {
   return m_thick;
 }
+
 void QniteAxisTick::setThick(qreal thick)
 {
   if (m_thick != thick) {
@@ -32,6 +33,7 @@ qreal QniteAxisTick::majSize() const
 {
   return m_majSize;
 }
+
 void QniteAxisTick::setMajSize(qreal size)
 {
   if (m_majSize != size) {
@@ -44,6 +46,7 @@ qreal QniteAxisTick::minSize() const
 {
   return m_minSize;
 }
+
 void QniteAxisTick::setMinSize(qreal size)
 {
   if (m_minSize != size) {
@@ -56,6 +59,7 @@ QColor QniteAxisTick::color() const
 {
   return m_color;
 }
+
 void QniteAxisTick::setColor(const QColor& color)
 {
   if (m_color != color) {
@@ -86,6 +90,7 @@ qreal QniteAxis::size() const
 {
   return m_size;
 }
+
 void QniteAxis::setSize(qreal size)
 {
   if (m_size != size) {
@@ -100,6 +105,7 @@ qreal QniteAxis::lowerBound() const
 {
   return m_lowerBound;
 }
+
 void QniteAxis::setLowerBound(qreal bound)
 {
   if (m_lowerBound != bound) {
@@ -115,6 +121,7 @@ qreal QniteAxis::upperBound() const
 {
   return m_upperBound;;
 }
+
 void QniteAxis::setUpperBound(qreal bound)
 {
   if (m_upperBound != bound) {
@@ -130,6 +137,7 @@ bool QniteAxis::flip() const
 {
   return m_flip;
 }
+
 void QniteAxis::setFlip(bool flip)
 {
   if (m_flip != flip) {
@@ -169,7 +177,6 @@ void QniteAxis::initTicker()
     return;
   }
 
-  // TODO: change when setBoundaries works
   m_ticker->setBoundaries(m_lowerBound, m_upperBound);
   m_majorTicks.clear();
   m_majorTicks = m_mapper->mapTo(m_lowerBound, m_upperBound, 0, m_size,
