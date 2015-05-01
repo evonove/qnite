@@ -19,27 +19,26 @@ QniteLinearMapper::~QniteLinearMapper()
 {
 }
 
-qreal QniteLinearMapper::factor() const
-{
-  // TODO: maybe we should cache this value instead
-  // of computing it every time
-  qreal dataSize = qAbs(m_max - m_min);
-  if (dataSize == 0.0 || m_size == 0.0)
-    return 0.0;
 
-  return m_size / dataSize;
-}
-
-qreal QniteLinearMapper::transform(qreal value)
+qreal QniteLinearMapper::mapTo(qreal sourceLower, qreal sourceUpper,
+                               qreal destLower, qreal destUpper,
+                               qreal value, bool flip)
 {
-  qreal v = factor() * qAbs(m_min - value);
+  qreal sourceSize = qAbs(sourceUpper - sourceLower);
+  qreal destSize = qAbs(destLower - destUpper);
+
+  if (sourceSize == 0.0 || destSize == 0.0)
+    return 0.0;  // TODO: size is invalid. return 0 or raise exception?
+
+  qreal f = destSize / sourceSize;
+  qreal v = f * qAbs(sourceLower - value);
 
   // TODO: maybe raise an exception when the value is out-of-bounds
-  if (value < m_min)
+  if (value < sourceLower)
     v *= -1;
 
-  if (m_flip)
-    return m_size - v;
+  if (flip)
+    v = destUpper - v;
 
   return v;
 }

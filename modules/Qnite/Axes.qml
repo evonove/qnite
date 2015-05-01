@@ -38,17 +38,13 @@ BasicAxes {
         width: __plotarea.width; height: 30
         anchors.top: __plotarea.bottom
         anchors.left: __plotarea.left
+        size: __plotarea.width
+        axisType: "bottom"
 
         tick {
             thick: 1
             majSize: 10
             color: Qt.rgba(0,0,0,0.2)
-        }
-        axisType: "bottom"
-        mapper {
-            size: __plotarea.width
-            // TODO: move this assignement to C++ layer
-            min: __bottom.lowerBound; max: __bottom.upperBound
         }
     }
 
@@ -66,18 +62,13 @@ BasicAxes {
         anchors.bottom: __plotarea.bottom
         anchors.right: __plotarea.left
         axisType: "left"
+        size: __plotarea.height
+        flip: true
 
         tick {
             thick: 1
             majSize: 10
             color: Qt.rgba(0,0,0,0.2)
-        }
-
-        mapper {
-            size: __plotarea.height
-            // TODO: move this assignement to C++ layer
-            min: __left.lowerBound; max: __left.upperBound
-            flip: true
         }
     }
 }
