@@ -32,6 +32,12 @@ class QniteArtist: public QQuickItem
     QniteMapper* yMapper() const;
     void setYMapper(QniteMapper* mapper);
 
+    const QList<qreal>& xMapped() const;
+    const QList<qreal>& yMapped() const;
+
+  public Q_SLOTS:
+    virtual void processData();
+
   Q_SIGNALS:
     void axesChanged();
     void colorChanged();
@@ -45,6 +51,9 @@ class QniteArtist: public QQuickItem
     QList<qreal> m_yValues;
     QniteMapper* m_xMapper;
     QniteMapper* m_yMapper;
+
+    QList<qreal> m_xMapped;
+    QList<qreal> m_yMapped;
 };
 
 #endif // QNITE_ARTIST_H

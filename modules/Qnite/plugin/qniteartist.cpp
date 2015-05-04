@@ -1,4 +1,8 @@
 #include "qniteartist.h"
+#include "qniteaxes.h"
+#include "qniteaxis.h"
+#include "qnitemapper.h"
+#include "qniteclipper.h"
 
 QniteArtist::QniteArtist(QQuickItem* parent):
   QQuickItem(parent),
@@ -97,3 +101,35 @@ void QniteArtist::setYMapper(QniteMapper* mapper)
   }
 }
 
+const QList<qreal>& QniteArtist::xMapped() const
+{
+  return m_xMapped;
+}
+
+const QList<qreal>& QniteArtist::yMapped() const
+{
+  return m_yMapped;
+}
+
+void QniteArtist::processData()
+{
+  if (xValues().size() != yValues().size())
+    qWarning() << "xValues and yValues size for the artists are different";
+
+  // get bounds
+  qreal xLower = axes()->bottomAxis()->lowerBound();
+  qreal xUpper = axes()->bottomAxis()->upperBound();
+  qreal yLower = axes()->leftAxis()->lowerBound();
+  qreal yUpper = axes()->leftAxis()->upperBound();
+
+  // clip non visible data
+  QniteClipper clipper;
+  QList<qreal> xClipped;
+  QList<qreal> yClipped;
+  // TODO: xValues and yValues should return const references
+  clipper.clip(xValues(), yValues(), xLower, xUpper, yLower, yUpper, xClipped, yClipped);
+
+  // map to display
+  m_xMapped = xMapper()->mapTo(xLower, xUpper, 0, width(), xClipped);
+  m_yMapped = yMapper()->mapTo(yLower, yUpper, 0, height(), yClipped, true);
+}

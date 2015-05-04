@@ -37,22 +37,15 @@ QSGNode* QniteCircle::updatePaintNode(QSGNode* node, UpdatePaintNodeData*)
     node = new QSGNode;
   }
 
-  // TODO: move this to qniteartist
-  int dataSize = qMin(xValues().size(), yValues().size());
-  if (xValues().size() != yValues().size())
-    qWarning() << "xValues and yValues size for the artists are different";
+  // TODO: processdata should be triggered only when data changes
+  processData();
+  int dataSize = xMapped().size();
 
-  // TODO: move the transform into a pipeline
-  qreal xLower = axes()->bottomAxis()->lowerBound();
-  qreal xUpper = axes()->bottomAxis()->upperBound();
-  qreal yLower = axes()->leftAxis()->lowerBound();
-  qreal yUpper = axes()->leftAxis()->upperBound();
-
+  // TODO: find a better approach. removing and creating all nodes is bad
   node->removeAllChildNodes();
   for(int i = 0; i < dataSize; ++i) {
-    // map the center coordinates
-    qreal cx = xMapper()->mapTo(xLower, xUpper, 0, width(), xValues().at(i));
-    qreal cy = yMapper()->mapTo(yLower, yUpper, 0, height(), yValues().at(i), true);
+    qreal cx = xMapped().at(i);
+    qreal cy = yMapped().at(i);
 
     // TODO: optimal number of segments should be  computed runtime
     node->appendChildNode(new QniteCircleNode(cx, cy, m_radius, 32, color()));
