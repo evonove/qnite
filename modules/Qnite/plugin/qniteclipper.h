@@ -14,6 +14,7 @@ class QniteClipper : public QObject
                       qreal xLower, qreal xUpper,
                       qreal yLower, qreal yUpper,
                       QList<qreal>& outX, QList<qreal>& outY);
+    virtual void clip(const QList<qreal> values, qreal lower, qreal upper, QList<qreal>& out);
 };
 #endif // QNITE_CLIPPER_H
 

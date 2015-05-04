@@ -1,4 +1,5 @@
 #include "qniteaxis.h"
+#include "qniteclipper.h"
 #include "qnitelinearmapper.h"
 #include "qnitelinearticker.h"
 
@@ -179,8 +180,16 @@ void QniteAxis::initTicker()
 
   m_ticker->setBoundaries(m_lowerBound, m_upperBound);
   m_majorTicks.clear();
-  m_majorTicks = m_mapper->mapTo(m_lowerBound, m_upperBound, 0, m_size,
-                                 m_ticker->majorTicks(), m_flip);
+
+  // TODO: encapsulate in transformer pipeline
+  // clip ticks
+  QList<qreal> t;
+  QniteClipper clipper;
+  clipper.clip(m_ticker->majorTicks(), m_lowerBound, m_upperBound, t);
+
+  // map to display
+  m_majorTicks = m_mapper->mapTo(m_lowerBound, m_upperBound, 0, m_size, t, m_flip);
+
   emit majorTicksChanged();
 }
 
