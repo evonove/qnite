@@ -14,18 +14,6 @@ ApplicationWindow {
             id: figure
             anchors.fill: parent
 
-            Component.onCompleted: {
-                var n = 100000;
-                var xx = [];
-                var yy = [];
-                for (var i = 0; i < n; ++i) {
-                    xx.push(Math.random() * 10);
-                    yy.push(Math.random() * 10);
-                }
-                //circle.xValues = xx;
-                //circle.yValues = yy;
-            }
-
             axes.leftBounds: [2.5, 10.8]
             axes.bottomBounds: [0, 10]
 
@@ -36,14 +24,6 @@ ApplicationWindow {
                 xValues: [0, 1, 3, 5, 6, 10]
                 yValues: [0, 3, 6, 3, 4, 10]
                 anchors.fill: parent
-                color: "#3f51b5"
-            }
-            Circle {
-                id: circle
-                xValues: [0, 1, 3, 5, 6, 10]
-                yValues: [0, 3, 6, 3, 4, 10]
-                anchors.fill: parent
-                radius: 5
                 color: "#3f51b5"
             }
         }

@@ -1,11 +1,11 @@
 TEMPLATE = app
-TARGET = example_plot
+TARGET = example_lineplot
 
-QT += qml quick widgets
+QT += qml quick
 
 SOURCES += main.cpp
 
-RESOURCES += plot.qrc
+RESOURCES += lineplot.qrc
 
 include(../deployment.pri)
 
