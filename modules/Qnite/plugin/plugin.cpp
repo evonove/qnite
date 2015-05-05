@@ -5,7 +5,7 @@
 #include "qniteaxis.h"
 #include "qniteaxes.h"
 #include "qnitecircle.h"
-#include "qnitecurve.h"
+#include "qniteline.h"
 #include "qnitemapper.h"
 #include "qnitelinearmapper.h"
 #include "qniteticker.h"
@@ -22,7 +22,7 @@ void QnitePlugin::registerTypes(const char *uri)
   qmlRegisterType<QniteAxis>(uri, 1, 0, "BasicAxis");
   qmlRegisterType<QniteAxisTick>(uri, 1, 0, "AxisTick");
   qmlRegisterType<QniteCircle>(uri, 1, 0, "Circle");
-  qmlRegisterType<QniteCurve>(uri, 1, 0, "Curve");
+  qmlRegisterType<QniteLine>(uri, 1, 0, "Line");
 
   qmlRegisterUncreatableType<QniteMapper>(uri, 1, 0, "Mapper", "Cannot create objects of basetype Mapper");
   qmlRegisterType<QniteLinearMapper>(uri, 1, 0, "LinearMapper");

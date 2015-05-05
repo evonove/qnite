@@ -1,4 +1,4 @@
-#include "qnitecurve.h"
+#include "qniteline.h"
 
 #include <QDebug>
 
@@ -7,18 +7,18 @@
 #include <QSGFlatColorMaterial>
 
 
-QniteCurve::QniteCurve(QQuickItem *parent):
+QniteLine::QniteLine(QQuickItem *parent):
   QniteXYArtist(parent)
 {
   setFlag(ItemHasContents, true);
 }
 
-QniteCurve::~QniteCurve()
+QniteLine::~QniteLine()
 {
 }
 
 
-QSGNode* QniteCurve::updatePaintNode(QSGNode* oldNode, UpdatePaintNodeData*)
+QSGNode* QniteLine::updatePaintNode(QSGNode* oldNode, UpdatePaintNodeData*)
 {
   QSGGeometryNode *node = 0;
   QSGGeometry *geometry = 0;

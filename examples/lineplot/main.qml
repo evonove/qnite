@@ -20,7 +20,7 @@ ApplicationWindow {
             Grid {
                 anchors.fill: parent
             }
-            Curve {
+            Line {
                 xValues: [0, 1, 3, 5, 6, 10]
                 yValues: [0, 3, 6, 3, 4, 10]
                 anchors.fill: parent
