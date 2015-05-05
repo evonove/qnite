@@ -7,8 +7,8 @@ class QniteTicker : public QObject
 {
   Q_OBJECT
   Q_PROPERTY(QList<qreal> values READ values WRITE setValues NOTIFY valuesChanged)
-  Q_PROPERTY(QList<qreal> minorTicks READ minorTicks WRITE setMinorTicks)
-  Q_PROPERTY(QList<qreal> midTicks READ midTicks WRITE setMidTicks)
+  Q_PROPERTY(QList<qreal> minorTicks READ minorTicks WRITE setMinorTicks NOTIFY minorTicksChanged)
+  Q_PROPERTY(QList<qreal> midTicks READ midTicks WRITE setMidTicks NOTIFY midTicksChanged)
   Q_PROPERTY(QList<qreal> majorTicks READ majorTicks WRITE setMajorTicks NOTIFY majorTicksChanged)
   Q_PROPERTY(int numSteps READ numSteps WRITE setNumSteps)
 
