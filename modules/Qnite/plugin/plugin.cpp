@@ -1,8 +1,9 @@
 #include "plugin.h"
 
+#include "qniteartist.h"
+#include "qnitexyartist.h"
 #include "qniteaxis.h"
 #include "qniteaxes.h"
-#include "qniteartist.h"
 #include "qnitecircle.h"
 #include "qnitecurve.h"
 #include "qnitemapper.h"
@@ -15,7 +16,8 @@
 void QnitePlugin::registerTypes(const char *uri)
 {
   // @uri qnite
-  qmlRegisterType<QniteArtist>(uri, 1, 0, "Artist");
+  qmlRegisterUncreatableType<QniteArtist>(uri, 1, 0, "Artist", "Cannot create objects of basetype Artist");
+  qmlRegisterType<QniteXYArtist>(uri, 1, 0, "XYArtist");
   qmlRegisterType<QniteAxes>(uri, 1, 0, "BasicAxes");
   qmlRegisterType<QniteAxis>(uri, 1, 0, "BasicAxis");
   qmlRegisterType<QniteAxisTick>(uri, 1, 0, "AxisTick");

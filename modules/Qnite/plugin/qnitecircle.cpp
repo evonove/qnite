@@ -8,7 +8,7 @@
 
 
 QniteCircle::QniteCircle(QQuickItem *parent):
-  QniteArtist(parent),
+  QniteXYArtist(parent),
   m_radius{10}
 {
   setFlag(ItemHasContents, true);

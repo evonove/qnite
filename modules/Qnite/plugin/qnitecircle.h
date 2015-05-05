@@ -1,9 +1,9 @@
 #ifndef QNITE_CIRCLE_H
 #define QNITE_CIRCLE_H
 
-#include "qniteartist.h"
+#include "qnitexyartist.h"
 
-class QniteCircle : public QniteArtist
+class QniteCircle : public QniteXYArtist
 {
     Q_OBJECT
     Q_PROPERTY(qreal radius READ radius WRITE setRadius NOTIFY radiusChanged)

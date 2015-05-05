@@ -98,9 +98,7 @@ void QniteAxes::setLeftAxis(QniteAxis* leftAxis)
     m_leftAxis->setParentItem(this);
     emit leftAxisChanged();
 
-    // TODO: use signals?
     initLeftAxis();
-    this->bindToLeftAxis();
   }
 }
 
@@ -116,9 +114,7 @@ void QniteAxes::setBottomAxis(QniteAxis* bottomAxis)
     m_bottomAxis->setParentItem(this);
     emit bottomAxisChanged();
 
-    // TODO: use signals?
     initBottomAxis();
-    bindToBottomAxis();
   }
 }
 
@@ -138,26 +134,6 @@ void QniteAxes::initBottomAxis()
 
   m_bottomAxis->setLowerBound(m_lowerBottomBound);
   m_bottomAxis->setUpperBound(m_upperBottomBound);
-}
-
-void QniteAxes::bindToBottomAxis()
-{
-  if (this->bottomAxis() == nullptr)
-    return;
-
-  for(const auto& artist: m_artists) {
-    artist->setXMapper(this->bottomAxis()->mapper());
-  }
-}
-
-void QniteAxes::bindToLeftAxis()
-{
-  if (this->leftAxis() == nullptr)
-    return;
-
-  for(const auto& artist: m_artists) {
-    artist->setYMapper(this->leftAxis()->mapper());
-  }
 }
 
 void QniteAxes::append_artists(QQmlListProperty<QniteArtist>* property, QniteArtist* value)

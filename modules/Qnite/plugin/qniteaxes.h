@@ -41,8 +41,6 @@ class QniteAxes: public QQuickItem
   protected:
     void initLeftAxis();
     void initBottomAxis();
-    void bindToBottomAxis();
-    void bindToLeftAxis();
 
   private:
     static void append_artists(QQmlListProperty<QniteArtist>* property, QniteArtist* value);

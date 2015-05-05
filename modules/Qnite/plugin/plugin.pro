@@ -10,6 +10,7 @@ uri = Qnite
 SOURCES += \
     plugin.cpp \
     qniteartist.cpp \
+    qnitexyartist.cpp \
     qniteaxis.cpp \
     qniteaxes.cpp \
     qnitecircle.cpp \
@@ -24,6 +25,7 @@ SOURCES += \
 HEADERS += \
     plugin.h \
     qniteartist.h \
+    qnitexyartist.h \
     qniteaxis.h \
     qniteaxes.h \
     qnitecircle.h \

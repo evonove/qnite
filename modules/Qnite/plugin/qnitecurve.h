@@ -1,9 +1,9 @@
 #ifndef QNITE_CURVE_H
 #define QNITE_CURVE_H
 
-#include "qniteartist.h"
+#include "qnitexyartist.h"
 
-class QniteCurve : public QniteArtist
+class QniteCurve : public QniteXYArtist
 {
     Q_OBJECT
   public:

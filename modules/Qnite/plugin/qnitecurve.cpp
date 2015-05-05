@@ -8,7 +8,7 @@
 
 
 QniteCurve::QniteCurve(QQuickItem *parent):
-  QniteArtist(parent)
+  QniteXYArtist(parent)
 {
   setFlag(ItemHasContents, true);
 }

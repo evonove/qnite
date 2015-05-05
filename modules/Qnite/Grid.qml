@@ -7,7 +7,7 @@ import Qnite 1.0
 
     TODO: add description
 */
-Artist {
+XYArtist {
     id: grid
 
     property real xSize: axes.bottomAxis.tick.thick
