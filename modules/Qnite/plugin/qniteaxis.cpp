@@ -43,6 +43,19 @@ void QniteAxisTick::setMajSize(qreal size)
   }
 }
 
+qreal QniteAxisTick::midSize() const
+{
+  return m_midSize;
+}
+
+void QniteAxisTick::setMidSize(qreal size)
+{
+  if (m_midSize != size) {
+    m_midSize = size;
+    emit midSizeChanged();
+  }
+}
+
 qreal QniteAxisTick::minSize() const
 {
   return m_minSize;
