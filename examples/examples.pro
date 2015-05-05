@@ -1,2 +1,2 @@
 TEMPLATE = subdirs
-SUBDIRS += plot
+SUBDIRS += plot scatterplot
