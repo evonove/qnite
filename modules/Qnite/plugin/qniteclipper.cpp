@@ -27,7 +27,7 @@ void QniteClipper::clip(const QList<qreal>& xValues, const QList<qreal>& yValues
   }
 }
 
-void QniteClipper::clip(const QList<qreal> values, qreal lower, qreal upper, QList<qreal>& out)
+void QniteClipper::clip(const QList<qreal>& values, qreal lower, qreal upper, QList<qreal>& out)
 {
   for(const auto& v: values) {
     if (v >= lower && v <= upper)
