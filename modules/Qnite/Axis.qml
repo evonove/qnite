@@ -13,7 +13,8 @@ BasicAxis {
         Repeater {
             model: axis.majorTicks.length
             Loader {
-                property int modelIndex: index
+                property real val: axis.majorTicks[index]
+                property string label: axis.ticker.majorTicks[index]
 
                 anchors {
                     right: axis.axisType === "left" ? parent.right : undefined
@@ -31,19 +32,21 @@ BasicAxis {
 
             Binding on y {
                 // align the center of the tick with the data value
-                value: axis.majorTicks[modelIndex] - tick.thick / 2
+                value: val - tick.thick / 2
             }
-            Text {
-                id: __text
-                anchors.verticalCenter: __tick.verticalCenter
-                text: axis.ticker.majorTicks[modelIndex]
-            }
+
             Rectangle {
                 id: __tick
                 implicitWidth: tick.majSize
                 implicitHeight: tick.thick
 
                 color: tick.color
+            }
+
+            Text {
+                id: __text
+                anchors.verticalCenter: __tick.verticalCenter
+                text: label
             }
         }
     }
@@ -55,8 +58,9 @@ BasicAxis {
 
             Binding on x {
                 // align the center of the tick with the data value
-                value: axis.majorTicks[modelIndex] - tick.thick / 2
+                value: val - tick.thick / 2
             }
+
             Rectangle {
                 id: __tick
                 implicitWidth: tick.thick
@@ -64,10 +68,11 @@ BasicAxis {
 
                 color: tick.color
             }
+
             Text {
                 id: __text
                 anchors.horizontalCenter: __tick.horizontalCenter
-                text: axis.ticker.majorTicks[modelIndex]
+                text: label
             }
         }
     }
