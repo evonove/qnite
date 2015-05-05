@@ -72,7 +72,7 @@ void QniteAxisTick::setColor(const QColor& color)
 /*! TODO: add docs
 */
 QniteAxis::QniteAxis(QQuickItem* parent):
-  QQuickItem(parent),
+  QniteArtist(parent),
   m_size{0},
   m_lowerBound{0},
   m_upperBound{0},
@@ -80,7 +80,6 @@ QniteAxis::QniteAxis(QQuickItem* parent):
   m_mapper{new QniteLinearMapper(this)},
   m_ticker{new QniteLinearTicker(this)}
 {
-  initTicker();
 }
 
 QniteAxis::~QniteAxis()
@@ -98,7 +97,7 @@ void QniteAxis::setSize(qreal size)
     m_size = size;
     emit sizeChanged();
 
-    initTicker();
+    processData();
   }
 }
 
@@ -114,7 +113,7 @@ void QniteAxis::setLowerBound(qreal bound)
     m_lowerBound = bound;
     emit lowerBoundChanged();
 
-    initTicker();
+    processData();
   }
 }
 
@@ -130,7 +129,7 @@ void QniteAxis::setUpperBound(qreal bound)
     m_upperBound = bound;
     emit upperBoundChanged();
 
-    initTicker();
+    processData();
   }
 }
 
@@ -145,7 +144,7 @@ void QniteAxis::setFlip(bool flip)
     m_flip = flip;
     emit flipChanged();
 
-    initTicker();
+    processData();
   }
 }
 
@@ -169,7 +168,7 @@ QList<qreal> QniteAxis::majorTicks() const
   return m_majorTicks;
 }
 
-void QniteAxis::initTicker()
+void QniteAxis::processData()
 {
   // avoid ticker initialization when mapper is invalid
   if (m_mapper == nullptr) {

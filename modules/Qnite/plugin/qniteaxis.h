@@ -1,10 +1,8 @@
 #ifndef QNITE_AXIS_H
 #define QNITE_AXIS_H
 
-#include <QQuickItem>
+#include "qniteartist.h"
 
-class QniteMapper;
-class QniteTicker;
 class QniteAxisTick: public QObject
 {
     Q_OBJECT
@@ -39,7 +37,9 @@ class QniteAxisTick: public QObject
     QColor m_color;
 };
 
-class QniteAxis: public QQuickItem
+class QniteMapper;
+class QniteTicker;
+class QniteAxis: public QniteArtist
 {
     Q_OBJECT
     Q_PROPERTY(qreal size READ size WRITE setSize NOTIFY sizeChanged)
@@ -81,8 +81,8 @@ class QniteAxis: public QQuickItem
     void mapperChanged();
     void majorTicksChanged();
 
-  protected Q_SLOTS:
-    void initTicker();
+  public Q_SLOTS:
+    virtual void processData();
 
   private:
     qreal m_size;
