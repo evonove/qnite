@@ -17,6 +17,7 @@ SOURCES += \
     qnitecirclenode.cpp \
     qniteclipper.cpp \
     qniteline.cpp \
+    qnitespline.cpp \
     qnitemapper.cpp \
     qnitelinearmapper.cpp \
     qniteticker.cpp \
@@ -32,6 +33,7 @@ HEADERS += \
     qnitecirclenode.h \
     qniteclipper.h \
     qniteline.h \
+    qnitespline.h \
     qnitemapper.h \
     qnitelinearmapper.h \
     qniteticker.h \

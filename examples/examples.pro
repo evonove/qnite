@@ -1,2 +1,2 @@
 TEMPLATE = subdirs
-SUBDIRS += lineplot scatterplot
+SUBDIRS += lineplot scatterplot splineplot
