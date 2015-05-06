@@ -31,7 +31,7 @@ public:
   void setMinorTicks(const QList<qreal>&);
   void setMidTicks(const QList<qreal>&);
   void setMajorTicks(const QList<qreal>&);
-  void setNumSteps(int);
+  virtual void setNumSteps(int);
 
   QList<qreal> values() const;
   QList<qreal> minorTicks() const;
