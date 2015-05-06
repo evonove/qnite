@@ -42,11 +42,15 @@ namespace {
     double graph_min = floor(min/d) * d;  // loose version of the algo
     double graph_max = ceil(max/d) * d;  // loose version of the algo
     // nFrac is the number of decimal numbers it'd be nice to show
-    // not used at the moment
-    // double nFrac = std::max(-floor(log10(d)), 0.);
+    double nFrac = std::max(-floor(log10(d)), 0.);
+    // we use it to better approximate values
+    double precision = pow(10, nFrac);
 
     for (double x=graph_min; x<=graph_max + .5*d; x+=d) {
-      ticks.append(x);
+      // round to the "precision" decimal place
+      double val = round(x*precision);
+      ticks.append(val/precision);
+      //ticks.append(x);
     }
   }
 
@@ -68,36 +72,41 @@ void QniteLinearTicker::buildTicks()
     return;
   }
 
-  QList<qreal> majorTicks;
-  fill(majorTicks, lower(), upper(), numSteps());
-  setMajorTicks(majorTicks);
+  // build major ticks
+  QList<qreal> majors;
+  fill(majors, lower(), upper(), numSteps());
+  setMajorTicks(majors);
 
-  QList<qreal> segment;
-  // build mid ticks for the first segment of major ones
-  fill(segment, majorTicks[0], majorTicks[1], numSteps());
-  // get rid of the boundaries
-  segment.removeFirst(); segment.removeLast();
-  // start building midTicks
-  QList<qreal> midTicks(segment);
-  // translate first segment into the whole range
-  for (int i=0; i<majorTicks.size()-2; i++) {
-    foreach(qreal val, segment) {
-      midTicks.append(val + majorTicks[i]);
-    }
+  // build mid ticks
+  QList<qreal> mids;
+  for (int i=0; i<majors.size()-1; i++) {
+    fill(mids, majors[i], majors[i+1], numSteps());
   }
-  setMidTicks(midTicks);
 
-  // same as above
-  segment.clear();
-  fill(segment, midTicks[0], midTicks[1], numSteps());
-  segment.removeFirst(); segment.removeLast();
-  QList<qreal> minorTicks(segment);
-  for (int i=0; i<midTicks.size()-2; i++) {
-    foreach(qreal val, segment) {
-      minorTicks.append(val + midTicks[i]);
-    }
+  // build minor ticks
+  QList<qreal> mins;
+  for (int i=0; i<mids.size()-1; i++) {
+    fill(mins, mids[i], mids[i+1], numSteps());
   }
-  setMinorTicks(minorTicks);
+
+  // remove duplicates
+  QSet<qreal> minSet = mins.toSet();
+  QSet<qreal> midSet = mids.toSet();
+  QSet<qreal> majSet = majors.toSet();
+
+  minSet = minSet.subtract(midSet);
+  midSet = midSet.subtract(majSet);
+
+  mins = minSet.toList();
+  std::sort(mins.begin(), mins.end(), std::less<qreal>());
+
+  mids = midSet.toList();
+  std::sort(mids.begin(), mids.end(), std::less<qreal>());
+
+  // set tick series
+  setMinorTicks(mins);
+  setMidTicks(mids);
+  setMajorTicks(majors);
 }
 
 void QniteLinearTicker::setLooseNiceness(bool is_loose)
