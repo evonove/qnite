@@ -117,3 +117,12 @@ void QniteLinearTicker::reset()
   setNumSteps(DEFAULT_NUM_STEPS);
 }
 
+void QniteLinearTicker::setNumSteps(int steps)
+{
+  if (steps < 2) {
+    qWarning() << "Number of steps must be at least 2";
+    return;
+  }
+
+  QniteTicker::setNumSteps(steps);
+}

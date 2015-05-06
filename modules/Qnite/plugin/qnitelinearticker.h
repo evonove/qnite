@@ -13,7 +13,10 @@ public:
 
   virtual void reset();
   void setLooseNiceness(bool);
+  virtual void setNumSteps(int);
+
   bool looseNiceness() const;
+
 
 protected:
   virtual void buildTicks();
