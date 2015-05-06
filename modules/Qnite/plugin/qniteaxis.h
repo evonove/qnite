@@ -95,8 +95,8 @@ Q_SIGNALS:
   void midTicksChanged();
   void minorTicksChanged();
 
-protected Q_SLOTS:
-  void initTicker();
+public Q_SLOTS:
+  virtual void processData();
 
 private:
   qreal m_size;
