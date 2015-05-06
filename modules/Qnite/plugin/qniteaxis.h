@@ -60,6 +60,8 @@ class QniteAxis: public QniteArtist
   Q_PROPERTY(QniteTicker* ticker READ ticker CONSTANT)
 
   Q_PROPERTY(QList<qreal> majorTicks READ majorTicks NOTIFY majorTicksChanged)
+  Q_PROPERTY(QList<qreal> midTicks READ midTicks NOTIFY midTicksChanged)
+  Q_PROPERTY(QList<qreal> minorTicks READ minorTicks NOTIFY minorTicksChanged)
 
 public:
   explicit QniteAxis(QQuickItem* parent = 0);
@@ -79,6 +81,8 @@ public:
   QniteMapper* mapper() const;
 
   QList<qreal> majorTicks() const;
+  QList<qreal> midTicks() const;
+  QList<qreal> minorTicks() const;
 
 Q_SIGNALS:
   void flipChanged();
@@ -88,6 +92,8 @@ Q_SIGNALS:
 
   void mapperChanged();
   void majorTicksChanged();
+  void midTicksChanged();
+  void minorTicksChanged();
 
 protected Q_SLOTS:
   void initTicker();
@@ -103,6 +109,8 @@ private:
   QniteTicker* m_ticker;
 
   QList<qreal> m_majorTicks;
+  QList<qreal> m_midTicks;
+  QList<qreal> m_minorTicks;
 };
 
 #endif // QNITE_AXIS_H

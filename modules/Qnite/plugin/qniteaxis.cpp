@@ -181,27 +181,46 @@ QList<qreal> QniteAxis::majorTicks() const
   return m_majorTicks;
 }
 
+QList<qreal> QniteAxis::midTicks() const
+{
+  return m_midTicks;
+}
+
+QList<qreal> QniteAxis::minorTicks() const
+{
+  return m_minorTicks;
+}
+
 void QniteAxis::processData()
 {
   // avoid ticker initialization when mapper is invalid
   if (m_mapper == nullptr) {
     m_ticker->reset();
-    emit majorTicksChanged();
-    return;
+  }
+  else {
+    m_ticker->setBoundaries(m_lowerBound, m_upperBound);
+
+    m_majorTicks.clear();
+    m_midTicks.clear();
+    m_minorTicks.clear();
+    m_ticker->setBoundaries(m_lowerBound, m_upperBound);
+
+    // TODO: encapsulate in transformer pipeline
+    // clip ticks
+    QList<qreal> t;
+    QniteClipper clipper;
+    clipper.clip(m_ticker->majorTicks(), m_lowerBound, m_upperBound, t);
+
+    // map to display
+    m_majorTicks = m_mapper->mapTo(m_lowerBound, m_upperBound, 0, m_size, t, m_flip);
+    m_midTicks = m_mapper->mapTo(m_lowerBound, m_upperBound, 0, m_size,
+                                   m_ticker->midTicks(), m_flip);
+    m_minorTicks = m_mapper->mapTo(m_lowerBound, m_upperBound, 0, m_size,
+                                   m_ticker->minorTicks(), m_flip);
   }
 
-  m_ticker->setBoundaries(m_lowerBound, m_upperBound);
-  m_majorTicks.clear();
-
-  // TODO: encapsulate in transformer pipeline
-  // clip ticks
-  QList<qreal> t;
-  QniteClipper clipper;
-  clipper.clip(m_ticker->majorTicks(), m_lowerBound, m_upperBound, t);
-
-  // map to display
-  m_majorTicks = m_mapper->mapTo(m_lowerBound, m_upperBound, 0, m_size, t, m_flip);
-
   emit majorTicksChanged();
+  emit midTicksChanged();
+  emit minorTicksChanged();
 }
 
