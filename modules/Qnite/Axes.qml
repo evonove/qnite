@@ -70,6 +70,8 @@ BasicAxes {
         tick {
             thick: 1
             majSize: 10
+            midSize: 8
+            minSize: 3
             color: Qt.rgba(0,0,0,0.2)
         }
     }
