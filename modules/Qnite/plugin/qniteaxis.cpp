@@ -203,20 +203,22 @@ void QniteAxis::processData()
     m_majorTicks.clear();
     m_midTicks.clear();
     m_minorTicks.clear();
-    m_ticker->setBoundaries(m_lowerBound, m_upperBound);
 
     // TODO: encapsulate in transformer pipeline
     // clip ticks
-    QList<qreal> t;
+    QList<qreal> maj, mid, min;
     QniteClipper clipper;
-    clipper.clip(m_ticker->majorTicks(), m_lowerBound, m_upperBound, t);
+    clipper.clip(m_ticker->majorTicks(), m_lowerBound, m_upperBound, maj);
+    clipper.clip(m_ticker->midTicks(), m_lowerBound, m_upperBound, mid);
+    clipper.clip(m_ticker->minorTicks(), m_lowerBound, m_upperBound, min);
 
     // map to display
-    m_majorTicks = m_mapper->mapTo(m_lowerBound, m_upperBound, 0, m_size, t, m_flip);
+    m_majorTicks = m_mapper->mapTo(m_lowerBound, m_upperBound, 0, m_size,
+                                   maj, m_flip);
     m_midTicks = m_mapper->mapTo(m_lowerBound, m_upperBound, 0, m_size,
-                                   m_ticker->midTicks(), m_flip);
+                                   mid, m_flip);
     m_minorTicks = m_mapper->mapTo(m_lowerBound, m_upperBound, 0, m_size,
-                                   m_ticker->minorTicks(), m_flip);
+                                   min, m_flip);
   }
 
   emit majorTicksChanged();
