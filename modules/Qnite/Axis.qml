@@ -15,6 +15,37 @@ BasicAxis {
             Loader {
                 property real val: axis.majorTicks[index]
                 property string label: axis.ticker.majorTicks[index]
+                property real size: tick.majSize
+
+                anchors {
+                    right: axis.axisType === "left" ? parent.right : undefined
+                    rightMargin: axis.axisType === "left" ? tick.thick / 2 : 0
+                }
+                sourceComponent: axis.axisType === "left" ? leftTick : bottomTick
+            }
+        }
+
+        Repeater {
+            model: axis.midTicks.length
+            Loader {
+                property real val: axis.midTicks[index]
+                property string label: ""
+                property real size: tick.midSize
+
+                anchors {
+                    right: axis.axisType === "left" ? parent.right : undefined
+                    rightMargin: axis.axisType === "left" ? tick.thick / 2 : 0
+                }
+                sourceComponent: axis.axisType === "left" ? leftTick : bottomTick
+            }
+        }
+
+        Repeater {
+            model: axis.minorTicks.length
+            Loader {
+                property real val: axis.minorTicks[index]
+                property string label: ""
+                property real size: tick.minSize
 
                 anchors {
                     right: axis.axisType === "left" ? parent.right : undefined
@@ -35,18 +66,18 @@ BasicAxis {
                 value: val - tick.thick / 2
             }
 
-            Rectangle {
-                id: __tick
-                implicitWidth: tick.majSize
-                implicitHeight: tick.thick
-
-                color: tick.color
-            }
-
             Text {
                 id: __text
                 anchors.verticalCenter: __tick.verticalCenter
                 text: label
+            }
+
+            Rectangle {
+                id: __tick
+                implicitWidth: size
+                implicitHeight: tick.thick
+
+                color: tick.color
             }
         }
     }
@@ -64,7 +95,7 @@ BasicAxis {
             Rectangle {
                 id: __tick
                 implicitWidth: tick.thick
-                implicitHeight: tick.majSize
+                implicitHeight: size
 
                 color: tick.color
             }
