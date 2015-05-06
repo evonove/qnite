@@ -1,4 +1,5 @@
 #include "qnitecircle.h"
+#include "qniteclipper.h"
 #include "qnitemapper.h"
 #include "qnitecirclenode.h"
 #include "qniteaxes.h"
@@ -12,6 +13,7 @@ QniteCircle::QniteCircle(QQuickItem *parent):
   m_radius{10}
 {
   setFlag(ItemHasContents, true);
+  setClipper(new QniteClipper(this));
 }
 
 QniteCircle::~QniteCircle()

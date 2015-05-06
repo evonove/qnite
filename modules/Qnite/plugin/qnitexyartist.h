@@ -3,6 +3,7 @@
 
 #include "qniteartist.h"
 
+class QniteClipper;
 class QniteMapper;
 class QniteXYArtist: public QniteArtist
 {
@@ -17,15 +18,17 @@ class QniteXYArtist: public QniteArtist
     QColor color() const;
     void setColor(const QColor& color);
 
-    QList<qreal> xValues();
+    const QList<qreal>& xValues();
     void setXValues(const QList<qreal>& values);
-    QList<qreal> yValues();
+    const QList<qreal>& yValues();
     void setYValues(const QList<qreal>& values);
 
     QniteMapper* xMapper() const;
     void setXMapper(QniteMapper* mapper);
     QniteMapper* yMapper() const;
     void setYMapper(QniteMapper* mapper);
+    QniteClipper* clipper() const;
+    void setClipper(QniteClipper* clipper);
 
     const QList<qreal>& xMapped() const;
     const QList<qreal>& yMapped() const;
@@ -45,8 +48,11 @@ class QniteXYArtist: public QniteArtist
     QColor m_color;
     QList<qreal> m_xValues;
     QList<qreal> m_yValues;
+
+    QniteClipper* m_clipper;
     QniteMapper* m_xMapper;
     QniteMapper* m_yMapper;
+
     QList<qreal> m_xMapped;
     QList<qreal> m_yMapped;
 };

@@ -6,6 +6,7 @@
 
 QniteXYArtist::QniteXYArtist(QQuickItem* parent):
   QniteArtist(parent),
+  m_clipper{nullptr},
   m_xMapper{nullptr},
   m_yMapper{nullptr}
 {
@@ -28,7 +29,7 @@ void QniteXYArtist::setColor(const QColor& color)
   }
 }
 
-QList<qreal> QniteXYArtist::xValues()
+const QList<qreal>& QniteXYArtist::xValues()
 {
   return m_xValues;
 }
@@ -41,7 +42,8 @@ void QniteXYArtist::setXValues(const QList<qreal>& values)
     emit xValuesChanged();
   }
 }
-QList<qreal> QniteXYArtist::yValues()
+
+const QList<qreal>& QniteXYArtist::yValues()
 {
   return m_yValues;
 }
@@ -87,6 +89,19 @@ void QniteXYArtist::setYMapper(QniteMapper* mapper)
   }
 }
 
+QniteClipper* QniteXYArtist::clipper() const
+{
+  return m_clipper;
+}
+
+void QniteXYArtist::setClipper(QniteClipper* clipper)
+{
+  if (m_clipper != clipper) {
+    m_clipper = clipper;
+    // TODO: signal????
+  }
+}
+
 const QList<qreal>& QniteXYArtist::xMapped() const
 {
   return m_xMapped;
@@ -99,6 +114,7 @@ const QList<qreal>& QniteXYArtist::yMapped() const
 
 void QniteXYArtist::processData()
 {
+  qDebug() << "processing data";
   if (xValues().size() != yValues().size())
     qWarning() << "xValues and yValues size for the artists are different";
 
@@ -108,12 +124,17 @@ void QniteXYArtist::processData()
   qreal yLower = axes()->leftAxis()->lowerBound();
   qreal yUpper = axes()->leftAxis()->upperBound();
 
-  // clip non visible data
-  QniteClipper clipper;
+  // TODO: this should be improved. clipping should be done only when bounds changes
+  // and tranforsm should always be performed
   QList<qreal> xClipped;
   QList<qreal> yClipped;
-  // TODO: xValues and yValues should return const references
-  clipper.clip(xValues(), yValues(), xLower, xUpper, yLower, yUpper, xClipped, yClipped);
+  // clip non visible data
+  if (clipper() != nullptr) {
+    clipper()->clip(xValues(), yValues(), xLower, xUpper, yLower, yUpper, xClipped, yClipped);
+  } else {
+    xClipped = xValues();
+    yClipped = yValues();
+  }
 
   // map to display
   m_xMapped = xMapper()->mapTo(xLower, xUpper, 0, width(), xClipped);
