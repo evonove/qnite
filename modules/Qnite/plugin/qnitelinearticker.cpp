@@ -80,7 +80,7 @@ void QniteLinearTicker::buildTicks()
   // build min ticks
   QList<qreal> mins;
   for (int i=0; i<majors.size()-1; i++) {
-    fill(mins, majors[i], majors[i+1], numSteps());
+    fill(mins, majors[i], majors[i+1], ceil(numSteps()/2.));
   }
 
   // remove duplicates
