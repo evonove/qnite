@@ -29,14 +29,12 @@ public:
 Q_SIGNALS:
   void thickChanged();
   void majSizeChanged();
-  void midSizeChanged();
   void minSizeChanged();
   void colorChanged();
 
 private:
   qreal m_thick;
   qreal m_majSize;
-  qreal m_midSize;
   qreal m_minSize;
   QColor m_color;
 };
