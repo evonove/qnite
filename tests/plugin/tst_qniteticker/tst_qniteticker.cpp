@@ -90,13 +90,10 @@ private slots:
 
     ticker.setMinorTicks(alist);
     ticker.setMinorTicks(alist); // ensure the signal isn't emitted twice
-    ticker.setMidTicks(anotherlist);
-    ticker.setMidTicks(anotherlist); // idem
     ticker.setMajorTicks(anotherlistagain);
     ticker.setMajorTicks(anotherlistagain); // idem
 
     QCOMPARE(ticker.minorTicks(), alist);
-    QCOMPARE(ticker.midTicks(), anotherlist);
     QCOMPARE(ticker.majorTicks(), anotherlistagain);
     QCOMPARE(spy1.count(), 1);
     QCOMPARE(spy2.count(), 1);
@@ -116,7 +113,6 @@ private slots:
     QCOMPARE(ticker.upper(), 0.);
     QCOMPARE(ticker.values(), QList<qreal>());
     QCOMPARE(ticker.minorTicks(), QList<qreal>());
-    QCOMPARE(ticker.midTicks(), QList<qreal>());
     QCOMPARE(ticker.majorTicks(), QList<qreal>());
   }
 
@@ -128,7 +124,6 @@ private slots:
     QCOMPARE(foo.upper(), 0.);
     QCOMPARE(foo.values(), QList<qreal>());
     QCOMPARE(foo.minorTicks(), QList<qreal>());
-    QCOMPARE(foo.midTicks(), QList<qreal>());
     QCOMPARE(foo.majorTicks(), QList<qreal>());
   }
 
