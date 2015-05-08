@@ -44,6 +44,9 @@ class QniteXYArtist: public QniteArtist
   protected:
     virtual void updateAxes();
 
+    QList<qreal> m_xMapped;
+    QList<qreal> m_yMapped;
+
   private:
     QColor m_color;
     QList<qreal> m_xValues;
@@ -53,8 +56,6 @@ class QniteXYArtist: public QniteArtist
     QniteMapper* m_xMapper;
     QniteMapper* m_yMapper;
 
-    QList<qreal> m_xMapped;
-    QList<qreal> m_yMapped;
 };
 
 #endif // QNITE_XY_ARTIST_H
