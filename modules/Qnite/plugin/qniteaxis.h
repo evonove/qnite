@@ -9,7 +9,6 @@ class QniteAxisTick: public QObject
 
   Q_PROPERTY(qreal thick READ thick WRITE setThick NOTIFY thickChanged)
   Q_PROPERTY(qreal majSize READ majSize WRITE setMajSize NOTIFY majSizeChanged)
-  Q_PROPERTY(qreal midSize READ midSize WRITE setMidSize NOTIFY midSizeChanged)
   Q_PROPERTY(qreal minSize READ minSize WRITE setMinSize NOTIFY minSizeChanged)
   Q_PROPERTY(QColor color READ color WRITE setColor NOTIFY colorChanged)
 
@@ -21,8 +20,6 @@ public:
   void setThick(qreal thick);
   qreal majSize() const;
   void setMajSize(qreal size);
-  qreal midSize() const;
-  void setMidSize(qreal size);
   qreal minSize() const;
   void setMinSize(qreal size);
 
@@ -60,7 +57,6 @@ class QniteAxis: public QniteArtist
   Q_PROPERTY(QniteTicker* ticker READ ticker CONSTANT)
 
   Q_PROPERTY(QList<qreal> majorTicks READ majorTicks NOTIFY majorTicksChanged)
-  Q_PROPERTY(QList<qreal> midTicks READ midTicks NOTIFY midTicksChanged)
   Q_PROPERTY(QList<qreal> minorTicks READ minorTicks NOTIFY minorTicksChanged)
 
 public:
@@ -81,7 +77,6 @@ public:
   QniteMapper* mapper() const;
 
   QList<qreal> majorTicks() const;
-  QList<qreal> midTicks() const;
   QList<qreal> minorTicks() const;
 
 Q_SIGNALS:
@@ -92,7 +87,6 @@ Q_SIGNALS:
 
   void mapperChanged();
   void majorTicksChanged();
-  void midTicksChanged();
   void minorTicksChanged();
 
 public Q_SLOTS:
@@ -109,7 +103,6 @@ private:
   QniteTicker* m_ticker;
 
   QList<qreal> m_majorTicks;
-  QList<qreal> m_midTicks;
   QList<qreal> m_minorTicks;
 };
 

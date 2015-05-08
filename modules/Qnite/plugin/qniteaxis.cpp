@@ -43,19 +43,6 @@ void QniteAxisTick::setMajSize(qreal size)
   }
 }
 
-qreal QniteAxisTick::midSize() const
-{
-  return m_midSize;
-}
-
-void QniteAxisTick::setMidSize(qreal size)
-{
-  if (m_midSize != size) {
-    m_midSize = size;
-    emit midSizeChanged();
-  }
-}
-
 qreal QniteAxisTick::minSize() const
 {
   return m_minSize;
@@ -181,11 +168,6 @@ QList<qreal> QniteAxis::majorTicks() const
   return m_majorTicks;
 }
 
-QList<qreal> QniteAxis::midTicks() const
-{
-  return m_midTicks;
-}
-
 QList<qreal> QniteAxis::minorTicks() const
 {
   return m_minorTicks;
@@ -201,28 +183,23 @@ void QniteAxis::processData()
     m_ticker->setBoundaries(m_lowerBound, m_upperBound);
 
     m_majorTicks.clear();
-    m_midTicks.clear();
     m_minorTicks.clear();
 
     // TODO: encapsulate in transformer pipeline
     // clip ticks
-    QList<qreal> maj, mid, min;
+    QList<qreal> maj, min;
     QniteClipper clipper;
     clipper.clip(m_ticker->majorTicks(), m_lowerBound, m_upperBound, maj);
-    clipper.clip(m_ticker->midTicks(), m_lowerBound, m_upperBound, mid);
     clipper.clip(m_ticker->minorTicks(), m_lowerBound, m_upperBound, min);
 
     // map to display
     m_majorTicks = m_mapper->mapTo(m_lowerBound, m_upperBound, 0, m_size,
                                    maj, m_flip);
-    m_midTicks = m_mapper->mapTo(m_lowerBound, m_upperBound, 0, m_size,
-                                   mid, m_flip);
     m_minorTicks = m_mapper->mapTo(m_lowerBound, m_upperBound, 0, m_size,
                                    min, m_flip);
   }
 
   emit majorTicksChanged();
-  emit midTicksChanged();
   emit minorTicksChanged();
 }
 

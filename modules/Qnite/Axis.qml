@@ -26,21 +26,6 @@ BasicAxis {
         }
 
         Repeater {
-            model: axis.midTicks.length
-            Loader {
-                property real val: axis.midTicks[index]
-                property string label: ""
-                property real size: tick.midSize
-
-                anchors {
-                    right: axis.axisType === "left" ? parent.right : undefined
-                    rightMargin: axis.axisType === "left" ? tick.thick / 2 : 0
-                }
-                sourceComponent: axis.axisType === "left" ? leftTick : bottomTick
-            }
-        }
-
-        Repeater {
             model: axis.minorTicks.length
             Loader {
                 property real val: axis.minorTicks[index]

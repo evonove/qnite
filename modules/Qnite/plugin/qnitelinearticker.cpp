@@ -77,35 +77,23 @@ void QniteLinearTicker::buildTicks()
   fill(majors, lower(), upper(), numSteps());
   setMajorTicks(majors);
 
-  // build mid ticks
-  QList<qreal> mids;
-  for (int i=0; i<majors.size()-1; i++) {
-    fill(mids, majors[i], majors[i+1], numSteps());
-  }
-
-  // build minor ticks
+  // build min ticks
   QList<qreal> mins;
-  for (int i=0; i<mids.size()-1; i++) {
-    fill(mins, mids[i], mids[i+1], numSteps());
+  for (int i=0; i<majors.size()-1; i++) {
+    fill(mins, majors[i], majors[i+1], numSteps());
   }
 
   // remove duplicates
   QSet<qreal> minSet = mins.toSet();
-  QSet<qreal> midSet = mids.toSet();
   QSet<qreal> majSet = majors.toSet();
 
-  minSet = minSet.subtract(midSet);
-  midSet = midSet.subtract(majSet);
+  minSet = minSet.subtract(majSet);
 
   mins = minSet.toList();
   std::sort(mins.begin(), mins.end(), std::less<qreal>());
 
-  mids = midSet.toList();
-  std::sort(mids.begin(), mids.end(), std::less<qreal>());
-
   // set tick series
   setMinorTicks(mins);
-  setMidTicks(mids);
   setMajorTicks(majors);
 }
 

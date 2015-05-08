@@ -59,19 +59,6 @@ void QniteTicker::setMinorTicks(const QList<qreal>& ticks)
   }
 }
 
-QList<qreal> QniteTicker::midTicks() const
-{
-  return m_midTicks;
-}
-
-void QniteTicker::setMidTicks(const QList<qreal>& ticks)
-{
-  if (m_midTicks != ticks) {
-    m_midTicks = ticks;
-    emit midTicksChanged();
-  }
-}
-
 QList<qreal> QniteTicker::majorTicks() const
 {
   return m_majorTicks;
@@ -125,7 +112,6 @@ void QniteTicker::reset()
   m_numSteps = DEFAULT_NUM_STEPS;
   m_values.clear();
   m_minorTicks.clear();
-  m_midTicks.clear();
   m_majorTicks.clear();
 }
 
