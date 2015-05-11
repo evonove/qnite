@@ -85,8 +85,6 @@ private slots:
     ticker.reset();
 
     QSignalSpy spy1(&ticker, SIGNAL(minorTicksChanged()));
-    QSignalSpy spy2(&ticker, SIGNAL(midTicksChanged()));
-    QSignalSpy spy3(&ticker, SIGNAL(midTicksChanged()));
 
     ticker.setMinorTicks(alist);
     ticker.setMinorTicks(alist); // ensure the signal isn't emitted twice
@@ -96,8 +94,6 @@ private slots:
     QCOMPARE(ticker.minorTicks(), alist);
     QCOMPARE(ticker.majorTicks(), anotherlistagain);
     QCOMPARE(spy1.count(), 1);
-    QCOMPARE(spy2.count(), 1);
-    QCOMPARE(spy3.count(), 1);
   }
 
   void testReset()
