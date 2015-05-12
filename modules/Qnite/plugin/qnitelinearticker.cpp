@@ -6,7 +6,6 @@
 // defines
 #define DEFAULT_NUM_STEPS 10
 #define DEFAULT_LOOSENESS true
-#define UPSCALE_FACTOR 10.
 
 namespace {
 
@@ -70,17 +69,20 @@ void QniteLinearTicker::buildTicks()
   qreal u = upper();
   qreal l = lower();
   qreal delta = u-l;
-  bool upscale = false;
 
   if (delta <= 0) {
     qWarning() << QString("Illegal values for ticker bounds: %1,%2")
                           .arg(lower()).arg(upper());
     return;
   }
-  else if (delta < 10) {
-    upscale = true;
-    u *= UPSCALE_FACTOR;
-    l *= UPSCALE_FACTOR;
+
+  qreal exp = floor(log10(delta));
+  qreal factor = 0.0;
+
+  if (exp <= 1) {
+    factor = pow(10, abs(exp)+1);
+    u *= factor;
+    l *= factor;
   }
 
   // build major ticks
@@ -98,8 +100,8 @@ void QniteLinearTicker::buildTicks()
   std::sort(mins.begin(), mins.end(), std::less<qreal>());
 
   // perform downscale if needed
-  if (upscale) {
-    auto downScale = [](qreal &n){ n /= UPSCALE_FACTOR; };
+  if (factor != 0.0) {
+    auto downScale = [factor](qreal &n){ n /= factor; };
     std::for_each(mins.begin(), mins.end(), downScale);
     std::for_each(majors.begin(), majors.end(), downScale);
   }
