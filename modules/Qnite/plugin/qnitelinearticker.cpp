@@ -6,7 +6,7 @@
 // defines
 #define DEFAULT_NUM_STEPS 10
 #define DEFAULT_LOOSENESS true
-
+#define UPSCALE_FACTOR 10.
 
 namespace {
 
@@ -54,6 +54,7 @@ namespace {
     }
   }
 
+
 }
 
 
@@ -66,16 +67,25 @@ QniteLinearTicker::QniteLinearTicker(QObject *parent)
 
 void QniteLinearTicker::buildTicks()
 {
-  if (lower() >= upper()) {
+  qreal u = upper();
+  qreal l = lower();
+  qreal delta = u-l;
+  bool upscale = false;
+
+  if (delta <= 0) {
     qWarning() << QString("Illegal values for ticker bounds: %1,%2")
                           .arg(lower()).arg(upper());
     return;
   }
+  else if (delta < 10) {
+    upscale = true;
+    u *= UPSCALE_FACTOR;
+    l *= UPSCALE_FACTOR;
+  }
 
   // build major ticks
   QList<qreal> majors;
-  fill(majors, lower(), upper(), numSteps());
-  setMajorTicks(majors);
+  fill(majors, l, u, numSteps());
 
   // build min ticks
   QList<qreal> mins;
@@ -86,6 +96,13 @@ void QniteLinearTicker::buildTicks()
   // remove duplicates
   mins = mins.toSet().subtract(majors.toSet()).toList();
   std::sort(mins.begin(), mins.end(), std::less<qreal>());
+
+  // perform downscale if needed
+  if (upscale) {
+    auto downScale = [](qreal &n){ n /= UPSCALE_FACTOR; };
+    std::for_each(mins.begin(), mins.end(), downScale);
+    std::for_each(majors.begin(), majors.end(), downScale);
+  }
 
   // set tick series
   setMinorTicks(mins);
