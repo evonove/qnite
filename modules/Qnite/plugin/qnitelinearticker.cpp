@@ -7,7 +7,6 @@
 #define DEFAULT_NUM_STEPS 10
 #define DEFAULT_LOOSENESS true
 
-
 namespace {
 
   double nice(double x, bool round)
@@ -54,6 +53,7 @@ namespace {
     }
   }
 
+
 }
 
 
@@ -66,16 +66,28 @@ QniteLinearTicker::QniteLinearTicker(QObject *parent)
 
 void QniteLinearTicker::buildTicks()
 {
-  if (lower() >= upper()) {
+  qreal u = upper();
+  qreal l = lower();
+  qreal delta = u-l;
+
+  if (delta <= 0) {
     qWarning() << QString("Illegal values for ticker bounds: %1,%2")
                           .arg(lower()).arg(upper());
     return;
   }
 
+  qreal exp = floor(log10(delta));
+  qreal factor = 0.0;
+
+  if (exp <= 1) {
+    factor = pow(10, abs(exp)+1);
+    u *= factor;
+    l *= factor;
+  }
+
   // build major ticks
   QList<qreal> majors;
-  fill(majors, lower(), upper(), numSteps());
-  setMajorTicks(majors);
+  fill(majors, l, u, numSteps());
 
   // build min ticks
   QList<qreal> mins;
@@ -86,6 +98,13 @@ void QniteLinearTicker::buildTicks()
   // remove duplicates
   mins = mins.toSet().subtract(majors.toSet()).toList();
   std::sort(mins.begin(), mins.end(), std::less<qreal>());
+
+  // perform downscale if needed
+  if (factor != 0.0) {
+    auto downScale = [factor](qreal &n){ n /= factor; };
+    std::for_each(mins.begin(), mins.end(), downScale);
+    std::for_each(majors.begin(), majors.end(), downScale);
+  }
 
   // set tick series
   setMinorTicks(mins);
