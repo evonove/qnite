@@ -1,9 +1,9 @@
 #ifndef QNITE_SPLINE_H
 #define QNITE_SPLINE_H
 
-#include "qnitexyartist.h"
+#include "qniteline.h"
 
-class QniteSpline : public QniteXYArtist
+class QniteSpline : public QniteLine
 {
   Q_OBJECT
 public:
@@ -13,8 +13,6 @@ public:
 public Q_SLOTS:
   virtual void processData();
 
-protected:
-  QSGNode* updatePaintNode(QSGNode* node, UpdatePaintNodeData*);
 };
 
 

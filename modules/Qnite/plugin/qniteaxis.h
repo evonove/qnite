@@ -77,6 +77,8 @@ public:
   QList<qreal> majorTicks() const;
   QList<qreal> minorTicks() const;
 
+  qreal position() const;
+
 Q_SIGNALS:
   void flipChanged();
   void sizeChanged();
@@ -95,6 +97,7 @@ private:
   qreal m_lowerBound;
   qreal m_upperBound;
   qreal m_flip;
+  qreal m_position;
 
   QniteAxisTick* m_tick;
   QniteMapper* m_mapper;

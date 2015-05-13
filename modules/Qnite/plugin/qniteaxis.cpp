@@ -76,6 +76,7 @@ QniteAxis::QniteAxis(QQuickItem* parent):
   m_size{0},
   m_lowerBound{0},
   m_upperBound{0},
+  m_position{0},
   m_tick{new QniteAxisTick(this)},
   m_mapper{new QniteLinearMapper(this)},
   m_ticker{new QniteLinearTicker(this)}
@@ -173,6 +174,11 @@ QList<qreal> QniteAxis::minorTicks() const
   return m_minorTicks;
 }
 
+qreal QniteAxis::position() const
+{
+  return m_position;
+}
+
 void QniteAxis::processData()
 {
   // avoid ticker initialization when mapper is invalid
@@ -197,6 +203,10 @@ void QniteAxis::processData()
                                    maj, m_flip);
     m_minorTicks = m_mapper->mapTo(m_lowerBound, m_upperBound, 0, m_size,
                                    min, m_flip);
+
+    // maps the axis position
+    m_position  = m_mapper->mapTo(m_lowerBound, m_upperBound, 0., m_size,
+                                  0., m_flip);
   }
 
   emit majorTicksChanged();

@@ -1,4 +1,7 @@
 #include "qniteline.h"
+#include "qnitefillnode.h"
+#include "qniteaxes.h"
+#include "qniteaxis.h"
 
 #include <QDebug>
 
@@ -8,7 +11,9 @@
 
 
 QniteLine::QniteLine(QQuickItem *parent):
-  QniteXYArtist(parent)
+  QniteXYArtist(parent),
+  m_fillNode{nullptr},
+  m_fill{false}
 {
   setFlag(ItemHasContents, true);
 }
@@ -17,6 +22,21 @@ QniteLine::~QniteLine()
 {
 }
 
+void QniteLine::setFill(bool fill)
+{
+  if (m_fill != fill) {
+    m_fill = fill;
+    emit fillChanged();
+  }
+}
+
+void QniteLine::setFillColor(QColor fillColor)
+{
+  if (m_fillColor != fillColor) {
+    m_fillColor = fillColor;
+    emit fillColorChanged();
+  }
+}
 
 QSGNode* QniteLine::updatePaintNode(QSGNode* oldNode, UpdatePaintNodeData*)
 {
@@ -39,10 +59,21 @@ QSGNode* QniteLine::updatePaintNode(QSGNode* oldNode, UpdatePaintNodeData*)
     material->setColor(color());
     node->setMaterial(material);
     node->setFlag(QSGNode::OwnsMaterial);
+
   } else {
     node = static_cast<QSGGeometryNode *>(oldNode);
     geometry = node->geometry();
     geometry->allocate(dataSize);
+  }
+
+  if (m_fill) {
+    if (m_fillNode == nullptr) {
+      m_fillNode = new QniteFillNode(QColor(m_fillColor));
+      node->appendChildNode(m_fillNode);
+    }
+
+    qreal ya = axes()->leftAxis()->position();
+    m_fillNode->updateGeometry(xMapped(), yMapped(), ya);
   }
 
   QSGGeometry::Point2D *vertices = geometry->vertexDataAsPoint2D();
@@ -51,7 +82,6 @@ QSGNode* QniteLine::updatePaintNode(QSGNode* oldNode, UpdatePaintNodeData*)
   }
 
   node->markDirty(QSGNode::DirtyGeometry | QSGNode::DirtyMaterial);
-
   return node;
 }
 
