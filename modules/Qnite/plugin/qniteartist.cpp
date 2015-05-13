@@ -2,7 +2,8 @@
 
 QniteArtist::QniteArtist(QQuickItem* parent):
   QQuickItem(parent),
-  m_axes{nullptr}
+  m_axes{nullptr},
+  m_selectable{false}
 {
 }
 
@@ -29,3 +30,25 @@ void QniteArtist::updateAxes()
 {
 }
 
+void QniteArtist::setSelectable(bool selectable)
+{
+  if (!selectable && selected()) {
+    clearSelection();
+  }
+
+  m_selectable = selectable;
+  emit selectableChanged();
+}
+
+/*!
+    If the artist is not selectable, completely skip the logic determining
+    the selection state.
+*/
+bool QniteArtist::selected() const
+{
+  if (selectable()) {
+    return isSelected();
+  }
+
+  return false;
+}

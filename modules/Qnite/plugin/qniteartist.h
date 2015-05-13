@@ -6,26 +6,38 @@
 class QniteAxes;
 class QniteArtist: public QQuickItem
 {
-    Q_OBJECT
-    Q_PROPERTY(QniteAxes* axes READ axes NOTIFY axesChanged)
-  public:
-    explicit QniteArtist(QQuickItem* parent = 0);
-    virtual ~QniteArtist();
+  Q_OBJECT
+  Q_PROPERTY(QniteAxes* axes READ axes NOTIFY axesChanged)
+  Q_PROPERTY(bool selectable READ selectable WRITE setSelectable NOTIFY selectableChanged)
+  Q_PROPERTY(bool selected READ selected NOTIFY selectedChanged)
 
-    QniteAxes* axes() const;
-    void setAxes(QniteAxes* axes);
+public:
+  explicit QniteArtist(QQuickItem* parent = 0);
+  virtual ~QniteArtist();
 
-  public Q_SLOTS:
-    virtual void processData() = 0;
+  QniteAxes* axes() const;
+  bool selectable() const { return m_selectable; }
+  bool selected() const;
 
-  Q_SIGNALS:
-    void axesChanged();
+  void setAxes(QniteAxes* axes);
+  void setSelectable(bool selectable);
+  virtual void clearSelection() {}
 
-  protected:
-    virtual void updateAxes();
+public Q_SLOTS:
+  virtual void processData() = 0;
 
-  private:
-    QniteAxes* m_axes;
+Q_SIGNALS:
+  void axesChanged();
+  void selectableChanged();
+  void selectedChanged();
+
+protected:
+  virtual void updateAxes();
+  virtual bool isSelected() const { return false; }
+
+private:
+  QniteAxes* m_axes;
+  bool m_selectable;
 };
 
 #endif // QNITE_ARTIST_H
