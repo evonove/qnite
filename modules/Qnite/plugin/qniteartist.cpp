@@ -46,9 +46,5 @@ void QniteArtist::setSelectable(bool selectable)
 */
 bool QniteArtist::selected() const
 {
-  if (selectable()) {
-    return isSelected();
-  }
-
-  return false;
+  return selectable() && isSelected();
 }
