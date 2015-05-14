@@ -1,7 +1,7 @@
 #include <QtTest/QtTest>
 #include <QDebug>
 
-#include "../../../modules/Qnite/plugin/qnitelinearticker.h"
+#include "qnitelinearticker.h"
 
 class TestQniteLinearTicker: public QObject
 {

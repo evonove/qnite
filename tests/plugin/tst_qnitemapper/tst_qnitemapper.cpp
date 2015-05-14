@@ -1,6 +1,6 @@
 #include <QtTest/QtTest>
 
-#include "../../../modules/Qnite/plugin/qnitemapper.h"
+#include "qnitemapper.h"
 
 
 class FooMapper : public QniteMapper

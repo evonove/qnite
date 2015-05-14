@@ -2,7 +2,7 @@
 #include <QDebug>
 #include <QSignalSpy>
 
-#include "../../../modules/Qnite/plugin/qniteticker.h"
+#include "qniteticker.h"
 
 
 class FooTicker : public QniteTicker

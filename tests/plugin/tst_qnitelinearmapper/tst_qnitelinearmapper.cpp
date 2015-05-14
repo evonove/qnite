@@ -1,6 +1,6 @@
 #include <QtTest/QtTest>
 
-#include "../../../modules/Qnite/plugin/qnitelinearmapper.h"
+#include "qnitelinearmapper.h"
 
 
 class TestQniteLinearMapper: public QObject

@@ -3,7 +3,7 @@
 
 #include <QtTest/QtTest>
 
-#include "../../../modules/Qnite/plugin/qniteclipper.h"
+#include "qniteclipper.h"
 
 
 class TestQniteClipper: public QObject

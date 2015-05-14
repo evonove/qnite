@@ -1,6 +1,7 @@
 #include <QtTest/QtTest>
 
-#include "../../../modules/Qnite/plugin/qniteartist.h"
+
+#include "qniteartist.h"
 
 
 class FooArtist : public QniteArtist
