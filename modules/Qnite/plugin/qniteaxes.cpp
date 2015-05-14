@@ -1,6 +1,7 @@
 #include "qniteaxes.h"
 #include "qniteaxis.h"
 #include "qniteartist.h"
+#include "qnitetool.h"
 
 
 QniteAxes::QniteAxes(QQuickItem* parent) :
@@ -37,6 +38,16 @@ QQmlListProperty<QniteArtist> QniteAxes::artists()
                                        &QniteAxes::at_artists,
                                        &QniteAxes::clear_artists);
 }
+
+QQmlListProperty<QniteTool> QniteAxes::tools()
+{
+  return QQmlListProperty<QniteTool>(this, nullptr,
+                                     &QniteAxes::append_tools,
+                                     &QniteAxes::count_tools,
+                                     &QniteAxes::at_tools,
+                                     &QniteAxes::clear_tools);
+}
+
 
 QList<qreal> QniteAxes::bottomBounds() const
 {
@@ -174,3 +185,40 @@ int QniteAxes::count_artists(QQmlListProperty<QniteArtist>* property)
   return 0;
 }
 
+void QniteAxes::append_tools(QQmlListProperty<QniteTool>* property, QniteTool* value)
+{
+  QniteAxes* axes = qobject_cast<QniteAxes*>(property->object);
+  if (axes != nullptr) {
+    value->setAxes(axes);
+    value->setParentItem(axes->canvas()); // TODO: move down into artist?
+    axes->m_tools.append(value);
+  }
+}
+
+QniteTool* QniteAxes::at_tools(QQmlListProperty<QniteTool>* property, int index)
+{
+  QniteAxes* axes = qobject_cast<QniteAxes*>(property->object);
+  if (axes != nullptr) {
+    return axes->m_tools.at(index);
+  }
+
+  return nullptr;
+}
+
+void QniteAxes::clear_tools(QQmlListProperty<QniteTool>* property)
+{
+  QniteAxes* axes = qobject_cast<QniteAxes*>(property->object);
+  if (axes != nullptr) {
+    axes->m_tools.clear();
+  }
+}
+
+int QniteAxes::count_tools(QQmlListProperty<QniteTool>* property)
+{
+  QniteAxes* axes = qobject_cast<QniteAxes*>(property->object);
+  if (axes != nullptr) {
+    return axes->m_tools.count();
+  }
+
+  return 0;
+}

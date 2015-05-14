@@ -5,6 +5,7 @@
 
 class QniteArtist;
 class QniteAxis;
+class QniteTool;
 class QniteAxes: public QQuickItem
 {
     Q_OBJECT
@@ -13,6 +14,8 @@ class QniteAxes: public QQuickItem
     Q_PROPERTY(QList<qreal> leftBounds READ leftBounds WRITE setLeftBounds NOTIFY leftBoundsChanged)
 
     Q_PROPERTY(QQmlListProperty<QniteArtist> artists READ artists)
+    Q_PROPERTY(QQmlListProperty<QniteTool> tools READ tools)
+
     Q_PROPERTY(QniteAxis* leftAxis READ leftAxis WRITE setLeftAxis NOTIFY leftAxisChanged)
     Q_PROPERTY(QniteAxis* bottomAxis READ bottomAxis WRITE setBottomAxis NOTIFY bottomAxisChanged)
   public:
@@ -21,6 +24,7 @@ class QniteAxes: public QQuickItem
 
     QQuickItem* canvas() const;
     QQmlListProperty<QniteArtist> artists();
+    QQmlListProperty<QniteTool> tools();
 
     QList<qreal> bottomBounds() const;
     void setBottomBounds(const QList<qreal>& bounds);
@@ -48,13 +52,21 @@ class QniteAxes: public QQuickItem
     static void clear_artists(QQmlListProperty<QniteArtist>* property);
     static int count_artists(QQmlListProperty<QniteArtist>* property);
 
+    static void append_tools(QQmlListProperty<QniteTool>* property, QniteTool* value);
+    static QniteTool* at_tools(QQmlListProperty<QniteTool>* property, int index);
+    static void clear_tools(QQmlListProperty<QniteTool>* property);
+    static int count_tools(QQmlListProperty<QniteTool>* property);
+
     qreal m_lowerBottomBound;
     qreal m_upperBottomBound;
     qreal m_lowerLeftBound;
     qreal m_upperLeftBound;
 
     QQuickItem* m_canvas;
+
     QList<QniteArtist*> m_artists;
+    QList<QniteTool*> m_tools;
+
     QniteAxis* m_leftAxis;
     QniteAxis* m_bottomAxis;
 };
