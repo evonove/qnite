@@ -26,10 +26,16 @@ FocusScope {
 
     /*! \qmlproperty Axes Figure::axes
 
-     This object is responsible for the placement of
-     the axes and the alignment with the plot area.
+        This object is responsible for the placement of
+        the axes and the alignment with the plot area.
     */
     property alias axes: __axes
+
+    /*! \qmlproperty list<Tool> Figure::tools
+
+        The list of tools available to this figure.
+    */
+    property alias tools: __axes.tools
 
     default property alias artists: __axes.artists
 
