@@ -32,12 +32,14 @@ void QniteArtist::updateAxes()
 
 void QniteArtist::setSelectable(bool selectable)
 {
-  if (!selectable && selected()) {
-    clearSelection();
-  }
+  if (selectable != m_selectable) {
+    if (!selectable && selected()) {
+      clearSelection();
+    }
 
-  m_selectable = selectable;
-  emit selectableChanged();
+    m_selectable = selectable;
+    emit selectableChanged();
+  }
 }
 
 /*!
