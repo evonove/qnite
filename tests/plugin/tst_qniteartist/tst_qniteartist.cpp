@@ -45,6 +45,17 @@ private slots:
     QCOMPARE(artist.selectable(), false);
     QCOMPARE(artist.sel, false);
   }
+
+  void testSelected()
+  {
+    artist.sel = true;
+
+    artist.setSelectable(true);
+    QCOMPARE(artist.selected(), true);
+
+    artist.setSelectable(false);
+    QCOMPARE(artist.selected(), false);
+  }
 };
 
 QTEST_MAIN(TestQniteArtist)
