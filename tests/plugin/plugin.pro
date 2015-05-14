@@ -6,4 +6,5 @@ SUBDIRS +=\
   tst_qnitelinearmapper \
   tst_qniteclipper \
   tst_qnitetool \
-  tst_qniteaxes
+  tst_qniteaxes \
+  tst_qniteartist
