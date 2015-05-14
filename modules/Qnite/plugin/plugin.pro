@@ -6,6 +6,9 @@ CONFIG += qt plugin c++11
 TARGET = $$qtLibraryTarget($$TARGET)
 uri = Qnite
 
+INCLUDEPATH += \
+    tools
+
 # Input
 SOURCES += \
     plugin.cpp \
@@ -22,7 +25,8 @@ SOURCES += \
     qnitemapper.cpp \
     qnitelinearmapper.cpp \
     qniteticker.cpp \
-    qnitelinearticker.cpp
+    qnitelinearticker.cpp \
+    tools/qnitetool.cpp
 
 HEADERS += \
     plugin.h \
@@ -39,7 +43,8 @@ HEADERS += \
     qnitemapper.h \
     qnitelinearmapper.h \
     qniteticker.h \
-    qnitelinearticker.h
+    qnitelinearticker.h \
+    tools/qnitetool.h
 
 unix {
     installPath = $$[QT_INSTALL_QML]/$$replace(uri, \\., /)
