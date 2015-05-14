@@ -4,4 +4,5 @@ SUBDIRS +=\
   tst_qnitelinearticker \
   tst_qnitemapper \
   tst_qnitelinearmapper \
-  tst_qniteclipper
+  tst_qniteclipper \
+  tst_qnitetool
