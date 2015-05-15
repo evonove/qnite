@@ -26,7 +26,8 @@ SOURCES += \
     qnitelinearmapper.cpp \
     qniteticker.cpp \
     qnitelinearticker.cpp \
-    tools/qnitetool.cpp
+    tools/qnitetool.cpp \
+    tools/qniteselecttool.cpp
 
 HEADERS += \
     plugin.h \
@@ -44,7 +45,8 @@ HEADERS += \
     qnitelinearmapper.h \
     qniteticker.h \
     qnitelinearticker.h \
-    tools/qnitetool.h
+    tools/qnitetool.h \
+    tools/qniteselecttool.h
 
 unix {
     installPath = $$[QT_INSTALL_QML]/$$replace(uri, \\., /)
