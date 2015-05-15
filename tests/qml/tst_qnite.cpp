@@ -1,2 +1,2 @@
 #include <QtQuickTest/quicktest.h>
-QUICK_TEST_MAIN(units)
+QUICK_TEST_MAIN(qnite)
