@@ -30,15 +30,17 @@ ApplicationWindow {
             axes.bottomBounds: [0, 10]
 
             tools: [
-                // TODO: add concrete tools when available
+                SelectTool {
+                    anchors.fill: parent // TODO: remove boilerplate
+                }
             ]
 
             Grid {
-                anchors.fill: parent
+                anchors.fill: parent // TODO: remove boilerplate
             }
             Circle {
                 id: circle
-                anchors.fill: parent
+                anchors.fill: parent // TODO: remove boilerplate
                 radius: 5
                 color: "#aa3f51b5"
             }
