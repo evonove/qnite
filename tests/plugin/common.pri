@@ -5,3 +5,4 @@ LIBS += -L$$OUT_PWD/../../../modules/Qnite/ -lqnite
 DESTDIR = ../bin
 QMAKE_RPATHDIR += $$OUT_PWD/../bin/
 INCLUDEPATH += $$PWD/../../modules/Qnite/plugin/
+CONFIG += c++11

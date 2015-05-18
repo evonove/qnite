@@ -1,3 +1,5 @@
+CONFIG += c++11
+
 android-no-sdk {
     target.path = /data/user/qt
     export(target.path)
