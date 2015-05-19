@@ -1,5 +1,11 @@
 CONFIG += c++11
 
+isEmpty(DESTDIR) {
+    DESTDIR = $$OUT_PWD
+} else {
+    DESTDIR = $$DESTDIR/examples
+}
+
 android-no-sdk {
     target.path = /data/user/qt
     export(target.path)

@@ -1,5 +1,5 @@
 TEMPLATE = lib
-TARGET = ../qnite
+TARGET = qnite
 QT += qml quick
 CONFIG += qt plugin c++11
 
@@ -47,6 +47,12 @@ HEADERS += \
     qnitelinearticker.h \
     tools/qnitetool.h \
     tools/qniteselecttool.h
+
+isEmpty(DESTDIR) {
+    DESTDIR = ..
+} else {
+    DESTDIR = $$DESTDIR/Qnite
+}
 
 unix {
     installPath = $$[QT_INSTALL_QML]/$$replace(uri, \\., /)

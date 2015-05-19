@@ -12,9 +12,15 @@ OTHER_FILES = \
     $$qml_files.files \
     $$qmldir_file.files
 
+isEmpty(DESTDIR) {
+    DESTDIR = $$OUT_PWD
+} else {
+    DESTDIR = $$DESTDIR/Qnite
+}
+
 !equals(_PRO_FILE_PWD_, $$OUT_PWD) {
     copy_modules.target = qnite_copy_module
-    copy_modules.commands = $(COPY_FILE) $$qml_files.files $$qmldir_file.files $$OUT_PWD
+    copy_modules.commands = $(COPY_FILE) $$qml_files.files $$qmldir_file.files $$DESTDIR
     QMAKE_EXTRA_TARGETS += copy_modules
     POST_TARGETDEPS += $$copy_modules.target
 }
