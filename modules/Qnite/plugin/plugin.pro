@@ -27,7 +27,8 @@ SOURCES += \
     qniteticker.cpp \
     qnitelinearticker.cpp \
     tools/qnitetool.cpp \
-    tools/qniteselecttool.cpp
+    tools/qniteselectiontool.cpp \
+    tools/qnitepathselectiontool.cpp
 
 HEADERS += \
     plugin.h \
@@ -46,7 +47,8 @@ HEADERS += \
     qniteticker.h \
     qnitelinearticker.h \
     tools/qnitetool.h \
-    tools/qniteselecttool.h
+    tools/qniteselectiontool.h \
+    tools/qnitepathselectiontool.h
 
 isEmpty(DESTDIR) {
     DESTDIR = ..

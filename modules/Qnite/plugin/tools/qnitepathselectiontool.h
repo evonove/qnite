@@ -1,16 +1,16 @@
 #ifndef QNITE_SELECT_TOOL_H
 #define QNITE_SELECT_TOOL_H
 
-#include "qnitetool.h"
+#include "qniteselectiontool.h"
 
-class QniteSelectTool: public QniteTool
+class QnitePathSelectionTool: public QniteSelectionTool
 {
   Q_OBJECT
   Q_PROPERTY(QVariantList selection READ selection NOTIFY selectionChanged)
 
 public:
-  explicit QniteSelectTool(QQuickItem* parent = 0);
-  virtual ~QniteSelectTool() {}
+  explicit QnitePathSelectionTool(QQuickItem* parent = 0);
+  virtual ~QnitePathSelectionTool() {}
 
   QVariantList selection() const;
 

@@ -12,7 +12,7 @@ Item {
 
         function test_selection() {
             var tmp = Qt.createQmlObject(
-                'import Qnite 1.0; SelectTool {id: selectTool; width: 300; height: 300}',
+                'import Qnite 1.0; PathSelectionTool {id: selectTool; width: 300; height: 300}',
                 container, '');
 
             mousePress(tmp);

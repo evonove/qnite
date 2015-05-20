@@ -1,4 +1,4 @@
-#include "qniteselecttool.h"
+#include "qnitepathselectiontool.h"
 
 #include <QSGGeometryNode>
 #include <QSGGeometry>
@@ -6,14 +6,12 @@
 
 #include <QDebug>
 
-QniteSelectTool::QniteSelectTool(QQuickItem* parent):
-  QniteTool(parent)
+QnitePathSelectionTool::QnitePathSelectionTool(QQuickItem* parent):
+  QniteSelectionTool(parent)
 {
-  setAcceptedMouseButtons(Qt::LeftButton);
-  setFlag(ItemHasContents, true);
 }
 
-QVariantList QniteSelectTool::selection() const
+QVariantList QnitePathSelectionTool::selection() const
 {
   QVariantList values;
   for(auto& p: m_selection)
@@ -21,42 +19,42 @@ QVariantList QniteSelectTool::selection() const
   return values;
 }
 
-void QniteSelectTool::begin(const QPoint &point)
+void QnitePathSelectionTool::begin(const QPoint &point)
 {
   m_selection << point;
   emit selectionChanged();
 }
 
-void QniteSelectTool::append(const QPoint &point)
+void QnitePathSelectionTool::append(const QPoint &point)
 {
   m_selection << point;
   emit selectionChanged();
   update();
 }
 
-void QniteSelectTool::end()
+void QnitePathSelectionTool::end()
 {
   m_selection.clear();
   emit selectionChanged();
   update();
 }
 
-void QniteSelectTool::mousePressEvent(QMouseEvent *event)
+void QnitePathSelectionTool::mousePressEvent(QMouseEvent *event)
 {
   begin(event->pos());
 }
 
-void QniteSelectTool::mouseMoveEvent(QMouseEvent *event)
+void QnitePathSelectionTool::mouseMoveEvent(QMouseEvent *event)
 {
   append(event->pos());
 }
 
-void QniteSelectTool::mouseReleaseEvent(QMouseEvent *)
+void QnitePathSelectionTool::mouseReleaseEvent(QMouseEvent *)
 {
   end();
 }
 
-QSGNode* QniteSelectTool::updatePaintNode(QSGNode *oldNode, UpdatePaintNodeData *)
+QSGNode* QnitePathSelectionTool::updatePaintNode(QSGNode *oldNode, UpdatePaintNodeData *)
 {
   auto node = static_cast<QSGGeometryNode*>(oldNode);
   QSGGeometry* geometry;
