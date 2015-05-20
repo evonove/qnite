@@ -29,7 +29,7 @@ ApplicationWindow {
 
             Spline {
                 id: spline
-
+                selectable: true
                 xValues: [-4.8, -2, .5, 2, 3, 4,  8, 10]
                 yValues: [   3,  1, -2, 6, 3, 4, 10, 4]
                 anchors.fill: parent
