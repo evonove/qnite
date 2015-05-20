@@ -1,4 +1,5 @@
 #include "qnitepathselectiontool.h"
+#include "qniteartist.h"
 
 #include <QSGGeometryNode>
 #include <QSGGeometry>
@@ -22,20 +23,23 @@ QVariantList QnitePathSelectionTool::selectionPath() const
 void QnitePathSelectionTool::begin(const QPoint &point)
 {
   m_selection << point;
-  emit selectionChanged();
+  select();
+  emit selectionPathChanged();
 }
 
 void QnitePathSelectionTool::append(const QPoint &point)
 {
   m_selection << point;
-  emit selectionChanged();
+  select();
+  emit selectionPathChanged();
   update();
 }
 
 void QnitePathSelectionTool::end()
 {
   m_selection.clear();
-  emit selectionChanged();
+  select();
+  emit selectionPathChanged();
   update();
 }
 
@@ -84,4 +88,9 @@ QSGNode* QnitePathSelectionTool::updatePaintNode(QSGNode *oldNode, UpdatePaintNo
   node->markDirty(QSGNode::DirtyGeometry | QSGNode::DirtyMaterial);
 
   return node;
+}
+
+bool QnitePathSelectionTool::doSelect(QniteArtist * artist)
+{
+  return artist->select(m_selection);
 }

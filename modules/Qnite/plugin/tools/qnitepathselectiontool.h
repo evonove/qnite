@@ -3,6 +3,7 @@
 
 #include "qniteselectiontool.h"
 
+class QniteArtist;
 class QnitePathSelectionTool: public QniteSelectionTool
 {
   Q_OBJECT
@@ -25,6 +26,7 @@ protected:
   virtual void mousePressEvent(QMouseEvent *event);
   virtual void mouseMoveEvent(QMouseEvent *event);
   virtual void mouseReleaseEvent(QMouseEvent *event);
+  virtual bool doSelect(QniteArtist*);
 
   QSGNode *updatePaintNode(QSGNode *, UpdatePaintNodeData *);
 
