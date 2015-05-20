@@ -1,5 +1,6 @@
 #include "tools/qniteselectiontool.h"
 #include "qniteaxes.h"
+#include "qniteartist.h"
 
 QniteSelectionTool::QniteSelectionTool(QQuickItem* parent):
   QniteTool(parent)
