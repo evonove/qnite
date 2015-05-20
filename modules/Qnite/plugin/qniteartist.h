@@ -19,8 +19,8 @@ public:
   QniteAxes* axes() const;
   bool selectable() const { return m_selectable; }
   bool selected() const;
-  virtual bool select(QPointF);
-  virtual bool select(const QList<QPointF>&);
+  virtual bool select(QPoint);
+  virtual bool select(const QList<QPoint>&);
   bool propagateSelection() const { return m_propagate_selection; }
 
   void setAxes(QniteAxes* axes);

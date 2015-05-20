@@ -57,7 +57,7 @@ bool QniteArtist::selected() const
     the selection event should be accepted or not. If a selection event
     is accepted, it should not be propagated to other artists.
 */
-bool QniteArtist::select(const QList<QPointF>&)
+bool QniteArtist::select(const QList<QPoint>&)
 {
   return !m_propagate_selection;
 }
@@ -67,9 +67,9 @@ bool QniteArtist::select(const QList<QPointF>&)
 
     Provided to conveniently select single points
 */
-bool QniteArtist::select(QPointF p)
+bool QniteArtist::select(QPoint p)
 {
-  return select(QList<QPointF>{p});
+  return select(QList<QPoint>{p});
 }
 
 void QniteArtist::setPropagateSelection(bool propagate)

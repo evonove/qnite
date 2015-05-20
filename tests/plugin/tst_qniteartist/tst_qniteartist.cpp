@@ -61,12 +61,12 @@ private slots:
   void testPropagateSelection()
   {
     QCOMPARE(artist.propagateSelection(), false);
-    QCOMPARE(artist.select(QPointF()), true); // accepted
+    QCOMPARE(artist.select(QPoint()), true); // accepted
 
     artist.setPropagateSelection(true);
 
     QCOMPARE(artist.propagateSelection(), true);
-    QCOMPARE(artist.select(QPointF()), false); // rejected
+    QCOMPARE(artist.select(QPoint()), false); // rejected
   }
 };
 
