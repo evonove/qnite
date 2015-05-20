@@ -4,6 +4,7 @@
 #include <QQuickItem>
 
 class QniteAxes;
+class QniteArtist;
 class QniteTool: public QQuickItem
 {
   Q_OBJECT
@@ -17,6 +18,9 @@ public:
 
 Q_SIGNALS:
   void axesChanged();
+
+protected:
+  QList<QniteArtist*> artists();
 
 private:
   QniteAxes* m_axes;
