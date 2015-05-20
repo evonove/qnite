@@ -6,20 +6,20 @@
 class QnitePathSelectionTool: public QniteSelectionTool
 {
   Q_OBJECT
-  Q_PROPERTY(QVariantList selection READ selection NOTIFY selectionChanged)
+  Q_PROPERTY(QVariantList selectionPath READ selectionPath NOTIFY selectionPathChanged)
 
 public:
   explicit QnitePathSelectionTool(QQuickItem* parent = 0);
   virtual ~QnitePathSelectionTool() {}
 
-  QVariantList selection() const;
+  QVariantList selectionPath() const;
 
   virtual void begin(const QPoint &point);
   virtual void append(const QPoint &point);
   virtual void end();
 
 Q_SIGNALS:
-  void selectionChanged();
+  void selectionPathChanged();
 
 protected:
   virtual void mousePressEvent(QMouseEvent *event);

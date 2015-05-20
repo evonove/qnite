@@ -11,7 +11,7 @@ QnitePathSelectionTool::QnitePathSelectionTool(QQuickItem* parent):
 {
 }
 
-QVariantList QnitePathSelectionTool::selection() const
+QVariantList QnitePathSelectionTool::selectionPath() const
 {
   QVariantList values;
   for(auto& p: m_selection)
