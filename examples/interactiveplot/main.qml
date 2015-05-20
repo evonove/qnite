@@ -14,23 +14,8 @@ ApplicationWindow {
             id: figure
             anchors.fill: parent
 
-            Component.onCompleted: {
-                var n = 100;
-                var xx = [];
-                var yy = [];
-                for (var i = 0; i < n; ++i) {
-                    xx.push(Math.random() * 10);
-                    yy.push(Math.random() * 10);
-                }
-                circle.xValues = xx;
-                circle.yValues = yy;
-            }
-
-            axes.leftBounds: [0, 10]
-            axes.bottomBounds: [0, 10]
-
             tools: [
-                SelectTool {
+                PathSelectionTool {
                     anchors.fill: parent // TODO: remove boilerplate
                 }
             ]
@@ -38,11 +23,24 @@ ApplicationWindow {
             Grid {
                 anchors.fill: parent // TODO: remove boilerplate
             }
+
+            axes.leftBounds: [-2, 10.8]
+            axes.bottomBounds: [-5, 10]
+
+            Spline {
+                id: spline
+
+                xValues: [-4.8, -2, .5, 2, 3, 4,  8, 10]
+                yValues: [   3,  1, -2, 6, 3, 4, 10, 4]
+                anchors.fill: parent
+                color: "#345f6b"
+            }
+
             Circle {
-                id: circle
-                anchors.fill: parent // TODO: remove boilerplate
-                radius: 5
-                color: "#aa3f51b5"
+                xValues: spline.xValues
+                yValues: spline.yValues
+                anchors.fill: parent
+                color: "#3f51b5"
             }
         }
     }
