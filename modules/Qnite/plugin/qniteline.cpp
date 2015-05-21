@@ -109,9 +109,7 @@ bool QniteLine::select(QPoint p)
     if (d.manhattanLength() < 10) {
       m_selected = true;
       accepted = true;
-
-      // TODO alter the children stack to put current line ontop of other artists
-
+      axes()->setOnTop(this);
       update();
       break;
     }
