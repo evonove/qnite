@@ -36,13 +36,6 @@ ApplicationWindow {
                 color: "#345f6b"
             }
 
-            Circle {
-                xValues: spline.xValues
-                yValues: spline.yValues
-                anchors.fill: parent
-                color: "#3f51b5"
-            }
-
             Spline {
                 id: spline2
                 selectable: true
@@ -50,13 +43,6 @@ ApplicationWindow {
                 yValues: [   4,  2, -1, 7, 4, 5, 11, 5]
                 anchors.fill: parent
                 color: "#b01327"
-            }
-
-            Circle {
-                xValues: spline2.xValues
-                yValues: spline2.yValues
-                anchors.fill: parent
-                color: "#df4359"
             }
         }
     }
