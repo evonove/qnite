@@ -23,8 +23,10 @@ QVariantList QnitePathSelectionTool::selectionPath() const
 void QnitePathSelectionTool::begin(const QPoint &point)
 {
   m_selection << point;
+  clearSelection();  // TODO: this is a "select exclusive" behaviour, should not be hardcoded
   select();
   emit selectionPathChanged();
+  update();
 }
 
 void QnitePathSelectionTool::append(const QPoint &point)
@@ -38,7 +40,6 @@ void QnitePathSelectionTool::append(const QPoint &point)
 void QnitePathSelectionTool::end()
 {
   m_selection.clear();
-  select();
   emit selectionPathChanged();
   update();
 }

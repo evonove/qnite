@@ -29,7 +29,7 @@ void QniteSelectionTool::select()
 void QniteSelectionTool::clearSelection()
 {
   for (auto artist : artists()) {
-    if (!artist->selectable()) {
+    if (artist->selectable()) {
       artist->clearSelection();
     }
   }
