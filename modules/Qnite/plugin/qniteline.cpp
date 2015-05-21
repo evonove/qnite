@@ -51,7 +51,7 @@ QSGNode* QniteLine::updatePaintNode(QSGNode* oldNode, UpdatePaintNodeData*)
   // TODO: handle selection highlight in a proper way
   QSGFlatColorMaterial * material = new QSGFlatColorMaterial;
   if (selected()) {
-    material->setColor(color().lighter());
+    material->setColor(color().lighter(200));
   }
   else {
     material->setColor(color());
@@ -119,5 +119,5 @@ bool QniteLine::select(const QList<QPoint>& path)
   }
 
   update();
-  return true;
+  return m_selected;
 }
