@@ -99,7 +99,7 @@ QSGNode* QniteLine::updatePaintNode(QSGNode* oldNode, UpdatePaintNodeData*)
  */
 bool QniteLine::select(QPoint p)
 {
-  m_selected = false;
+  bool accepted = false;
 
   // get the distance from the first point on the path
   int dataSize = xMapped().size();
@@ -108,20 +108,29 @@ bool QniteLine::select(QPoint p)
     QPoint d = p - cp;
     if (d.manhattanLength() < 10) {
       m_selected = true;
+      accepted = true;
+
+      // TODO alter the children stack to put current line ontop of other artists
+
+      update();
       break;
     }
   }
 
-  update();
-  return m_selected;
+  return accepted;
 }
 
 bool QniteLine::select(const QList<QPoint>& path)
 {
-  // TODO: check why we get an empty path here
-  if (!path.size()) {
-    return false;
+  if (path.size()) {
+    return select(path.first());
   }
 
-  return select(path.first());
+  return false;
+}
+
+void QniteLine::clearSelection()
+{
+  m_selected = false;
+  update();
 }

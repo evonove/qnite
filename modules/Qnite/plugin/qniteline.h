@@ -21,6 +21,7 @@ public:
   void setFillColor(QColor fillColor);
   bool select(const QList<QPoint>&);
   bool select(const QPoint);
+  void clearSelection();
 
 Q_SIGNALS:
   void fillChanged();
