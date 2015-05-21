@@ -9,11 +9,19 @@ QniteSelectionTool::QniteSelectionTool(QQuickItem* parent):
   setFlag(ItemHasContents, true);
 }
 
+/*!
+  Iterate through artists present in current axes, skip if not selectable,
+  perform selection and break iteration if some artist accepts the selection
+  event.
+ */
 void QniteSelectionTool::select()
 {
   for (auto artist : artists()) {
-    if (artist->selectable()) {
-      doSelect(artist);
+    if (!artist->selectable()) {
+      continue;
+    }
+    else if (doSelect(artist)) {
+      break;
     }
   }
 }
