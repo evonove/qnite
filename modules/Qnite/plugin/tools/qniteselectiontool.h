@@ -14,6 +14,7 @@ public:
 
 protected:
   void select();
+  void clearSelection();
   virtual bool doSelect(QniteArtist*) = 0;
 };
 
