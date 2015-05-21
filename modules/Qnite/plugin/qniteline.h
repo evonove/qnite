@@ -19,6 +19,7 @@ public:
   void setFill(bool fill);
   QColor fillColor() const { return m_fillColor; }
   void setFillColor(QColor fillColor);
+  bool select(const QList<QPoint>&);
 
 Q_SIGNALS:
   void fillChanged();

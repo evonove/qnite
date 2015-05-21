@@ -48,6 +48,15 @@ QSGNode* QniteLine::updatePaintNode(QSGNode* oldNode, UpdatePaintNodeData*)
   processData();
   int dataSize = xMapped().size();
 
+  // TODO: handle selection highlight in a proper way
+  QSGFlatColorMaterial * material = new QSGFlatColorMaterial;
+  if (selected()) {
+    material->setColor(color().lighter());
+  }
+  else {
+    material->setColor(color());
+  }
+
   if (!oldNode) {
     node = new QSGGeometryNode;
     geometry = new QSGGeometry(QSGGeometry::defaultAttributes_Point2D(), dataSize);
@@ -55,17 +64,13 @@ QSGNode* QniteLine::updatePaintNode(QSGNode* oldNode, UpdatePaintNodeData*)
     geometry->setDrawingMode(GL_LINE_STRIP);
     node->setGeometry(geometry);
     node->setFlag(QSGNode::OwnsGeometry);
-
-    QSGFlatColorMaterial *material = new QSGFlatColorMaterial;
-    material->setColor(color());
-    node->setMaterial(material);
     node->setFlag(QSGNode::OwnsMaterial);
-
   } else {
     node = static_cast<QSGGeometryNode *>(oldNode);
     geometry = node->geometry();
     geometry->allocate(dataSize);
   }
+  node->setMaterial(material);
 
   if (m_fill) {
     if (m_fillNode == nullptr) {
@@ -86,3 +91,33 @@ QSGNode* QniteLine::updatePaintNode(QSGNode* oldNode, UpdatePaintNodeData*)
   return node;
 }
 
+/*!
+  Temporary implementation of the selection logic for lines.
+
+  TODO: fix the implementation
+  TODO: can we assume data is alwayws already mapped at this point?
+ */
+bool QniteLine::select(const QList<QPoint>& path)
+{
+  // TODO: check why we get an empty path here
+  if (!path.size()) {
+    return false;
+  }
+
+  m_selected = false;
+
+  // get the distance from the first point on the path
+  QPoint p = path.first();
+  int dataSize = xMapped().size();
+  for(int i = 0; i < dataSize; ++i) {
+    QPoint cp(xMapped().at(i), yMapped().at(i));
+    QPoint d = p - cp;
+    if (d.manhattanLength() < 10) {
+      m_selected = true;
+      break;
+    }
+  }
+
+  update();
+  return true;
+}
