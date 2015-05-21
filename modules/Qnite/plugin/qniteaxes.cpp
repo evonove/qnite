@@ -222,3 +222,15 @@ int QniteAxes::count_tools(QQmlListProperty<QniteTool>* property)
 
   return 0;
 }
+
+void QniteAxes::setOnTop(QniteArtist * artist)
+{
+  if (m_artists.contains(artist)) {
+    // move the artist down the list
+    m_artists.removeAll(artist);
+    m_artists.append(artist);
+    // handle visual parenting, move the artist down the children list
+    artist->setParentItem(nullptr);
+    artist->setParentItem(canvas());
+  }
+}

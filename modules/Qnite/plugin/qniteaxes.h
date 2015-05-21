@@ -29,6 +29,8 @@ public:
   QQmlListProperty<QniteArtist> artists();
   QQmlListProperty<QniteTool> tools();
 
+  void setOnTop(QniteArtist*);
+
   QList<qreal> bottomBounds() const;
   void setBottomBounds(const QList<qreal>& bounds);
   QList<qreal> leftBounds() const;
