@@ -13,7 +13,8 @@
 QniteLine::QniteLine(QQuickItem *parent):
   QniteXYArtist(parent),
   m_fillNode{nullptr},
-  m_fill{false}
+  m_fill{false},
+  m_selected{false}
 {
   setFlag(ItemHasContents, true);
 }

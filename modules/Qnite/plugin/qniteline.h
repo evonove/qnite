@@ -26,11 +26,13 @@ Q_SIGNALS:
 
 protected:
   QSGNode* updatePaintNode(QSGNode* node, UpdatePaintNodeData*);
+  virtual bool isSelected() const { return m_selected; }
 
 private:
   QniteFillNode* m_fillNode;
   QColor m_fillColor;
   bool m_fill;
+  bool m_selected;
 };
 
 
