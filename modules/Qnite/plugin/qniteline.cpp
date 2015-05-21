@@ -97,17 +97,11 @@ QSGNode* QniteLine::updatePaintNode(QSGNode* oldNode, UpdatePaintNodeData*)
   TODO: fix the implementation
   TODO: can we assume data is alwayws already mapped at this point?
  */
-bool QniteLine::select(const QList<QPoint>& path)
+bool QniteLine::select(QPoint p)
 {
-  // TODO: check why we get an empty path here
-  if (!path.size()) {
-    return false;
-  }
-
   m_selected = false;
 
   // get the distance from the first point on the path
-  QPoint p = path.first();
   int dataSize = xMapped().size();
   for(int i = 0; i < dataSize; ++i) {
     QPoint cp(xMapped().at(i), yMapped().at(i));
@@ -120,4 +114,14 @@ bool QniteLine::select(const QList<QPoint>& path)
 
   update();
   return m_selected;
+}
+
+bool QniteLine::select(const QList<QPoint>& path)
+{
+  // TODO: check why we get an empty path here
+  if (!path.size()) {
+    return false;
+  }
+
+  return select(path.first());
 }
