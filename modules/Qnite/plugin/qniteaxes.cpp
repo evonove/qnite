@@ -226,10 +226,12 @@ int QniteAxes::count_tools(QQmlListProperty<QniteTool>* property)
 void QniteAxes::setOnTop(QniteArtist * artist)
 {
   if (m_artists.contains(artist)) {
-    // move the artist down the list
+    // move the artist down the list so that order in m_artists reflects the
+    // order in canvas child list
     m_artists.removeAll(artist);
     m_artists.append(artist);
     // handle visual parenting, move the artist down the children list
+    // so that it'll be drawn ontop of others
     artist->setParentItem(nullptr);
     artist->setParentItem(canvas());
   }
