@@ -34,6 +34,8 @@ ApplicationWindow {
                 yValues: [   3,  1, -2, 6, 3, 4, 10, 4]
                 anchors.fill: parent
                 color: "#345f6b"
+                fill: true
+                fillColor: color
             }
 
             Spline {
@@ -43,6 +45,8 @@ ApplicationWindow {
                 yValues: [   4,  2, -1, 7, 4, 5, 11, 5]
                 anchors.fill: parent
                 color: "#b01327"
+                fill: true
+                fillColor: color
             }
         }
     }
