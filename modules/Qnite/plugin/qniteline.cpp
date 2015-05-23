@@ -51,14 +51,9 @@ QSGNode* QniteLine::updatePaintNode(QSGNode* oldNode, UpdatePaintNodeData*)
   processData();
   int dataSize = xMapped().size();
 
-  // TODO: handle selection highlight in a proper way
   QSGFlatColorMaterial * material = new QSGFlatColorMaterial;
-  if (selected()) {
-    material->setColor(color().lighter(200));
-  }
-  else {
-    material->setColor(color());
-  }
+  QColor c = selected() ? selectionColor() : color();
+  material->setColor(c);
 
   if (!oldNode) {
     node = new QSGGeometryNode;
