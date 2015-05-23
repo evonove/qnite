@@ -76,7 +76,8 @@ QSGNode* QniteLine::updatePaintNode(QSGNode* oldNode, UpdatePaintNodeData*)
   node->setMaterial(material);
 
   if (m_fill) {
-    if (m_fillNode == nullptr) {
+    // handle dirty state caused by visual reparenting
+    if ((m_fillNode==nullptr) || (node->childCount() == 0)) {
       m_fillNode = new QniteFillNode(QColor(m_fillColor));
       node->appendChildNode(m_fillNode);
     }
