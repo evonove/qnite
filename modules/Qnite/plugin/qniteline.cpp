@@ -10,6 +10,9 @@
 #include <QSGFlatColorMaterial>
 
 
+#define SELECTION_TOLERANCE 25
+
+
 QniteLine::QniteLine(QQuickItem *parent):
   QniteXYArtist(parent),
   m_fillNode{nullptr},
@@ -106,7 +109,7 @@ bool QniteLine::select(QPoint p)
   for(int i = 0; i < dataSize; ++i) {
     QPoint cp(xMapped().at(i), yMapped().at(i));
     QPoint d = p - cp;
-    if (d.manhattanLength() < 10) {
+    if (d.manhattanLength() < SELECTION_TOLERANCE) {
       m_selected = true;
       accepted = true;
       axes()->setOnTop(this);
