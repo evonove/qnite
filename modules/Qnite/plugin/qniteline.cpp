@@ -111,6 +111,7 @@ bool QniteLine::select(QPoint p)
       m_selected = true;
       accepted = true;
       axes()->setOnTop(this);
+      emit selectedChanged();
       update();
       break;
     }
@@ -131,5 +132,6 @@ bool QniteLine::select(const QList<QPoint>& path)
 void QniteLine::clearSelection()
 {
   m_selected = false;
+  emit selectedChanged();
   update();
 }
