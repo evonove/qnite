@@ -40,6 +40,7 @@ void QniteXYArtist::setXValues(const QList<qreal>& values)
     m_xValues = values;
     // TODO: transform the values here and cache
     emit xValuesChanged();
+    update();
   }
 }
 
@@ -54,6 +55,7 @@ void QniteXYArtist::setYValues(const QList<qreal>& values)
     m_yValues = values;
     // TODO: transform the values here and cache
     emit yValuesChanged();
+    update();
   }
 }
 
