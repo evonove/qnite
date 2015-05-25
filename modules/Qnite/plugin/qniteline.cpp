@@ -10,7 +10,7 @@
 #include <QSGFlatColorMaterial>
 
 
-#define SELECTION_TOLERANCE 25
+#define SELECTION_TOLERANCE 50
 
 
 QniteLine::QniteLine(QQuickItem *parent):
