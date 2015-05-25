@@ -21,8 +21,12 @@ QniteAxes::QniteAxes(QQuickItem* parent) :
   connect(this, &QQuickItem::heightChanged, [=](){ this->m_canvas->setHeight(height()); });
 }
 
-QniteAxes::~QniteAxes()
+void QniteAxes::appendArtist(QniteArtist* artist)
 {
+  if (artist != nullptr) {
+    auto a = this->artists();
+    a.append(&a, artist);
+  }
 }
 
 QQuickItem* QniteAxes::canvas() const

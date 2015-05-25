@@ -20,7 +20,9 @@ class QniteAxes: public QQuickItem
     Q_PROPERTY(QniteAxis* bottomAxis READ bottomAxis WRITE setBottomAxis NOTIFY bottomAxisChanged)
   public:
     explicit QniteAxes(QQuickItem* parent = 0);
-    virtual ~QniteAxes();
+    virtual ~QniteAxes() {}
+
+    Q_INVOKABLE void appendArtist(QniteArtist* artist);
 
     QQuickItem* canvas() const;
     QQmlListProperty<QniteArtist> artists();
