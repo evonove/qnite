@@ -38,11 +38,7 @@ void QniteTicker::setValues(const QList<qreal>& values)
 
     // compute min and max bounds
     std::sort(m_values.begin(), m_values.end(), std::less<qreal>());
-    m_lowerBound = m_values.first();
-    m_upperBound = m_values.last();
-
-    // build ticks
-    doBuildTicks();
+    setBoundaries(m_values.first(), m_values.last());
   }
 }
 
