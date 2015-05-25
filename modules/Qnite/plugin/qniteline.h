@@ -19,6 +19,9 @@ public:
   void setFill(bool fill);
   QColor fillColor() const { return m_fillColor; }
   void setFillColor(QColor fillColor);
+  bool select(const QList<QPoint>&);
+  bool select(const QPoint);
+  void clearSelection();
 
 Q_SIGNALS:
   void fillChanged();
@@ -26,11 +29,13 @@ Q_SIGNALS:
 
 protected:
   QSGNode* updatePaintNode(QSGNode* node, UpdatePaintNodeData*);
+  virtual bool isSelected() const { return m_selected; }
 
 private:
   QniteFillNode* m_fillNode;
   QColor m_fillColor;
   bool m_fill;
+  bool m_selected;
 };
 
 

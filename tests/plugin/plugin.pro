@@ -7,4 +7,5 @@ SUBDIRS +=\
   tst_qniteclipper \
   tst_qnitetool \
   tst_qniteaxes \
-  tst_qniteartist
+  tst_qniteartist \
+  tst_qniteselectiontool

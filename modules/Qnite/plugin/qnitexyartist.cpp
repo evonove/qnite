@@ -29,6 +29,19 @@ void QniteXYArtist::setColor(const QColor& color)
   }
 }
 
+QColor QniteXYArtist::selectionColor() const
+{
+  return m_selectionColor;
+}
+
+void QniteXYArtist::setSelectionColor(const QColor& color)
+{
+  if (color != m_selectionColor) {
+    m_selectionColor = color;
+    emit selectionColorChanged();
+  }
+}
+
 const QList<qreal>& QniteXYArtist::xValues()
 {
   return m_xValues;

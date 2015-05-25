@@ -10,10 +10,14 @@
 #include <QSGFlatColorMaterial>
 
 
+#define SELECTION_TOLERANCE 25
+
+
 QniteLine::QniteLine(QQuickItem *parent):
   QniteXYArtist(parent),
   m_fillNode{nullptr},
-  m_fill{false}
+  m_fill{false},
+  m_selected{false}
 {
   setFlag(ItemHasContents, true);
 }
@@ -49,6 +53,10 @@ QSGNode* QniteLine::updatePaintNode(QSGNode* oldNode, UpdatePaintNodeData*)
   if (dataSize < 1)
     return nullptr;
 
+  QSGFlatColorMaterial * material = new QSGFlatColorMaterial;
+  QColor c = selected() ? selectionColor() : color();
+  material->setColor(c);
+
   if (!oldNode) {
     node = new QSGGeometryNode;
     geometry = new QSGGeometry(QSGGeometry::defaultAttributes_Point2D(), dataSize);
@@ -56,20 +64,17 @@ QSGNode* QniteLine::updatePaintNode(QSGNode* oldNode, UpdatePaintNodeData*)
     geometry->setDrawingMode(GL_LINE_STRIP);
     node->setGeometry(geometry);
     node->setFlag(QSGNode::OwnsGeometry);
-
-    QSGFlatColorMaterial *material = new QSGFlatColorMaterial;
-    material->setColor(color());
-    node->setMaterial(material);
     node->setFlag(QSGNode::OwnsMaterial);
-
   } else {
     node = static_cast<QSGGeometryNode *>(oldNode);
     geometry = node->geometry();
     geometry->allocate(dataSize);
   }
+  node->setMaterial(material);
 
   if (m_fill) {
-    if (m_fillNode == nullptr) {
+    // handle dirty state caused by visual reparenting
+    if ((m_fillNode==nullptr) || (node->childCount() == 0)) {
       m_fillNode = new QniteFillNode(QColor(m_fillColor));
       node->appendChildNode(m_fillNode);
     }
@@ -87,3 +92,44 @@ QSGNode* QniteLine::updatePaintNode(QSGNode* oldNode, UpdatePaintNodeData*)
   return node;
 }
 
+/*!
+  Temporary implementation of the selection logic for lines.
+
+  TODO: fix the implementation
+  TODO: can we assume data is alwayws already mapped at this point?
+ */
+bool QniteLine::select(QPoint p)
+{
+  bool accepted = false;
+
+  // get the distance from the first point on the path
+  int dataSize = xMapped().size();
+  for(int i = 0; i < dataSize; ++i) {
+    QPoint cp(xMapped().at(i), yMapped().at(i));
+    QPoint d = p - cp;
+    if (d.manhattanLength() < SELECTION_TOLERANCE) {
+      m_selected = true;
+      accepted = true;
+      axes()->setOnTop(this);
+      update();
+      break;
+    }
+  }
+
+  return accepted;
+}
+
+bool QniteLine::select(const QList<QPoint>& path)
+{
+  if (path.size()) {
+    return select(path.first());
+  }
+
+  return false;
+}
+
+void QniteLine::clearSelection()
+{
+  m_selected = false;
+  update();
+}

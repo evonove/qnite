@@ -4,10 +4,12 @@
 #include <QQuickItem>
 
 class QniteAxes;
+class QniteArtist;
 class QniteTool: public QQuickItem
 {
   Q_OBJECT
   Q_PROPERTY(QniteAxes* axes READ axes NOTIFY axesChanged) // TODO: axes needs to be a property?
+
 public:
   explicit QniteTool(QQuickItem* parent = 0);
   virtual ~QniteTool() {}
@@ -17,6 +19,9 @@ public:
 
 Q_SIGNALS:
   void axesChanged();
+
+protected:
+  QList<QniteArtist*> artists();
 
 private:
   QniteAxes* m_axes;

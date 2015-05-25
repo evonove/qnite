@@ -1,30 +1,32 @@
 #ifndef QNITE_SELECT_TOOL_H
 #define QNITE_SELECT_TOOL_H
 
-#include "qnitetool.h"
+#include "qniteselectiontool.h"
 
-class QniteSelectTool: public QniteTool
+class QniteArtist;
+class QnitePathSelectionTool: public QniteSelectionTool
 {
   Q_OBJECT
-  Q_PROPERTY(QVariantList selection READ selection NOTIFY selectionChanged)
+  Q_PROPERTY(QVariantList selectionPath READ selectionPath NOTIFY selectionPathChanged)
 
 public:
-  explicit QniteSelectTool(QQuickItem* parent = 0);
-  virtual ~QniteSelectTool() {}
+  explicit QnitePathSelectionTool(QQuickItem* parent = 0);
+  virtual ~QnitePathSelectionTool() {}
 
-  QVariantList selection() const;
+  QVariantList selectionPath() const;
 
   virtual void begin(const QPoint &point);
   virtual void append(const QPoint &point);
   virtual void end();
 
 Q_SIGNALS:
-  void selectionChanged();
+  void selectionPathChanged();
 
 protected:
   virtual void mousePressEvent(QMouseEvent *event);
   virtual void mouseMoveEvent(QMouseEvent *event);
   virtual void mouseReleaseEvent(QMouseEvent *event);
+  virtual bool doSelect(QniteArtist*);
 
   QSGNode *updatePaintNode(QSGNode *, UpdatePaintNodeData *);
 

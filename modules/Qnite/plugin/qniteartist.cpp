@@ -4,7 +4,8 @@
 QniteArtist::QniteArtist(QQuickItem* parent):
   QQuickItem(parent),
   m_axes{nullptr},
-  m_selectable{false}
+  m_selectable{false},
+  m_propagate_selection{false}
 {
 }
 
@@ -62,3 +63,31 @@ bool QniteArtist::selected() const
   return selectable() && isSelected();
 }
 
+/*!
+    Perform a selection operation within the path and return whether
+    the selection event should be accepted or not. If a selection event
+    is accepted, it should not be propagated to other artists.
+*/
+bool QniteArtist::select(const QList<QPoint>&)
+{
+  return !m_propagate_selection;
+}
+
+/*!
+    \overload select(const QList<QPointF>&)
+
+    Provided to conveniently select single points
+*/
+bool QniteArtist::select(QPoint p)
+{
+  return select(QList<QPoint>{p});
+}
+
+void QniteArtist::setPropagateSelection(bool propagate)
+{
+  if (m_propagate_selection != propagate) {
+    m_propagate_selection = propagate;
+
+    emit propagateSelectionChanged();
+  }
+}
