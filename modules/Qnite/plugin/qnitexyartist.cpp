@@ -118,6 +118,11 @@ void QniteXYArtist::processData()
   if (xValues().size() != yValues().size())
     qWarning() << "xValues and yValues size for the artists are different";
 
+  if (qMin(xValues().size(), yValues().size()) < 1) {
+    qWarning() << "at least one of x/y series is empty";
+    return;
+  }
+
   // get bounds
   qreal xLower = axes()->bottomAxis()->lowerBound();
   qreal xUpper = axes()->bottomAxis()->upperBound();
@@ -143,8 +148,17 @@ void QniteXYArtist::processData()
 
 void QniteXYArtist::updateAxes()
 {
+  QniteArtist::updateAxes();
+
   QniteAxes* axes = this->axes();
   if (axes != nullptr) {
+    // TODO: find a better way to handle axis bindings
+    if (axes->bottomAxis() != nullptr)
+      this->setXMapper(axes->bottomAxis()->mapper());
+
+    if (axes->leftAxis() != nullptr)
+      this->setYMapper(axes->leftAxis()->mapper());
+
     disconnect(axes, SIGNAL(bottomAxisChanged()), this, 0);
     disconnect(axes, SIGNAL(leftAxisChanged()), this, 0);
 
