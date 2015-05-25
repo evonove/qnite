@@ -46,6 +46,8 @@ QSGNode* QniteLine::updatePaintNode(QSGNode* oldNode, UpdatePaintNodeData*)
   // TODO: processdata should be triggered only when data changes
   processData();
   int dataSize = xMapped().size();
+  if (dataSize < 1)
+    return nullptr;
 
   if (!oldNode) {
     node = new QSGGeometryNode;
