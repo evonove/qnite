@@ -6,19 +6,45 @@ BasicAxis {
 
     property string axisType
 
+    property var major;
+    property var minor;
+
+    onMajorTicksChanged: {
+        var values = [];
+        for(var i = 0; i < majorTicks.length; ++i) {
+            values.push({
+                "value": majorTicks[i],
+                "label": ticker.majorTicks[i]
+            });
+        }
+
+        major = values;
+    }
+
+    onMinorTicksChanged: {
+        var values = [];
+        for(var i = 0; i < minorTicks.length; ++i) {
+            values.push({
+                "value": minorTicks[i],
+            });
+        }
+
+        minor = values;
+    }
+
     Item {
         id: ticksnlabels
         anchors.fill: parent
 
         Repeater {
-            model: axis.majorTicks.length
+            model: axis.major
             Loader {
-                property real val: axis.majorTicks[index]
-                property string label: axis.ticker.majorTicks[index]
+                property real val: modelData.value
+                property string label: modelData.label
                 property real size: tick.majSize
 
                 anchors {
-                    right: axis.axisType === "left" ? parent.right : undefined
+                    right: axis.axisType === "left" ? ticksnlabels.right : undefined
                     rightMargin: axis.axisType === "left" ? tick.thick / 2 : 0
                 }
                 sourceComponent: axis.axisType === "left" ? leftTick : bottomTick
@@ -26,14 +52,14 @@ BasicAxis {
         }
 
         Repeater {
-            model: axis.minorTicks.length
+            model: axis.minor
             Loader {
-                property real val: axis.minorTicks[index]
+                property real val: modelData.value
                 property string label: ""
                 property real size: tick.minSize
 
                 anchors {
-                    right: axis.axisType === "left" ? parent.right : undefined
+                    right: axis.axisType === "left" ? ticksnlabels.right : undefined
                     rightMargin: axis.axisType === "left" ? tick.thick / 2 : 0
                 }
                 sourceComponent: axis.axisType === "left" ? leftTick : bottomTick
