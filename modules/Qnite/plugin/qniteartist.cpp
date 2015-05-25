@@ -1,4 +1,5 @@
 #include "qniteartist.h"
+#include "qniteaxes.h"
 
 QniteArtist::QniteArtist(QQuickItem* parent):
   QQuickItem(parent),
@@ -28,6 +29,16 @@ void QniteArtist::setAxes(QniteAxes* axes)
 
 void QniteArtist::updateAxes()
 {
+  disconnect(m_axes, SIGNAL(widthChanged()), this, 0);
+  disconnect(m_axes, SIGNAL(heightChanged()), this, 0);
+
+  if (m_axes != nullptr) {
+    setWidth(m_axes->width());
+    setHeight(m_axes->height());
+
+    connect(m_axes, &QQuickItem::widthChanged, [=](){ this->setWidth(m_axes->width()); });
+    connect(m_axes, &QQuickItem::heightChanged, [=](){ this->setHeight(m_axes->height()); });
+  }
 }
 
 void QniteArtist::setSelectable(bool selectable)
@@ -50,3 +61,4 @@ bool QniteArtist::selected() const
 {
   return selectable() && isSelected();
 }
+
