@@ -29,12 +29,9 @@ ApplicationWindow {
             axes.leftBounds: [2.5, 5.8]
             axes.bottomBounds: [0, 10]
 
-            Grid {
-                anchors.fill: parent
-            }
+            Grid { }
             Circle {
                 id: circle
-                anchors.fill: parent
                 radius: 5
                 color: "#aa3f51b5"
             }

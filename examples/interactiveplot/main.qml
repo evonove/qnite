@@ -35,12 +35,9 @@ ApplicationWindow {
                 }
             ]
 
-            Grid {
-                anchors.fill: parent // TODO: remove boilerplate
-            }
+            Grid { }
             Circle {
                 id: circle
-                anchors.fill: parent // TODO: remove boilerplate
                 radius: 5
                 color: "#aa3f51b5"
             }

@@ -18,12 +18,10 @@ ApplicationWindow {
             axes.leftBounds: [-2, 10.8]
 
             Grid {
-                anchors.fill: parent
             }
             Line {
                 xValues: [-2, -1, 1, 3, 5, 6, 10]
                 yValues: [-2, 1, 3, 6, 3, 4, 10]
-                anchors.fill: parent
                 fill: true
                 fillColor: "#99e8eaf6"
                 color: "#3f51b5"
@@ -31,7 +29,6 @@ ApplicationWindow {
             Spline {
                 xValues: [-5, -1.5, -0.1, .4, 2.3, 3.4, 5, 6, 9, 10]
                 yValues: [-3, 0, 2, -1.3, .9, -.2, -.6, 4, 5, 9]
-                anchors.fill: parent
                 fill: true
                 fillColor: "#99ec407a"
                 color: "#3f51b5"

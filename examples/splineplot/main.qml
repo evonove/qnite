@@ -17,19 +17,15 @@ ApplicationWindow {
             axes.leftBounds: [-2, 10.8]
             axes.bottomBounds: [-5, 10]
 
-            Grid {
-                anchors.fill: parent
-            }
+            Grid { }
             Spline {
                 xValues: [-4.8, -2, .5, 2, 3, 4,  8, 10]
                 yValues: [   3,  1, -2, 6, 3, 4, 10, 4]
-                anchors.fill: parent
                 color: "#345f6b"
             }
             Circle {
                 xValues: spline.xValues
                 yValues: spline.yValues
-                anchors.fill: parent
                 color: "#3f51b5"
             }
         }
