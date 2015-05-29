@@ -41,6 +41,5 @@ FocusScope {
 
     Axes {
       id: __axes
-      anchors.fill: parent
     }
 }

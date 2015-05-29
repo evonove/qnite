@@ -11,11 +11,26 @@ import Qnite 1.0
 */
 BasicAxes {
     id: __plotarea
-    anchors.fill: parent
-    anchors.margins: 50
 
     leftAxis: __left
     bottomAxis: __bottom
+
+    TextMetrics {
+        id: __metrics
+        text: "9999"
+    }
+    anchors {
+        top: parent.top
+        bottom: parent.bottom
+        left: parent.left
+        right: parent.right
+
+        topMargin: __metrics.height / 2
+        bottomMargin: __metrics.height + __bottom.tick.majSize + 5
+        leftMargin: __metrics.width + __left.tick.majSize + 5
+        rightMargin: __metrics.width / 2
+    }
+
 
     // TODO: expose as a property so it is customizable
     Rectangle {
@@ -35,7 +50,7 @@ BasicAxes {
     }
     Axis {
         id: __bottom
-        width: __plotarea.width; height: 30
+        width: __plotarea.width
         anchors.top: __plotarea.bottom
         anchors.left: __plotarea.left
         size: __plotarea.width
@@ -59,7 +74,7 @@ BasicAxes {
     }
     Axis {
         id: __left
-        width: 30; height: __plotarea.height
+        height: __plotarea.height
         anchors.bottom: __plotarea.bottom
         anchors.right: __plotarea.left
         axisType: "left"
