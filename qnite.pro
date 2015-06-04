@@ -1,3 +1,12 @@
 TEMPLATE = subdirs
-SUBDIRS = examples modules tests
-tests.depends = modules
+SUBDIRS = modules
+
+!no-examples {
+    SUBDIRS += examples
+    examples.depends = modules
+}
+
+!no-tests {
+    SUBDIRS += tests
+    tests.depends = modules
+}
