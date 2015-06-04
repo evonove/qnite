@@ -1,12 +1,12 @@
 TEMPLATE = subdirs
 SUBDIRS = modules
 
-!no-examples {
+!no-qnite-examples {
     SUBDIRS += examples
     examples.depends = modules
 }
 
-!no-tests {
+!no-qnite-tests {
     SUBDIRS += tests
     tests.depends = modules
 }
