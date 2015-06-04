@@ -20,7 +20,16 @@ isEmpty(DESTDIR) {
 
 !equals(_PRO_FILE_PWD_, $$OUT_PWD) {
     copy_modules.target = qnite_copy_module
-    copy_modules.commands = $(COPY_FILE) $$qml_files.files $$qmldir_file.files $$DESTDIR
+    win32 {
+        copy_modules.commands += \
+            $(COPY_FILE) $$replace(qml_files.files, \/, \\) $$replace(DESTDIR, \/, \\) &
+
+        copy_modules.commands += \
+            $(COPY_FILE) $$replace(qmldir_file.files, \/, \\) $$replace(DESTDIR, \/, \\)
+    } else {
+        copy_modules.target = qnite_copy_module
+        copy_modules.commands = $(COPY_FILE) $$qml_files.files $$qmldir_file.files $$DESTDIR
+    }
     QMAKE_EXTRA_TARGETS += copy_modules
     POST_TARGETDEPS += $$copy_modules.target
 }
