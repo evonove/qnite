@@ -154,77 +154,55 @@ void QniteAxes::initBottomAxis()
 void QniteAxes::append_artists(QQmlListProperty<QniteArtist>* property, QniteArtist* value)
 {
   QniteAxes* axes = qobject_cast<QniteAxes*>(property->object);
-  if (axes != nullptr) {
-    value->setAxes(axes);
-    value->setParentItem(axes->canvas()); // TODO: move down into artist?
-    axes->m_artists.append(value);
-  }
+  value->setAxes(axes);
+  value->setParentItem(axes->canvas()); // TODO: move down into artist?
+  axes->m_artists.append(value);
 }
 
 QniteArtist* QniteAxes::at_artists(QQmlListProperty<QniteArtist>* property, int index)
 {
   QniteAxes* axes = qobject_cast<QniteAxes*>(property->object);
-  if (axes != nullptr) {
-    return axes->m_artists.at(index);
-  }
-
-  return nullptr;
+  return axes->m_artists.at(index);
 }
 
 void QniteAxes::clear_artists(QQmlListProperty<QniteArtist>* property)
 {
   QniteAxes* axes = qobject_cast<QniteAxes*>(property->object);
-  if (axes != nullptr) {
-    axes->m_artists.clear();
-  }
+  while (!axes->m_artists.isEmpty())
+    delete axes->m_artists.takeFirst();
 }
 
 int QniteAxes::count_artists(QQmlListProperty<QniteArtist>* property)
 {
   QniteAxes* axes = qobject_cast<QniteAxes*>(property->object);
-  if (axes != nullptr) {
-    return axes->m_artists.count();
-  }
-
-  return 0;
+  return axes->m_artists.count();
 }
 
 void QniteAxes::append_tools(QQmlListProperty<QniteTool>* property, QniteTool* value)
 {
   QniteAxes* axes = qobject_cast<QniteAxes*>(property->object);
-  if (axes != nullptr) {
-    value->setAxes(axes);
-    value->setParentItem(axes->canvas()); // TODO: move down into artist?
-    axes->m_tools.append(value);
-  }
+  value->setAxes(axes);
+  value->setParentItem(axes->canvas()); // TODO: move down into artist?
+  axes->m_tools.append(value);
 }
 
 QniteTool* QniteAxes::at_tools(QQmlListProperty<QniteTool>* property, int index)
 {
   QniteAxes* axes = qobject_cast<QniteAxes*>(property->object);
-  if (axes != nullptr) {
-    return axes->m_tools.at(index);
-  }
-
-  return nullptr;
+  return axes->m_tools.at(index);
 }
 
 void QniteAxes::clear_tools(QQmlListProperty<QniteTool>* property)
 {
   QniteAxes* axes = qobject_cast<QniteAxes*>(property->object);
-  if (axes != nullptr) {
-    axes->m_tools.clear();
-  }
+  while (!axes->m_tools.isEmpty())
+    delete axes->m_tools.takeFirst();
 }
 
 int QniteAxes::count_tools(QQmlListProperty<QniteTool>* property)
 {
   QniteAxes* axes = qobject_cast<QniteAxes*>(property->object);
-  if (axes != nullptr) {
-    return axes->m_tools.count();
-  }
-
-  return 0;
+  return axes->m_tools.count();
 }
 
 void QniteAxes::setOnTop(QniteArtist * artist)
