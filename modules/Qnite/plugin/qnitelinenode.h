@@ -9,6 +9,7 @@ public:
   QniteLineNode(float size, const QColor &color);
 
   void updateGeometry(const QList<qreal>& xs, const QList<qreal>& ys);
+  void updateMaterial(const QColor& color);
 
 private:
   QSGGeometry m_geometry;

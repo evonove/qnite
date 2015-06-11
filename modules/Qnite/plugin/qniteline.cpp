@@ -75,6 +75,10 @@ QSGNode* QniteLine::updatePaintNode(QSGNode* node, UpdatePaintNodeData*)
   }
 
   m_lineNode->updateGeometry(xMapped(), yMapped());
+  // TODO: update material should only be called when color changes
+  // e.g. when selection occurs. At the moment the guard is inside the updateMaterial
+  // method
+  m_lineNode->updateMaterial(isSelected() ? selectionColor() : color());
 
   return node;
 }

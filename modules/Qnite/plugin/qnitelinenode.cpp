@@ -1,5 +1,6 @@
 #include "qnitelinenode.h"
 
+#include <QDebug>
 #include <QColor>
 #include <QSGFlatColorMaterial>
 
@@ -26,5 +27,15 @@ void QniteLineNode::updateGeometry(const QList<qreal>& xs, const QList<qreal>& y
     v[i].set(xs.at(i), ys.at(i));
 
   markDirty(QSGNode::DirtyGeometry);
+}
+
+void QniteLineNode::updateMaterial(const QColor& color)
+{
+  auto m = static_cast<QSGFlatColorMaterial*>(material());
+  if (m->color() != color) {
+    qDebug() << "line node color has changed";
+    m->setColor(color);
+    markDirty(QSGNode::DirtyMaterial);
+  }
 }
 
