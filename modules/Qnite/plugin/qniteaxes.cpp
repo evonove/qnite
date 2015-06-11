@@ -212,9 +212,11 @@ void QniteAxes::setOnTop(QniteArtist * artist)
     // order in canvas child list
     m_artists.removeAll(artist);
     m_artists.append(artist);
+
     // handle visual parenting, move the artist down the children list
     // so that it'll be drawn ontop of others
-    artist->setParentItem(nullptr);
-    artist->setParentItem(canvas());
+    auto lastItem = canvas()->childItems().last();
+    if (artist != lastItem)
+      artist->stackAfter(lastItem);
   }
 }
