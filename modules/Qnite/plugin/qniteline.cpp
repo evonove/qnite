@@ -16,7 +16,8 @@ QniteLine::QniteLine(QQuickItem *parent):
   m_lineNode{nullptr},
   m_fillNode{nullptr},
   m_fill{false},
-  m_selected{false}
+  m_selected{false},
+  m_lineWidth{2}
 {
   setFlag(ItemHasContents, true);
 }
@@ -41,15 +42,24 @@ void QniteLine::setFillColor(QColor fillColor)
   }
 }
 
+void QniteLine::setLineWidth(qreal lineWidth)
+{
+  if (m_lineWidth != lineWidth) {
+    m_lineWidth = lineWidth;
+    emit lineWidthChanged();
+  }
+}
+
 QSGNode* QniteLine::updatePaintNode(QSGNode* node, UpdatePaintNodeData*)
 {
   // TODO: processdata should be triggered only when data changes
+  // so we can avoid the unecessary updateGeometry
   processData();
 
   if (!node) {
     node = new QSGNode;
 
-    m_lineNode = new QniteLineNode(2, color());
+    m_lineNode = new QniteLineNode(m_lineWidth, color());
     node->appendChildNode(m_lineNode);
 
     if (m_fill) {
