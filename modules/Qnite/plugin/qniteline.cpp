@@ -1,20 +1,19 @@
 #include "qniteline.h"
 #include "qnitefillnode.h"
+#include "qnitelinenode.h"
 #include "qniteaxes.h"
 #include "qniteaxis.h"
 
 #include <QDebug>
 
-#include <QSGGeometry>
-#include <QSGGeometryNode>
-#include <QSGFlatColorMaterial>
-
+#include <QSGNode>
 
 #define SELECTION_TOLERANCE 50
 
 
 QniteLine::QniteLine(QQuickItem *parent):
   QniteXYArtist(parent),
+  m_lineNode{nullptr},
   m_fillNode{nullptr},
   m_fill{false},
   m_selected{false}
@@ -42,53 +41,31 @@ void QniteLine::setFillColor(QColor fillColor)
   }
 }
 
-QSGNode* QniteLine::updatePaintNode(QSGNode* oldNode, UpdatePaintNodeData*)
+QSGNode* QniteLine::updatePaintNode(QSGNode* node, UpdatePaintNodeData*)
 {
-  QSGGeometryNode *node = 0;
-  QSGGeometry *geometry = 0;
-
   // TODO: processdata should be triggered only when data changes
   processData();
-  int dataSize = xMapped().size();
-  if (dataSize < 1)
-    return nullptr;
 
-  QSGFlatColorMaterial * material = new QSGFlatColorMaterial;
-  QColor c = selected() ? selectionColor() : color();
-  material->setColor(c);
+  if (!node) {
+    node = new QSGNode;
 
-  if (!oldNode) {
-    node = new QSGGeometryNode;
-    geometry = new QSGGeometry(QSGGeometry::defaultAttributes_Point2D(), dataSize);
-    geometry->setLineWidth(2);
-    geometry->setDrawingMode(GL_LINE_STRIP);
-    node->setGeometry(geometry);
-    node->setFlag(QSGNode::OwnsGeometry);
-    node->setFlag(QSGNode::OwnsMaterial);
-  } else {
-    node = static_cast<QSGGeometryNode *>(oldNode);
-    geometry = node->geometry();
-    geometry->allocate(dataSize);
-  }
-  node->setMaterial(material);
+    m_lineNode = new QniteLineNode(2, color());
+    node->appendChildNode(m_lineNode);
 
-  if (m_fill) {
-    // handle dirty state caused by visual reparenting
-    if ((m_fillNode==nullptr) || (node->childCount() == 0)) {
+    if (m_fill) {
       m_fillNode = new QniteFillNode(QColor(m_fillColor));
-      node->appendChildNode(m_fillNode);
+      node->prependChildNode(m_fillNode);
     }
+  }
 
+  // add the fill node when required
+  if (m_fill) {
     qreal ya = axes()->leftAxis()->position();
     m_fillNode->updateGeometry(xMapped(), yMapped(), ya);
   }
 
-  QSGGeometry::Point2D *vertices = geometry->vertexDataAsPoint2D();
-  for(int i = 0; i < dataSize; ++i) {
-    vertices[i].set(xMapped().at(i), yMapped().at(i));
-  }
+  m_lineNode->updateGeometry(xMapped(), yMapped());
 
-  node->markDirty(QSGNode::DirtyGeometry | QSGNode::DirtyMaterial);
   return node;
 }
 

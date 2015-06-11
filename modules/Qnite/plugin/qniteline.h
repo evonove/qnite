@@ -5,6 +5,7 @@
 
 #include <QColor>
 
+class QniteLineNode;
 class QniteFillNode;
 class QniteLine : public QniteXYArtist
 {
@@ -32,6 +33,7 @@ protected:
   virtual bool isSelected() const { return m_selected; }
 
 private:
+  QniteLineNode* m_lineNode;
   QniteFillNode* m_fillNode;
   QColor m_fillColor;
   bool m_fill;
