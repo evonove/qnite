@@ -1,12 +1,13 @@
 #include "qniteline.h"
 #include "qnitefillnode.h"
 #include "qnitelinenode.h"
+#include "qnitecirclenode.h"
 #include "qniteaxes.h"
 #include "qniteaxis.h"
 
 #include <QDebug>
-
 #include <QSGNode>
+
 
 #define SELECTION_TOLERANCE 50
 
@@ -15,6 +16,7 @@ QniteLine::QniteLine(QQuickItem *parent):
   QniteXYArtist(parent),
   m_lineNode{nullptr},
   m_fillNode{nullptr},
+  m_circlesNode{nullptr},
   m_fill{false},
   m_selected{false},
   m_lineWidth{2}
@@ -74,6 +76,7 @@ QSGNode* QniteLine::updatePaintNode(QSGNode* node, UpdatePaintNodeData*)
     m_fillNode->updateGeometry(xMapped(), yMapped(), ya);
   }
 
+  updateCircles(node);
   m_lineNode->updateGeometry(xMapped(), yMapped());
   // TODO: update material should only be called when color changes
   // e.g. when selection occurs. At the moment the guard is inside the updateMaterial
@@ -81,6 +84,28 @@ QSGNode* QniteLine::updatePaintNode(QSGNode* node, UpdatePaintNodeData*)
   m_lineNode->updateMaterial(isSelected() ? selectionColor() : color());
 
   return node;
+}
+
+void QniteLine::updateCircles(QSGNode* node)
+{
+  int dataSize = xMapped().size();
+  if (dataSize < 1)
+    return;
+
+  if (m_circlesNode == nullptr) {
+    m_circlesNode = new QSGNode;
+    node->appendChildNode(m_circlesNode);
+  }
+
+  m_circlesNode->removeAllChildNodes();
+  for(int i = 0; i < dataSize; ++i) {
+    qreal cx = xMapped().at(i);
+    qreal cy = yMapped().at(i);
+
+    // TODO: optimal number of segments should be  computed runtime
+    QColor c = isSelected() ? selectionColor() : color();
+    m_circlesNode->appendChildNode(new QniteCircleNode(cx, cy, 5, 32, c));
+  }
 }
 
 /*!

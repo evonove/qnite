@@ -36,11 +36,14 @@ Q_SIGNALS:
 
 protected:
   QSGNode* updatePaintNode(QSGNode* node, UpdatePaintNodeData*);
+  void updateCircles(QSGNode* node);
   virtual bool isSelected() const { return m_selected; }
 
 private:
   QniteLineNode* m_lineNode;
   QniteFillNode* m_fillNode;
+  QSGNode* m_circlesNode;
+
   QColor m_fillColor;
   bool m_fill;
   bool m_selected;
