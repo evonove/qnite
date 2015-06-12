@@ -19,6 +19,9 @@ void QniteFillNode::updateGeometry(const QList<qreal>& xs, const QList<qreal>& y
 {
   qDebug() << "updating fill node geometry";
 
+  if (xs.size() < 1)
+    return;
+
   QList<qreal> xv;
   QList<qreal> yv;
 
