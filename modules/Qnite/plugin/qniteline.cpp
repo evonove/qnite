@@ -73,11 +73,11 @@ QSGNode* QniteLine::updatePaintNode(QSGNode* node, UpdatePaintNodeData*)
   // add the fill node when required
   if (m_fill) {
     qreal ya = axes()->leftAxis()->position();
-    m_fillNode->updateGeometry(xMapped(), yMapped(), ya);
+    m_fillNode->updateGeometry(xProcessed(), yProcessed(), ya);
   }
 
   updateCircles(node);
-  m_lineNode->updateGeometry(xMapped(), yMapped());
+  m_lineNode->updateGeometry(xProcessed(), yProcessed());
   // TODO: update material should only be called when color changes
   // e.g. when selection occurs. At the moment the guard is inside the updateMaterial
   // method

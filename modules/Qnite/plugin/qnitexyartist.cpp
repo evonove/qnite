@@ -127,6 +127,16 @@ const QList<qreal>& QniteXYArtist::yMapped() const
   return m_yMapped;
 }
 
+const QList<qreal>& QniteXYArtist::xProcessed() const
+{
+  return m_xProcessed;
+}
+
+const QList<qreal>& QniteXYArtist::yProcessed() const
+{
+  return m_yProcessed;
+}
+
 void QniteXYArtist::processData()
 {
   qDebug() << "processing data";
@@ -159,6 +169,11 @@ void QniteXYArtist::processData()
   // map to display
   m_xMapped = xMapper()->mapTo(xLower, xUpper, 0, width(), xClipped);
   m_yMapped = yMapper()->mapTo(yLower, yUpper, 0, height(), yClipped, true);
+
+  // TODO: this is ugly and inefficient. move into a pipelino or something similar
+  // move to the output area
+  m_xProcessed = m_xMapped;
+  m_yProcessed = m_yMapped;
 }
 
 void QniteXYArtist::updateAxes()

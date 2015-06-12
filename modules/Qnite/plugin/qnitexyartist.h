@@ -37,6 +37,9 @@ public:
   const QList<qreal>& xMapped() const;
   const QList<qreal>& yMapped() const;
 
+  const QList<qreal>& xProcessed() const;
+  const QList<qreal>& yProcessed() const;
+
 public Q_SLOTS:
   virtual void processData();
 
@@ -51,6 +54,9 @@ protected:
 
   QList<qreal> m_xMapped;
   QList<qreal> m_yMapped;
+
+  QList<qreal> m_xProcessed;
+  QList<qreal> m_yProcessed;
 
 private:
   QColor m_color;

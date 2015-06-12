@@ -65,7 +65,7 @@ void QniteSpline::processData()
   qDebug() << "input size" << xv.size();
   qDebug() << "output size" << xs.size();
 
-  m_xMapped = xs;
-  m_yMapped = ys;
+  m_xProcessed = xs;
+  m_yProcessed = ys;
 }
 
