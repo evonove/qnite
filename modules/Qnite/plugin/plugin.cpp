@@ -12,6 +12,7 @@
 #include "qniteticker.h"
 #include "qnitelinearticker.h"
 #include "qnitetool.h"
+#include "qnitepointselectiontool.h"
 #include "qnitepathselectiontool.h"
 
 #include <QtQml>
@@ -29,6 +30,7 @@ void QnitePlugin::registerTypes(const char *uri)
   qmlRegisterType<QniteSpline>(uri, 1, 0, "Spline");
 
   qmlRegisterUncreatableType<QniteTool>(uri, 1, 0, "Tool", "Cannot create objects of basetype Tool");
+  qmlRegisterType<QnitePointSelectionTool>(uri, 1, 0, "PointSelectionTool");
   qmlRegisterType<QnitePathSelectionTool>(uri, 1, 0, "PathSelectionTool");
 
   qmlRegisterUncreatableType<QniteMapper>(uri, 1, 0, "Mapper", "Cannot create objects of basetype Mapper");

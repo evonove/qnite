@@ -211,6 +211,12 @@ void QniteAxes::setOnTop(QniteArtist * artist)
     return;
 
   if (m_artists.contains(artist)) {
+    // the item is moved at the end of the list. This is NEEDED so that
+    // items in the back that may be hidden are processed before the items
+    // in foreground, allowing their selection.
+    m_artists.removeAll(artist);
+    m_artists.append(artist);
+
     // handle visual parenting, move the artist down the children list
     // so that it'll be drawn ontop of others
     auto lastItem = canvas()->childItems().last();

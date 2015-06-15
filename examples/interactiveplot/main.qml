@@ -15,7 +15,7 @@ ApplicationWindow {
             anchors.fill: parent
 
             tools: [
-                PathSelectionTool {
+                PointSelectionTool {
                     anchors.fill: parent // TODO: remove boilerplate
                 }
             ]

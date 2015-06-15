@@ -29,6 +29,7 @@ SOURCES += \
     qnitelinearticker.cpp \
     tools/qnitetool.cpp \
     tools/qniteselectiontool.cpp \
+    tools/qnitepointselectiontool.cpp \
     tools/qnitepathselectiontool.cpp
 
 HEADERS += \
@@ -50,6 +51,7 @@ HEADERS += \
     qnitelinearticker.h \
     tools/qnitetool.h \
     tools/qniteselectiontool.h \
+    tools/qnitepointselectiontool.h \
     tools/qnitepathselectiontool.h
 
 isEmpty(DESTDIR) {
