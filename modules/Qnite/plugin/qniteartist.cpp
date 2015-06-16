@@ -37,8 +37,8 @@ void QniteArtist::updateAxes()
     setWidth(m_axes->width());
     setHeight(m_axes->height());
 
-    connect(m_axes, &QQuickItem::widthChanged, [=](){ this->setWidth(m_axes->width()); });
-    connect(m_axes, &QQuickItem::heightChanged, [=](){ this->setHeight(m_axes->height()); });
+    connect(m_axes, &QQuickItem::widthChanged, this, [=](){ this->setWidth(m_axes->width()); });
+    connect(m_axes, &QQuickItem::heightChanged, this, [=](){ this->setHeight(m_axes->height()); });
   }
 }
 
