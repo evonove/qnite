@@ -5,4 +5,4 @@ SUBDIRS += \
   splineplot \
   filledcurves \
   interactiveplot \
-  barblot
+  barplot

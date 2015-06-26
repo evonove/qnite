@@ -14,8 +14,14 @@ ApplicationWindow {
             id: figure
             anchors.fill: parent
 
-            axes.bottomBounds: [0, 10]
+            axes.bottomBounds: [-2, 10]
             axes.leftBounds: [-10, 10]
+
+            tools: [
+                PointSelectionTool {
+                    anchors.fill: parent // TODO: remove boilerplate
+                }
+            ]
 
             Grid {
             }
@@ -24,6 +30,8 @@ ApplicationWindow {
                 yValues: [-9, -6, -5, -1, 2, 5, 4, 3, 7, 8.4]
 
                 color: "red"
+                selectionColor: "green"
+                selectable: true
             }
         }
     }
