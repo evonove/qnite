@@ -4,6 +4,7 @@
 #include "qnitexyartist.h"
 #include "qniteaxis.h"
 #include "qniteaxes.h"
+#include "qnitebar.h"
 #include "qnitecircle.h"
 #include "qniteline.h"
 #include "qnitespline.h"
@@ -25,6 +26,7 @@ void QnitePlugin::registerTypes(const char *uri)
   qmlRegisterType<QniteAxes>(uri, 1, 0, "BasicAxes");
   qmlRegisterType<QniteAxis>(uri, 1, 0, "BasicAxis");
   qmlRegisterType<QniteAxisTick>(uri, 1, 0, "AxisTick");
+  qmlRegisterType<QniteBar>(uri, 1, 0, "Bar");
   qmlRegisterType<QniteCircle>(uri, 1, 0, "Circle");
   qmlRegisterType<QniteLine>(uri, 1, 0, "Line");
   qmlRegisterType<QniteSpline>(uri, 1, 0, "Spline");

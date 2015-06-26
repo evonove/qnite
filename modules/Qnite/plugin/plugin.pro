@@ -16,6 +16,8 @@ SOURCES += \
     qnitexyartist.cpp \
     qniteaxis.cpp \
     qniteaxes.cpp \
+    qnitebar.cpp \
+    qnitebarnode.cpp \
     qnitecircle.cpp \
     qnitecirclenode.cpp \
     qnitefillnode.cpp \
@@ -38,6 +40,8 @@ HEADERS += \
     qnitexyartist.h \
     qniteaxis.h \
     qniteaxes.h \
+    qnitebar.h \
+    qnitebarnode.h \
     qnitecircle.h \
     qnitecirclenode.h \
     qnitefillnode.h \

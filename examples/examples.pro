@@ -1,2 +1,8 @@
 TEMPLATE = subdirs
-SUBDIRS += lineplot scatterplot splineplot filledcurves interactiveplot
+SUBDIRS += \
+  lineplot \
+  scatterplot \
+  splineplot \
+  filledcurves \
+  interactiveplot \
+  barblot
