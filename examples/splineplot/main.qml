@@ -24,6 +24,9 @@ ApplicationWindow {
                 xValues: [-4.8, -2, .5, 2, 3, 4,  8, 10]
                 yValues: [   3,  1, -2, 6, 3, 4, 10, 4]
                 color: "#345f6b"
+
+                tension: tensionSlider.value
+                bias: biasSlider.value
             }
         }
 
@@ -43,28 +46,57 @@ ApplicationWindow {
                 opacity: 0.8
             }
 
-            RowLayout {
+            ColumnLayout {
                 id: __layout
                 anchors {
                     centerIn: parent
                 }
 
-                ExclusiveGroup { id: tabPositionGroup }
-                RadioButton {
-                    text: "Cubic"
-                    checked: true
-                    exclusiveGroup: tabPositionGroup
-                    onClicked: spline.interpolation = Spline.Cubic
+                RowLayout {
+                    ExclusiveGroup { id: tabPositionGroup }
+                    RadioButton {
+                        text: "Cubic"
+                        checked: true
+                        exclusiveGroup: tabPositionGroup
+                        onClicked: spline.interpolation = Spline.Cubic
+                    }
+                    RadioButton {
+                        text: "CatmullRom"
+                        exclusiveGroup: tabPositionGroup
+                        onClicked: spline.interpolation = Spline.CatmullRom
+                    }
+                    RadioButton {
+                        text: "Hermite"
+                        exclusiveGroup: tabPositionGroup
+                        onClicked: spline.interpolation = Spline.Hermite
+                    }
+                    RadioButton {
+                        text: "Cosine"
+                        exclusiveGroup: tabPositionGroup
+                        onClicked: spline.interpolation = Spline.Cosine
+                    }
                 }
-                RadioButton {
-                    text: "CatmullRom"
-                    exclusiveGroup: tabPositionGroup
-                    onClicked: spline.interpolation = Spline.CatmullRom
+
+                Row {
+                    Slider {
+                        id: tensionSlider
+                        minimumValue: -10
+                        maximumValue: 10
+                    }
+                    Label {
+                        text: tensionSlider.value
+                    }
                 }
-                RadioButton {
-                    text: "Cosine"
-                    exclusiveGroup: tabPositionGroup
-                    onClicked: spline.interpolation = Spline.Cosine
+
+                Row {
+                    Slider {
+                        id: biasSlider
+                        minimumValue: -10
+                        maximumValue: 10
+                    }
+                    Label {
+                        text: biasSlider.value
+                    }
                 }
             }
         }

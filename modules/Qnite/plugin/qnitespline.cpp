@@ -54,11 +54,37 @@ double CatmullRomInterpolate(
    return(a0*mu*mu2+a1*mu2+a2*mu+a3);
 }
 
+double HermiteInterpolate(
+   double y0,double y1,
+   double y2,double y3,
+   double mu,
+   double tension = 0,
+   double bias = 0)
+{
+   double m0,m1,mu2,mu3;
+   double a0,a1,a2,a3;
+
+   mu2 = mu * mu;
+   mu3 = mu2 * mu;
+   m0  = (y1-y0)*(1+bias)*(1-tension)/2;
+   m0 += (y2-y1)*(1-bias)*(1-tension)/2;
+   m1  = (y2-y1)*(1+bias)*(1-tension)/2;
+   m1 += (y3-y2)*(1-bias)*(1-tension)/2;
+   a0 =  2*mu3 - 3*mu2 + 1;
+   a1 =    mu3 - 2*mu2 + mu;
+   a2 =    mu3 -   mu2;
+   a3 = -2*mu3 + 3*mu2;
+
+   return(a0*y1+a1*m0+a2*m1+a3*y2);
+}
+
 }
 
 QniteSpline::QniteSpline(QQuickItem *parent):
   QniteLine(parent),
-  m_interpolation{Interpolation::Cubic}
+  m_interpolation{Interpolation::Cubic},
+  m_tension{0},
+  m_bias{0}
 {
 }
 
@@ -75,6 +101,24 @@ void QniteSpline::setInterpolation(Interpolation i)
   }
 }
 
+void QniteSpline::setTension(qreal t)
+{
+  if (m_tension != t) {
+    m_tension = t;
+    emit tensionChanged();
+    update();
+  }
+}
+
+void QniteSpline::setBias(qreal b)
+{
+  if (m_bias != b) {
+    m_bias = b;
+    emit biasChanged();
+    update();
+  }
+}
+
 void QniteSpline::processData()
 {
   QniteXYArtist::processData();
@@ -85,6 +129,7 @@ void QniteSpline::processData()
       break;
     case Interpolation::Cubic:
     case Interpolation::CatmullRom:
+    case Interpolation::Hermite:
       cubicInterpolation();
       break;
   }
@@ -154,7 +199,9 @@ void QniteSpline::cubicInterpolation()
       qreal s = step * j;
       qreal x = xv.at(i) + (xv.at(i+1) - xv.at(i)) * s;
       qreal y;
-      if (m_interpolation == Interpolation::Cubic) {
+      if (m_interpolation == Interpolation::Hermite) {
+        y = HermiteInterpolate(yv.at(i-1), yv.at(i), yv.at(i+1), yv.at(i+2), s, m_tension, m_bias);
+      } else if (m_interpolation == Interpolation::Cubic) {
         y = CubicInterpolate(yv.at(i-1), yv.at(i), yv.at(i+1), yv.at(i+2), s);
       } else {
         y = CatmullRomInterpolate(yv.at(i-1), yv.at(i), yv.at(i+1), yv.at(i+2), s);
