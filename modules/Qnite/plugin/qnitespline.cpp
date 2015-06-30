@@ -38,6 +38,22 @@ double CubicInterpolate(
    return(a0*mu*mu2+a1*mu2+a2*mu+a3);
 }
 
+double CatmullRomInterpolate(
+   double y0,double y1,
+   double y2,double y3,
+   double mu)
+{
+   double a0,a1,a2,a3,mu2;
+
+   mu2 = mu*mu;
+   a0 = -0.5*y0 + 1.5*y1 - 1.5*y2 + 0.5*y3;
+   a1 = y0 - 2.5*y1 + 2*y2 - 0.5*y3;
+   a2 = -0.5*y0 + 0.5*y2;
+   a3 = y1;
+
+   return(a0*mu*mu2+a1*mu2+a2*mu+a3);
+}
+
 }
 
 QniteSpline::QniteSpline(QQuickItem *parent):
@@ -68,6 +84,7 @@ void QniteSpline::processData()
       cosineInterpolation();
       break;
     case Interpolation::Cubic:
+    case Interpolation::CatmullRom:
       cubicInterpolation();
       break;
   }
@@ -136,7 +153,12 @@ void QniteSpline::cubicInterpolation()
     for (int j = 0; j <= steps; ++j) {
       qreal s = step * j;
       qreal x = xv.at(i) + (xv.at(i+1) - xv.at(i)) * s;
-      qreal y = CubicInterpolate(yv.at(i-1), yv.at(i), yv.at(i+1), yv.at(i+2), s);
+      qreal y;
+      if (m_interpolation == Interpolation::Cubic) {
+        y = CubicInterpolate(yv.at(i-1), yv.at(i), yv.at(i+1), yv.at(i+2), s);
+      } else {
+        y = CatmullRomInterpolate(yv.at(i-1), yv.at(i), yv.at(i+1), yv.at(i+2), s);
+      }
 
       xs.push_back(x);
       ys.push_back(y);

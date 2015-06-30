@@ -15,7 +15,8 @@ public:
 
   enum Interpolation {
     Cosine,
-    Cubic
+    Cubic,
+    CatmullRom
   };
   Interpolation interpolation() const { return m_interpolation; }
   void setInterpolation(Interpolation i);

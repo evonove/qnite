@@ -57,6 +57,11 @@ ApplicationWindow {
                     onClicked: spline.interpolation = Spline.Cubic
                 }
                 RadioButton {
+                    text: "CatmullRom"
+                    exclusiveGroup: tabPositionGroup
+                    onClicked: spline.interpolation = Spline.CatmullRom
+                }
+                RadioButton {
                     text: "Cosine"
                     exclusiveGroup: tabPositionGroup
                     onClicked: spline.interpolation = Spline.Cosine
