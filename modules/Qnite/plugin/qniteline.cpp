@@ -54,6 +54,10 @@ void QniteLine::setLineWidth(qreal lineWidth)
 
 QSGNode* QniteLine::updatePaintNode(QSGNode* node, UpdatePaintNodeData*)
 {
+  // to draw a line we should have at least two points
+  if (xValues().size() < 2)
+    return nullptr;
+
   // TODO: processdata should be triggered only when data changes
   // so we can avoid the unecessary updateGeometry
   processData();
