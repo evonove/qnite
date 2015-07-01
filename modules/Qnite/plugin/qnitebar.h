@@ -7,6 +7,7 @@
 class QniteBar : public QniteXYArtist
 {
   Q_OBJECT
+  Q_PROPERTY(int selectedIndex READ selectedIndex)
 
 public:
   explicit QniteBar(QQuickItem *parent = 0);
@@ -15,6 +16,8 @@ public:
   bool select(QPoint);
   bool select(const QList<QPoint>&);
   void clearSelection();
+
+  int selectedIndex() const { return m_selectedIndex; }
 
 protected:
   virtual bool isSelected() const;
