@@ -14,12 +14,12 @@ ApplicationWindow {
             id: figure
             anchors.fill: parent
 
-            axes.leftBounds: [-0.1, 0.65]
-            axes.bottomBounds: [0, 0.125]
+            axes.leftBounds: [-0.2, 0.65]
+            axes.bottomBounds: [0.0001, 0.0006]
 
             Grid { }
             Line {
-                xValues: [0, 0.01, 0.03, 0.05, 0.06, 0.12]
+                xValues: [0.0001, 0.00013, 0.0003, 0.0004, 0.00052]
                 yValues: [0, 0.3, 0.6, 0.3, 0.4, 0.6]
                 color: "#3f51b5"
             }

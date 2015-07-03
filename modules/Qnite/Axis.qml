@@ -14,7 +14,7 @@ BasicAxis {
         for(var i = 0; i < majorTicks.length; ++i) {
             values.push({
                 "value": majorTicks[i],
-                "label": ticker.majorTicks[i]
+                "label": (ticker.majorTicks[i]).toString()
             });
         }
 
