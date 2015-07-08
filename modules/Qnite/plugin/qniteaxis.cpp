@@ -76,6 +76,7 @@ QniteAxis::QniteAxis(QQuickItem* parent):
   m_size{0},
   m_lowerBound{0},
   m_upperBound{0},
+  m_flip{false},
   m_position{0},
   m_tick{new QniteAxisTick(this)},
   m_mapper{new QniteLinearMapper(this)},

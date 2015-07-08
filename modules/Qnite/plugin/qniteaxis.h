@@ -96,7 +96,7 @@ private:
   qreal m_size;
   qreal m_lowerBound;
   qreal m_upperBound;
-  qreal m_flip;
+  bool m_flip;
   qreal m_position;
 
   QniteAxisTick* m_tick;
