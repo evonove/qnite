@@ -1,5 +1,6 @@
 #include "qnitelinearticker.h"
 
+#include <cmath>
 #include <algorithm>
 #include <QDebug>
 
@@ -15,8 +16,8 @@ namespace {
     double f;
     double nicef;
 
-    exp = floor(log10(x));
-    f = x / pow(10., exp);
+    exp = std::floor(std::log10(x));
+    f = x / std::pow(10., exp);
 
     if (round) {
       if (f<1.5) nicef=1.;
@@ -31,23 +32,23 @@ namespace {
       else nicef=10.;
     }
 
-    return nicef*pow(10., exp);
+    return nicef*std::pow(10., exp);
   }
 
   void fill(QList<qreal>& ticks, qreal min, qreal max, int steps)
   {
     double range = nice(max-min, false);
     double d = nice(range/(steps-1), true);
-    double graph_min = floor(min/d) * d;  // loose version of the algo
-    double graph_max = ceil(max/d) * d;  // loose version of the algo
+    double graph_min = std::floor(min/d) * d;  // loose version of the algo
+    double graph_max = std::ceil(max/d) * d;  // loose version of the algo
     // nFrac is the number of decimal numbers it'd be nice to show
-    double nFrac = std::max(-floor(log10(d)), 0.);
+    double nFrac = std::max(-std::floor(std::log10(d)), 0.);
     // we use it to better approximate values
-    double precision = pow(10, nFrac);
+    double precision = std::pow(10, nFrac);
 
     for (double x=graph_min; x<=graph_max + .5*d; x+=d) {
       // round to the "precision" decimal place
-      double val = round(x*precision);
+      double val = std::round(x*precision);
       ticks.append(val/precision);
       //ticks.append(x);
     }
@@ -76,11 +77,11 @@ void QniteLinearTicker::buildTicks()
     return;
   }
 
-  qreal exp = floor(log10(delta));
+  qreal exp = std::floor(std::log10(delta));
   qreal factor = 0.0;
 
   if (exp <= 1) {
-    factor = pow(10, abs(exp)+1);
+    factor = std::pow(10, std::abs(exp)+1);
     u *= factor;
     l *= factor;
   }
@@ -92,7 +93,7 @@ void QniteLinearTicker::buildTicks()
   // build min ticks
   QList<qreal> mins;
   for (int i=0; i<majors.size()-1; i++) {
-    fill(mins, majors[i], majors[i+1], ceil(numSteps()/2.));
+    fill(mins, majors[i], majors[i+1], std::ceil(numSteps()/2.));
   }
 
   // remove duplicates
