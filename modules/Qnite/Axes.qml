@@ -12,8 +12,8 @@ import Qnite 1.0
 BasicAxes {
     id: __plotarea
 
-    leftAxis: __left
-    bottomAxis: __bottom
+    axisY: __left
+    axisX: __bottom
 
     TextMetrics {
         id: __metrics

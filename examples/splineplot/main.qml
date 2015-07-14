@@ -15,8 +15,8 @@ ApplicationWindow {
             id: figure
             anchors.fill: parent
 
-            axes.leftBounds: [-2, 10.8]
-            axes.bottomBounds: [-5, 10]
+            axes.yBounds: [-2, 10.8]
+            axes.xBounds: [-5, 10]
 
             Grid { }
             Spline {

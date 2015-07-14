@@ -14,8 +14,8 @@ ApplicationWindow {
             id: figure
             anchors.fill: parent
 
-            axes.bottomBounds: [-2, 10]
-            axes.leftBounds: [-10, 10]
+            axes.xBounds: [-2, 10]
+            axes.yBounds: [-10, 10]
 
             tools: [
                 PointSelectionTool {

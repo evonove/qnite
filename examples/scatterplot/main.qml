@@ -26,8 +26,8 @@ ApplicationWindow {
                 circle.yValues = yy;
             }
 
-            axes.leftBounds: [2.5, 5.8]
-            axes.bottomBounds: [0, 10]
+            axes.yBounds: [2.5, 5.8]
+            axes.xBounds: [0, 10]
 
             Grid { }
             Circle {

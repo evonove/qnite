@@ -149,10 +149,10 @@ void QniteXYArtist::processData()
   }
 
   // get bounds
-  qreal xLower = axes()->bottomAxis()->lowerBound();
-  qreal xUpper = axes()->bottomAxis()->upperBound();
-  qreal yLower = axes()->leftAxis()->lowerBound();
-  qreal yUpper = axes()->leftAxis()->upperBound();
+  qreal xLower = axes()->axisX()->lowerBound();
+  qreal xUpper = axes()->axisX()->upperBound();
+  qreal yLower = axes()->axisY()->lowerBound();
+  qreal yUpper = axes()->axisY()->upperBound();
 
   // TODO: this should be improved. clipping should be done only when bounds changes
   // and tranforsm should always be performed
@@ -183,16 +183,16 @@ void QniteXYArtist::updateAxes()
   QniteAxes* axes = this->axes();
   if (axes != nullptr) {
     // TODO: find a better way to handle axis bindings
-    if (axes->bottomAxis() != nullptr)
-      this->setXMapper(axes->bottomAxis()->mapper());
+    if (axes->axisX() != nullptr)
+      this->setXMapper(axes->axisX()->mapper());
 
-    if (axes->leftAxis() != nullptr)
-      this->setYMapper(axes->leftAxis()->mapper());
+    if (axes->axisY() != nullptr)
+      this->setYMapper(axes->axisY()->mapper());
 
-    disconnect(axes, SIGNAL(bottomAxisChanged()), this, 0);
-    disconnect(axes, SIGNAL(leftAxisChanged()), this, 0);
+    disconnect(axes, SIGNAL(axisXChanged()), this, 0);
+    disconnect(axes, SIGNAL(axisYChanged()), this, 0);
 
-    connect(axes, &QniteAxes::bottomAxisChanged, this, [=](){ this->setXMapper(axes->bottomAxis()->mapper()); });
-    connect(axes, &QniteAxes::leftAxisChanged, this, [=](){ this->setYMapper(axes->leftAxis()->mapper()); });
+    connect(axes, &QniteAxes::axisXChanged, this, [=](){ this->setXMapper(axes->axisX()->mapper()); });
+    connect(axes, &QniteAxes::axisYChanged, this, [=](){ this->setYMapper(axes->axisY()->mapper()); });
   }
 }

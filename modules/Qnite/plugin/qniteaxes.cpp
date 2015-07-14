@@ -6,13 +6,13 @@
 
 QniteAxes::QniteAxes(QQuickItem* parent) :
   QQuickItem(parent),
-  m_lowerBottomBound{0},
-  m_upperBottomBound{0},
-  m_lowerLeftBound{0},
-  m_upperLeftBound{0},
+  m_lowerXBound{0},
+  m_upperXBound{0},
+  m_lowerYBound{0},
+  m_upperYBound{0},
   m_canvas{new QQuickItem},
-  m_leftAxis{nullptr},
-  m_bottomAxis{nullptr}
+  m_axisX{nullptr},
+  m_axisY{nullptr}
 {
   m_canvas->setParentItem(this);
   m_canvas->setClip(true);
@@ -53,12 +53,12 @@ QQmlListProperty<QniteTool> QniteAxes::tools()
 }
 
 
-QList<qreal> QniteAxes::bottomBounds() const
+QList<qreal> QniteAxes::xBounds() const
 {
-  return {m_lowerBottomBound, m_upperBottomBound};
+  return {m_lowerXBound, m_upperXBound};
 }
 
-void QniteAxes::setBottomBounds(const QList<qreal>& bounds)
+void QniteAxes::setXBounds(const QList<qreal>& bounds)
 {
   if (bounds.size() != 2) {
     qWarning() << "bottom bounds should only contain two values";
@@ -68,21 +68,21 @@ void QniteAxes::setBottomBounds(const QList<qreal>& bounds)
   auto lowerBound = bounds.at(0);
   auto upperBound = bounds.at(1);
 
-  if (lowerBound != m_lowerBottomBound || upperBound != m_upperBottomBound) {
-    m_lowerBottomBound = lowerBound;
-    m_upperBottomBound = upperBound;
-    emit bottomBoundsChanged();
+  if (lowerBound != m_lowerXBound || upperBound != m_upperXBound) {
+    m_lowerXBound = lowerBound;
+    m_upperXBound = upperBound;
+    emit xBoundsChanged();
 
-    initBottomAxis();
+    initAxisX();
   }
 }
 
-QList<qreal> QniteAxes::leftBounds() const
+QList<qreal> QniteAxes::yBounds() const
 {
-  return {m_lowerLeftBound, m_upperLeftBound};
+  return {m_lowerYBound, m_upperYBound};
 }
 
-void QniteAxes::setLeftBounds(const QList<qreal>& bounds)
+void QniteAxes::setYBounds(const QList<qreal>& bounds)
 {
   if (bounds.size() != 2) {
     qWarning() << "left bounds should only contain two values";
@@ -92,63 +92,63 @@ void QniteAxes::setLeftBounds(const QList<qreal>& bounds)
   auto lowerBound = bounds.at(0);
   auto upperBound = bounds.at(1);
 
-  if (lowerBound != m_lowerLeftBound || upperBound != m_upperLeftBound) {
-    m_lowerLeftBound = lowerBound;
-    m_upperLeftBound = upperBound;
-    emit leftBoundsChanged();
+  if (lowerBound != m_lowerYBound || upperBound != m_upperYBound) {
+    m_lowerYBound = lowerBound;
+    m_upperYBound = upperBound;
+    emit yBoundsChanged();
 
-    initLeftAxis();
+    initAxisY();
   }
 }
 
-QniteAxis* QniteAxes::leftAxis() const
+QniteAxis* QniteAxes::axisY() const
 {
-  return m_leftAxis;
+  return m_axisY;
 }
 
-void QniteAxes::setLeftAxis(QniteAxis* leftAxis)
+void QniteAxes::setAxisY(QniteAxis* axisY)
 {
-  if (m_leftAxis != leftAxis) {
-    m_leftAxis = leftAxis;
-    m_leftAxis->setParentItem(this);
-    emit leftAxisChanged();
+  if (m_axisY != axisY) {
+    m_axisY = axisY;
+    m_axisY->setParentItem(this);
+    emit axisYChanged();
 
-    initLeftAxis();
+    initAxisY();
   }
 }
 
-QniteAxis* QniteAxes::bottomAxis() const
+QniteAxis* QniteAxes::axisX() const
 {
-  return m_bottomAxis;
+  return m_axisX;
 }
 
-void QniteAxes::setBottomAxis(QniteAxis* bottomAxis)
+void QniteAxes::setAxisX(QniteAxis* axisX)
 {
-  if (m_bottomAxis != bottomAxis) {
-    m_bottomAxis = bottomAxis;
-    m_bottomAxis->setParentItem(this);
-    emit bottomAxisChanged();
+  if (m_axisX != axisX) {
+    m_axisX = axisX;
+    m_axisX->setParentItem(this);
+    emit axisXChanged();
 
-    initBottomAxis();
+    initAxisX();
   }
 }
 
-void QniteAxes::initLeftAxis()
+void QniteAxes::initAxisY()
 {
-  if (m_leftAxis == nullptr)
+  if (m_axisY == nullptr)
     return;
 
-  m_leftAxis->setLowerBound(m_lowerLeftBound);
-  m_leftAxis->setUpperBound(m_upperLeftBound);
+  m_axisY->setLowerBound(m_lowerYBound);
+  m_axisY->setUpperBound(m_upperYBound);
 }
 
-void QniteAxes::initBottomAxis()
+void QniteAxes::initAxisX()
 {
-  if (m_bottomAxis == nullptr)
+  if (m_axisX == nullptr)
     return;
 
-  m_bottomAxis->setLowerBound(m_lowerBottomBound);
-  m_bottomAxis->setUpperBound(m_upperBottomBound);
+  m_axisX->setLowerBound(m_lowerXBound);
+  m_axisX->setUpperBound(m_upperXBound);
 }
 
 void QniteAxes::append_artists(QQmlListProperty<QniteArtist>* property, QniteArtist* value)

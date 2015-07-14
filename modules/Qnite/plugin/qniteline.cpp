@@ -76,7 +76,7 @@ QSGNode* QniteLine::updatePaintNode(QSGNode* node, UpdatePaintNodeData*)
 
   // add the fill node when required
   if (m_fill) {
-    qreal ya = axes()->leftAxis()->position();
+    qreal ya = axes()->axisY()->position();
     m_fillNode->updateGeometry(xProcessed(), yProcessed(), ya);
   }
 

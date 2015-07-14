@@ -84,7 +84,7 @@ void QniteBar::updateBars(QSGNode* node)
   }
 
   m_barsNode->removeAllChildNodes();
-  qreal baseline = axes()->leftAxis()->position();
+  qreal baseline = axes()->axisY()->position();
 
   auto dataSize = xProcessed().size();
   for(int i = 0; i < dataSize; ++i) {
