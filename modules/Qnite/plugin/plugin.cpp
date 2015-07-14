@@ -3,6 +3,7 @@
 #include "qniteartist.h"
 #include "qnitexyartist.h"
 #include "qniteaxis.h"
+#include "qniteaxistick.h"
 #include "qniteaxes.h"
 #include "qnitebar.h"
 #include "qnitecircle.h"
