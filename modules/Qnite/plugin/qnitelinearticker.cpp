@@ -48,7 +48,7 @@ namespace {
 
     for (double x=graph_min; x<=graph_max + .5*d; x+=d) {
       // round to the "precision" decimal place
-      double val = std::round(x*precision);
+      double val = qRound(x*precision);
       ticks.append(val/precision);
       //ticks.append(x);
     }
