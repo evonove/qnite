@@ -69,3 +69,5 @@ unix {
     target.path = $$installPath
     INSTALLS += target
 }
+
+QMAKE_MOC_OPTIONS += -Muri=$$uri
