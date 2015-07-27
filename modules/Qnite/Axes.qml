@@ -12,8 +12,15 @@ import Qnite 1.0
 BasicAxes {
     id: __plotarea
 
-    axisY: __left
-    axisX: __bottom
+    /*! tick properties */
+    AxisTick {
+        id: __axistick
+        thick: 1
+        majSize: 10
+        minSize: 3
+        color: Qt.rgba(0,0,0,0.2)
+    }
+    property alias tick: __axistick
 
     TextMetrics {
         id: __metrics
@@ -26,9 +33,46 @@ BasicAxes {
         right: parent.right
 
         topMargin: __metrics.height / 2
-        bottomMargin: __metrics.height + __bottom.tick.majSize + 5
-        leftMargin: __metrics.width + __left.tick.majSize + 5
+        bottomMargin: __metrics.height + tick.majSize + 5
+        leftMargin: __metrics.width + tick.majSize + 5
         rightMargin: __metrics.width / 2
+    }
+
+    function majorTicksChanged(axis, labelsitem) {
+        var values = [];
+        for(var i = 0; i < axis.majorTicks.length; i++) {
+            values.push({
+                "value": axis.majorTicks[i],
+                "label": (axis.ticker.majorTicks[i]).toString()
+            });
+        }
+
+        labelsitem.major = values;
+    }
+
+    function minorTicksChanged(axis, labelsitem) {
+        var values = [];
+        for(var i = 0, item; item = axis.minorTicks[i]; i++) {
+            values.push({ "value": item });
+        }
+
+        labelsitem.minor = values;
+    }
+
+    axisY: Axis {
+        id: __left
+        size: __plotarea.height
+        flip: true
+
+        onMajorTicksChanged: __plotarea.majorTicksChanged(__left, __leftlabels)
+        onMinorTicksChanged: __plotarea.minorTicksChanged(__left, __leftlabels)
+    }
+    axisX: Axis {
+        id: __bottom
+        size: __plotarea.width
+
+        onMajorTicksChanged: __plotarea.majorTicksChanged(__bottom, __bottomlabels)
+        onMinorTicksChanged: __plotarea.minorTicksChanged(__bottom, __bottomlabels)
     }
 
 
@@ -43,49 +87,36 @@ BasicAxes {
     Rectangle {
         id: bottombaseline
         implicitWidth: parent.width
-        implicitHeight: __bottom.tick.thick
+        implicitHeight: tick.thick
         anchors.verticalCenter: parent.bottom
         anchors.alignWhenCentered: false
-        color: __bottom.tick.color
+        color: tick.color
     }
-    Axis {
-        id: __bottom
+    AxisLabel {
+        id: __bottomlabels
+        axisType: "bottom"
         width: __plotarea.width
         anchors.top: __plotarea.bottom
         anchors.left: __plotarea.left
-        size: __plotarea.width
-        axisType: "bottom"
 
-        tick {
-            thick: 1
-            majSize: 10
-            minSize: 5
-            color: Qt.rgba(0,0,0,0.2)
-        }
+        tick: __plotarea.tick
     }
 
     Rectangle {
         id: leftbaseline
-        implicitWidth: __left.tick.thick
+        implicitWidth: tick.thick
         implicitHeight: parent.height
         anchors.horizontalCenter: parent.left
         anchors.alignWhenCentered: false
-        color: __left.tick.color
+        color: tick.color
     }
-    Axis {
-        id: __left
+    AxisLabel {
+        id: __leftlabels
+        axisType: "left"
         height: __plotarea.height
         anchors.bottom: __plotarea.bottom
         anchors.right: __plotarea.left
-        axisType: "left"
-        size: __plotarea.height
-        flip: true
 
-        tick {
-            thick: 1
-            majSize: 10
-            minSize: 3
-            color: Qt.rgba(0,0,0,0.2)
-        }
+        tick: __plotarea.tick
     }
 }

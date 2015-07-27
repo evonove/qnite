@@ -25,7 +25,7 @@ void QnitePlugin::registerTypes(const char *uri)
   qmlRegisterUncreatableType<QniteArtist>(uri, 1, 0, "Artist", "Cannot create objects of basetype Artist");
   qmlRegisterType<QniteXYArtist>(uri, 1, 0, "XYArtist");
   qmlRegisterType<QniteAxes>(uri, 1, 0, "BasicAxes");
-  qmlRegisterType<QniteAxis>(uri, 1, 0, "BasicAxis");
+  qmlRegisterType<QniteAxis>(uri, 1, 0, "Axis");
   qmlRegisterType<QniteAxisTick>(uri, 1, 0, "AxisTick");
   qmlRegisterType<QniteBar>(uri, 1, 0, "Bar");
   qmlRegisterType<QniteCircle>(uri, 1, 0, "Circle");
