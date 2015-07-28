@@ -3,6 +3,7 @@
 #include "qniteartist.h"
 #include "qnitexyartist.h"
 #include "qniteaxis.h"
+#include "qnitelinearaxis.h"
 #include "qniteaxistick.h"
 #include "qniteaxes.h"
 #include "qnitebar.h"
@@ -25,7 +26,8 @@ void QnitePlugin::registerTypes(const char *uri)
   qmlRegisterUncreatableType<QniteArtist>(uri, 1, 0, "Artist", "Cannot create objects of basetype Artist");
   qmlRegisterType<QniteXYArtist>(uri, 1, 0, "XYArtist");
   qmlRegisterType<QniteAxes>(uri, 1, 0, "BasicAxes");
-  qmlRegisterType<QniteAxis>(uri, 1, 0, "Axis");
+  qmlRegisterUncreatableType<QniteAxis>(uri, 1, 0, "Axis", "Cannot create obects of base type Axis");
+  qmlRegisterType<QniteLinearAxis>(uri, 1, 0, "LinearAxis");
   qmlRegisterType<QniteAxisTick>(uri, 1, 0, "AxisTick");
   qmlRegisterType<QniteBar>(uri, 1, 0, "Bar");
   qmlRegisterType<QniteCircle>(uri, 1, 0, "Circle");

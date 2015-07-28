@@ -24,7 +24,7 @@ BasicAxes {
 
     TextMetrics {
         id: __metrics
-        text: "9999"
+        text: "99999"
     }
     anchors {
         top: parent.top
@@ -40,9 +40,9 @@ BasicAxes {
 
     function majorTicksChanged(axis, labelsitem) {
         var values = [];
-        for(var i = 0; i < axis.majorTicks.length; i++) {
+        for(var i = 0, item; (item = axis.majorTicks[i]) !== undefined; i++) {
             values.push({
-                "value": axis.majorTicks[i],
+                "value": item,
                 "label": (axis.ticker.majorTicks[i]).toString()
             });
         }
@@ -52,14 +52,14 @@ BasicAxes {
 
     function minorTicksChanged(axis, labelsitem) {
         var values = [];
-        for(var i = 0, item; item = axis.minorTicks[i]; i++) {
+        for(var i = 0, item; (item = axis.minorTicks[i]) !== undefined; i++) {
             values.push({ "value": item });
         }
 
         labelsitem.minor = values;
     }
 
-    axisY: Axis {
+    axisY: LinearAxis {
         id: __left
         size: __plotarea.height
         flip: true
@@ -67,7 +67,7 @@ BasicAxes {
         onMajorTicksChanged: __plotarea.majorTicksChanged(__left, __leftlabels)
         onMinorTicksChanged: __plotarea.minorTicksChanged(__left, __leftlabels)
     }
-    axisX: Axis {
+    axisX: LinearAxis {
         id: __bottom
         size: __plotarea.width
 

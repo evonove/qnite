@@ -3,19 +3,16 @@
 
 #include "qniteartist.h"
 
-class QniteAxisTick;
 class QniteMapper;
 class QniteTicker;
 class QniteAxis: public QniteArtist
 {
   Q_OBJECT
-
   Q_PROPERTY(qreal size READ size WRITE setSize NOTIFY sizeChanged)
   Q_PROPERTY(qreal lowerBound READ lowerBound WRITE setLowerBound NOTIFY lowerBoundChanged)
   Q_PROPERTY(qreal upperBound READ upperBound WRITE setUpperBound NOTIFY upperBoundChanged)
   Q_PROPERTY(bool flip READ flip WRITE setFlip NOTIFY flipChanged)
 
-  Q_PROPERTY(QniteAxisTick* tick READ tick CONSTANT)
   Q_PROPERTY(QniteMapper* mapper READ mapper CONSTANT)
   Q_PROPERTY(QniteTicker* ticker READ ticker CONSTANT)
 
@@ -24,20 +21,21 @@ class QniteAxis: public QniteArtist
 
 public:
   explicit QniteAxis(QQuickItem* parent = 0);
-  virtual ~QniteAxis();
+  virtual ~QniteAxis() {}
 
-  qreal size() const;
+  qreal size() const { return m_size; }
   void setSize(qreal size);
-  qreal lowerBound() const;
+  qreal lowerBound() const { return m_lowerBound; }
   void setLowerBound(qreal bound);
-  qreal upperBound() const;
+  qreal upperBound() const { return m_upperBound; }
   void setUpperBound(qreal bound);
-  bool flip() const;
+  bool flip() const { return m_flip; }
   void setFlip(bool flip);
 
-  QniteAxisTick* tick() const;
-  QniteTicker* ticker() const;
-  QniteMapper* mapper() const;
+  QniteTicker* ticker() const { return m_ticker; }
+  void setTicker(QniteTicker* ticker);
+  QniteMapper* mapper() const { return m_mapper; }
+  void setMapper(QniteMapper* mapper);
 
   QList<qreal> majorTicks() const;
   QList<qreal> minorTicks() const;
@@ -50,26 +48,25 @@ Q_SIGNALS:
   void lowerBoundChanged();
   void upperBoundChanged();
 
-  void mapperChanged();
   void majorTicksChanged();
   void minorTicksChanged();
 
-public Q_SLOTS:
-  virtual void processData();
+  void tickerChanged();
+  void mapperChanged();
 
-private:
+protected:
   qreal m_size;
   qreal m_lowerBound;
   qreal m_upperBound;
   bool m_flip;
   qreal m_position;
 
-  QniteAxisTick* m_tick;
+  QList<qreal> m_majorTicks;
+  QList<qreal> m_minorTicks;
+
   QniteMapper* m_mapper;
   QniteTicker* m_ticker;
 
-  QList<qreal> m_majorTicks;
-  QList<qreal> m_minorTicks;
 };
 
 #endif // QNITE_AXIS_H

@@ -1,8 +1,4 @@
 #include "qniteaxis.h"
-#include "qniteclipper.h"
-#include "qnitelinearmapper.h"
-#include "qnitelinearticker.h"
-#include "qniteaxistick.h"
 
 
 /*! TODO: add docs
@@ -14,19 +10,9 @@ QniteAxis::QniteAxis(QQuickItem* parent):
   m_upperBound{0},
   m_flip{false},
   m_position{0},
-  m_tick{new QniteAxisTick(this)},
-  m_mapper{new QniteLinearMapper(this)},
-  m_ticker{new QniteLinearTicker(this)}
+  m_mapper{nullptr},
+  m_ticker{nullptr}
 {
-}
-
-QniteAxis::~QniteAxis()
-{
-}
-
-qreal QniteAxis::size() const
-{
-  return m_size;
 }
 
 void QniteAxis::setSize(qreal size)
@@ -39,15 +25,9 @@ void QniteAxis::setSize(qreal size)
   }
 }
 
-qreal QniteAxis::lowerBound() const
-{
-  return m_lowerBound;
-}
-
 void QniteAxis::setLowerBound(qreal bound)
 {
   if (m_lowerBound != bound) {
-    qDebug() << "lower changed" << bound;
     m_lowerBound = bound;
     emit lowerBoundChanged();
 
@@ -55,25 +35,14 @@ void QniteAxis::setLowerBound(qreal bound)
   }
 }
 
-qreal QniteAxis::upperBound() const
-{
-  return m_upperBound;;
-}
-
 void QniteAxis::setUpperBound(qreal bound)
 {
   if (m_upperBound != bound) {
-    qDebug() << "upper changed" << bound;
     m_upperBound = bound;
     emit upperBoundChanged();
 
     processData();
   }
-}
-
-bool QniteAxis::flip() const
-{
-  return m_flip;
 }
 
 void QniteAxis::setFlip(bool flip)
@@ -86,19 +55,20 @@ void QniteAxis::setFlip(bool flip)
   }
 }
 
-QniteAxisTick* QniteAxis::tick() const
+void QniteAxis::setTicker(QniteTicker* ticker)
 {
-  return m_tick;
+  if (m_ticker != ticker) {
+    m_ticker = ticker;
+    emit tickerChanged();
+  }
 }
 
-QniteTicker* QniteAxis::ticker() const
+void QniteAxis::setMapper(QniteMapper* mapper)
 {
-  return m_ticker;
-}
-
-QniteMapper* QniteAxis::mapper() const
-{
-  return m_mapper;
+  if (m_mapper != mapper) {
+    m_mapper = mapper;
+    emit mapperChanged();
+  }
 }
 
 QList<qreal> QniteAxis::majorTicks() const
@@ -114,39 +84,5 @@ QList<qreal> QniteAxis::minorTicks() const
 qreal QniteAxis::position() const
 {
   return m_position;
-}
-
-void QniteAxis::processData()
-{
-  // avoid ticker initialization when mapper is invalid
-  if (m_mapper == nullptr) {
-    m_ticker->reset();
-  }
-  else {
-    m_ticker->setBoundaries(m_lowerBound, m_upperBound);
-
-    m_majorTicks.clear();
-    m_minorTicks.clear();
-
-    // TODO: encapsulate in transformer pipeline
-    // clip ticks
-    QList<qreal> maj, min;
-    QniteClipper clipper;
-    clipper.clip(m_ticker->majorTicks(), m_lowerBound, m_upperBound, maj);
-    clipper.clip(m_ticker->minorTicks(), m_lowerBound, m_upperBound, min);
-
-    // map to display
-    m_majorTicks = m_mapper->mapTo(m_lowerBound, m_upperBound, 0, m_size,
-                                   maj, m_flip);
-    m_minorTicks = m_mapper->mapTo(m_lowerBound, m_upperBound, 0, m_size,
-                                   min, m_flip);
-
-    // maps the axis position
-    m_position  = m_mapper->mapTo(m_lowerBound, m_upperBound, 0., m_size,
-                                  0., m_flip);
-  }
-
-  emit majorTicksChanged();
-  emit minorTicksChanged();
 }
 
