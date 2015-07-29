@@ -55,7 +55,7 @@ void QniteTicker::setMinorTicks(const QList<qreal>& ticks)
   }
 }
 
-QList<qreal> QniteTicker::majorTicks() const
+const QList<qreal>& QniteTicker::majorTicks() const
 {
   return m_majorTicks;
 }

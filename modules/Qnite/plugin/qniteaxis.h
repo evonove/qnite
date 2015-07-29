@@ -18,6 +18,7 @@ class QniteAxis: public QniteArtist
 
   Q_PROPERTY(QList<qreal> majorTicks READ majorTicks NOTIFY majorTicksChanged)
   Q_PROPERTY(QList<qreal> minorTicks READ minorTicks NOTIFY minorTicksChanged)
+  Q_PROPERTY(QStringList labels READ labels NOTIFY labelsChanged)
 
 public:
   explicit QniteAxis(QQuickItem* parent = 0);
@@ -40,6 +41,8 @@ public:
   QList<qreal> majorTicks() const;
   QList<qreal> minorTicks() const;
 
+  QStringList labels() const { return m_labels; }
+
   qreal position() const;
 
 Q_SIGNALS:
@@ -54,6 +57,8 @@ Q_SIGNALS:
   void tickerChanged();
   void mapperChanged();
 
+  void labelsChanged();
+
 protected:
   qreal m_size;
   qreal m_lowerBound;
@@ -67,6 +72,7 @@ protected:
   QniteMapper* m_mapper;
   QniteTicker* m_ticker;
 
+  QStringList m_labels;
 };
 
 #endif // QNITE_AXIS_H

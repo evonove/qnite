@@ -39,11 +39,12 @@ BasicAxes {
     }
 
     function majorTicksChanged(axis, labelsitem) {
+        console.log("major update", axis.majorTicks);
         var values = [];
         for(var i = 0, item; (item = axis.majorTicks[i]) !== undefined; i++) {
             values.push({
                 "value": item,
-                "label": (axis.ticker.majorTicks[i]).toString()
+                "label": axis.labels[i]
             });
         }
 
@@ -59,22 +60,32 @@ BasicAxes {
         labelsitem.minor = values;
     }
 
-    axisY: LinearAxis {
-        id: __left
-        size: __plotarea.height
-        flip: true
+    axisY: LinearAxis { flip: true }
+    axisX: LinearAxis { }
 
-        onMajorTicksChanged: __plotarea.majorTicksChanged(__left, __leftlabels)
-        onMinorTicksChanged: __plotarea.minorTicksChanged(__left, __leftlabels)
+    Binding {
+        target: axisX
+        property: "size"
+        value: __plotarea.width
     }
-    axisX: LinearAxis {
-        id: __bottom
-        size: __plotarea.width
-
-        onMajorTicksChanged: __plotarea.majorTicksChanged(__bottom, __bottomlabels)
-        onMinorTicksChanged: __plotarea.minorTicksChanged(__bottom, __bottomlabels)
+    Binding {
+        target: axisY
+        property: "size"
+        value: __plotarea.height
     }
 
+    Connections {
+        target: axisX
+
+        onMajorTicksChanged: __plotarea.majorTicksChanged(axisX, __bottomlabels)
+        onMinorTicksChanged: __plotarea.minorTicksChanged(axisX, __bottomlabels)
+    }
+    Connections {
+        target: axisY
+
+        onMajorTicksChanged: __plotarea.majorTicksChanged(axisY, __leftlabels)
+        onMinorTicksChanged: __plotarea.minorTicksChanged(axisY, __leftlabels)
+    }
 
     // TODO: expose as a property so it is customizable
     Rectangle {

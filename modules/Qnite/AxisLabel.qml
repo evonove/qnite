@@ -19,7 +19,7 @@ Item {
             model: axis.major
             Loader {
                 property real val: modelData.value
-                property string label: modelData.label.toString()
+                property string label: modelData.label
                 property real size: axis.tick.majSize
 
                 anchors {
