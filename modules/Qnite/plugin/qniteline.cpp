@@ -101,6 +101,10 @@ void QniteLine::updateCircles(QSGNode* node)
     node->appendChildNode(m_circlesNode);
   }
 
+  // get the circle size from the lineWidth to ensure it depends
+  // on device pixel density
+  auto circleSize = lineWidth() * 1.5;
+
   m_circlesNode->removeAllChildNodes();
   for(int i = 0; i < dataSize; ++i) {
     qreal cx = xMapped().at(i);
@@ -108,7 +112,7 @@ void QniteLine::updateCircles(QSGNode* node)
 
     // TODO: optimal number of segments should be  computed runtime
     QColor c = isSelected() ? selectionColor() : color();
-    m_circlesNode->appendChildNode(new QniteCircleNode(cx, cy, 5, 32, c));
+    m_circlesNode->appendChildNode(new QniteCircleNode(cx, cy, circleSize, 32, c));
   }
 }
 
