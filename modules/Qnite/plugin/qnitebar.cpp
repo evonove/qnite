@@ -15,8 +15,21 @@ QniteBar::QniteBar(QQuickItem *parent):
   setFlag(ItemHasContents, true);
 }
 
-QniteBar::~QniteBar()
+void QniteBar::setCategories(const QStringList& c)
 {
+  if (m_categories != c) {
+    m_categories = c;
+    emit categoriesChanged();
+
+    // updated the xValues according to the category list
+    auto values = QList<qreal>{};
+    auto step = 1.0 / (m_categories.size() + 1);
+    for(auto i = 0; i < m_categories.size(); ++i)
+      values.push_back(step*(i+1));
+    setXValues(values);
+
+    update();
+  }
 }
 
 bool QniteBar::select(QPoint p)
@@ -84,7 +97,7 @@ void QniteBar::updateBars(QSGNode* node)
   }
 
   m_barsNode->removeAllChildNodes();
-  qreal baseline = axes()->leftAxis()->position();
+  qreal baseline = axes()->axisY()->position();
 
   auto dataSize = xProcessed().size();
   for(int i = 0; i < dataSize; ++i) {

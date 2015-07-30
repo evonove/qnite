@@ -14,8 +14,8 @@ ApplicationWindow {
             id: figure
             anchors.fill: parent
 
-            axes.leftBounds: [-0.2, 0.65]
-            axes.bottomBounds: [0.0001, 0.0006]
+            axes.yBounds: [-0.2, 0.65]
+            axes.xBounds: [0.0001, 0.0006]
 
             Grid { }
             Line {

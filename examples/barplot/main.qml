@@ -14,8 +14,10 @@ ApplicationWindow {
             id: figure
             anchors.fill: parent
 
-            axes.bottomBounds: [-2, 10]
-            axes.leftBounds: [-10, 10]
+            axes.axisX: CategoryAxis {
+                values: ["a", "b", "c", "d"]
+            }
+            axes.yBounds: [-10, 10]
 
             tools: [
                 PointSelectionTool {
@@ -23,11 +25,10 @@ ApplicationWindow {
                 }
             ]
 
-            Grid {
-            }
+            Grid { }
             Bar {
-                xValues: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-                yValues: [-9, -6, -5, -1, 2, 5, 4, 3, 7, 8.4]
+                categories: ["a", "b", "c", "e"]
+                yValues: [-9, 3, 5, -1]
 
                 color: "red"
                 selectionColor: "green"

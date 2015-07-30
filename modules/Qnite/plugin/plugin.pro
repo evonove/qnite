@@ -15,6 +15,9 @@ SOURCES += \
     qniteartist.cpp \
     qnitexyartist.cpp \
     qniteaxis.cpp \
+    qnitelinearaxis.cpp \
+    qnitecategoryaxis.cpp \
+    qniteaxistick.cpp \
     qniteaxes.cpp \
     qnitebar.cpp \
     qnitebarnode.cpp \
@@ -39,6 +42,9 @@ HEADERS += \
     qniteartist.h \
     qnitexyartist.h \
     qniteaxis.h \
+    qnitelinearaxis.h \
+    qnitecategoryaxis.h \
+    qniteaxistick.h \
     qniteaxes.h \
     qnitebar.h \
     qnitebarnode.h \

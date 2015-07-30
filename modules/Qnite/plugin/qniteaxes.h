@@ -12,14 +12,14 @@ class QniteAxes: public QQuickItem
 
   Q_OBJECT
   Q_PROPERTY(QQuickItem* canvas READ canvas CONSTANT)
-  Q_PROPERTY(QList<qreal> bottomBounds READ bottomBounds WRITE setBottomBounds NOTIFY bottomBoundsChanged)
-  Q_PROPERTY(QList<qreal> leftBounds READ leftBounds WRITE setLeftBounds NOTIFY leftBoundsChanged)
+  Q_PROPERTY(QList<qreal> xBounds READ xBounds WRITE setXBounds NOTIFY xBoundsChanged)
+  Q_PROPERTY(QList<qreal> yBounds READ yBounds WRITE setYBounds NOTIFY yBoundsChanged)
 
   Q_PROPERTY(QQmlListProperty<QniteArtist> artists READ artists)
   Q_PROPERTY(QQmlListProperty<QniteTool> tools READ tools)
 
-  Q_PROPERTY(QniteAxis* leftAxis READ leftAxis WRITE setLeftAxis NOTIFY leftAxisChanged)
-  Q_PROPERTY(QniteAxis* bottomAxis READ bottomAxis WRITE setBottomAxis NOTIFY bottomAxisChanged)
+  Q_PROPERTY(QniteAxis* axisY READ axisY WRITE setAxisY NOTIFY axisYChanged)
+  Q_PROPERTY(QniteAxis* axisX READ axisX WRITE setAxisX NOTIFY axisXChanged)
 
 public:
   explicit QniteAxes(QQuickItem* parent = 0);
@@ -33,25 +33,25 @@ public:
 
   void setOnTop(QniteArtist*);
 
-  QList<qreal> bottomBounds() const;
-  void setBottomBounds(const QList<qreal>& bounds);
-  QList<qreal> leftBounds() const;
-  void setLeftBounds(const QList<qreal>& bounds);
+  QList<qreal> xBounds() const;
+  void setXBounds(const QList<qreal>& bounds);
+  QList<qreal> yBounds() const;
+  void setYBounds(const QList<qreal>& bounds);
 
-  QniteAxis* leftAxis() const;
-  void setLeftAxis(QniteAxis* leftAxis);
-  QniteAxis* bottomAxis() const;
-  void setBottomAxis(QniteAxis* bottomAxis);
+  QniteAxis* axisY() const;
+  void setAxisY(QniteAxis* axisY);
+  QniteAxis* axisX() const;
+  void setAxisX(QniteAxis* axisX);
 
 Q_SIGNALS:
-  void bottomBoundsChanged();
-  void leftBoundsChanged();
-  void leftAxisChanged();
-  void bottomAxisChanged();
+  void xBoundsChanged();
+  void yBoundsChanged();
+  void axisYChanged();
+  void axisXChanged();
 
 protected:
-  void initLeftAxis();
-  void initBottomAxis();
+  void initAxisY();
+  void initAxisX();
 
 private:
   static void append_artists(QQmlListProperty<QniteArtist>* property, QniteArtist* value);
@@ -64,18 +64,18 @@ private:
   static void clear_tools(QQmlListProperty<QniteTool>* property);
   static int count_tools(QQmlListProperty<QniteTool>* property);
 
-  qreal m_lowerBottomBound;
-  qreal m_upperBottomBound;
-  qreal m_lowerLeftBound;
-  qreal m_upperLeftBound;
+  qreal m_lowerXBound;
+  qreal m_upperXBound;
+  qreal m_lowerYBound;
+  qreal m_upperYBound;
 
   QQuickItem* m_canvas;
 
   QList<QniteArtist*> m_artists;
   QList<QniteTool*> m_tools;
 
-  QniteAxis* m_leftAxis;
-  QniteAxis* m_bottomAxis;
+  QniteAxis* m_axisX;
+  QniteAxis* m_axisY;
 };
 
 #endif // QNITE_AXES_H

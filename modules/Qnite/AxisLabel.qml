@@ -1,36 +1,15 @@
 import QtQuick 2.4
 import Qnite 1.0
 
-BasicAxis {
+Item {
     id: axis
+
+    property AxisTick tick
 
     property string axisType
 
     property var major;
     property var minor;
-
-    onMajorTicksChanged: {
-        var values = [];
-        for(var i = 0; i < majorTicks.length; ++i) {
-            values.push({
-                "value": majorTicks[i],
-                "label": (ticker.majorTicks[i]).toString()
-            });
-        }
-
-        major = values;
-    }
-
-    onMinorTicksChanged: {
-        var values = [];
-        for(var i = 0; i < minorTicks.length; ++i) {
-            values.push({
-                "value": minorTicks[i],
-            });
-        }
-
-        minor = values;
-    }
 
     Item {
         id: ticksnlabels
@@ -41,7 +20,7 @@ BasicAxis {
             Loader {
                 property real val: modelData.value
                 property string label: modelData.label
-                property real size: tick.majSize
+                property real size: axis.tick.majSize
 
                 anchors {
                     right: axis.axisType === "left" ? ticksnlabels.right : undefined
@@ -56,7 +35,7 @@ BasicAxis {
             Loader {
                 property real val: modelData.value
                 property string label: ""
-                property real size: tick.minSize
+                property real size: axis.tick.minSize
 
                 anchors {
                     right: axis.axisType === "left" ? ticksnlabels.right : undefined

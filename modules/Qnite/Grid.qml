@@ -10,14 +10,14 @@ import Qnite 1.0
 XYArtist {
     id: grid
 
-    property real xSize: axes ? axes.bottomAxis.tick.thick : 0
-    property real ySize: axes ? axes.leftAxis.tick.thick : 0
+    property real xSize: axes ? axes.tick.thick : 0
+    property real ySize: xSize
 
-    property color xColor: axes ? axes.bottomAxis.tick.color : "black"
-    property color yColor: axes ? axes.leftAxis.tick.color : "black"
+    property color xColor: axes ? axes.tick.color : "black"
+    property color yColor: xColor
 
-    xValues: axes ? axes.bottomAxis.majorTicks : []
-    yValues: axes ? axes.leftAxis.majorTicks : []
+    xValues: axes ? axes.axisX.majorTicks : []
+    yValues: axes ? axes.axisY.majorTicks : []
 
     Repeater {
         model: grid.yValues.length

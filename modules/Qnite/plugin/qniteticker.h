@@ -32,7 +32,7 @@ public:
 
   QList<qreal> values() const;
   QList<qreal> minorTicks() const;
-  QList<qreal> majorTicks() const;
+  const QList<qreal>& majorTicks() const;
   QList<qreal> boundaries() const;
   qreal lower() const { return m_lowerBound; }
   qreal upper() const { return m_upperBound; }
