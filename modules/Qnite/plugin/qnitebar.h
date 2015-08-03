@@ -30,7 +30,7 @@ protected:
   virtual bool isSelected() const;
 
   QSGNode* updatePaintNode(QSGNode* node, UpdatePaintNodeData*);
-  void updateBars(QSGNode* node);
+  void updateBars();
 
 private:
   QSGNode* m_barsNode;

@@ -81,22 +81,20 @@ QSGNode* QniteBar::updatePaintNode(QSGNode* node, UpdatePaintNodeData*)
   if (dataSize < 1)
     return nullptr;
 
-  if (node == nullptr)
+  if (node == nullptr) {
     node = new QSGNode;
-
-  updateBars(node);
+    m_barsNode = new QSGNode;
+    node->appendChildNode(m_barsNode);
+  }
+  updateBars();
 
   return node;
 }
 
-void QniteBar::updateBars(QSGNode* node)
+void QniteBar::updateBars()
 {
-  if (m_barsNode == nullptr) {
-    m_barsNode = new QSGNode;
-    node->appendChildNode(m_barsNode);
-  }
-
   m_barsNode->removeAllChildNodes();
+
   qreal baseline = axes()->axisY()->position();
 
   auto dataSize = xProcessed().size();
