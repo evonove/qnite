@@ -24,7 +24,7 @@ BasicAxes {
 
     TextMetrics {
         id: __metrics
-        text: "99999"
+        text: axisY.labels.reduce(function (a, b) { return a.length > b.length ? a : b; })
     }
     anchors {
         top: parent.top

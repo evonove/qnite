@@ -46,6 +46,7 @@ void QniteLinearAxis::processData()
                                   0., m_flip);
   }
 
+  emit labelsChanged();
   emit majorTicksChanged();
   emit minorTicksChanged();
 }

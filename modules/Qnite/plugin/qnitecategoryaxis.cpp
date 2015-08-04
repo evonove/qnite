@@ -38,5 +38,7 @@ void QniteCategoryAxis::processData()
   m_labels = m_values;
 
   qDebug() << "category ticks" << m_majorTicks << size();
+
+  emit labelsChanged();
   emit majorTicksChanged();
 }
