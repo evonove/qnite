@@ -7,6 +7,7 @@ Item {
     property AxisTick tick
 
     property string axisType
+    property font labelFont
 
     property var major;
     property var minor;
@@ -59,6 +60,7 @@ Item {
             Text {
                 id: __text
                 anchors.verticalCenter: __tick.verticalCenter
+                font: axis.labelFont
                 text: label
             }
 
@@ -93,6 +95,7 @@ Item {
             Text {
                 id: __text
                 anchors.horizontalCenter: __tick.horizontalCenter
+                font: axis.labelFont
                 text: label
             }
         }

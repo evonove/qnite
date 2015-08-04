@@ -22,8 +22,11 @@ BasicAxes {
     }
     property alias tick: __axistick
 
+    property font labelFont
+
     TextMetrics {
         id: __metrics
+        font: __plotarea.labelFont
         text: axisY.labels.reduce(function (a, b) { return a.length > b.length ? a : b; })
     }
     anchors {
@@ -111,6 +114,7 @@ BasicAxes {
         anchors.left: __plotarea.left
 
         tick: __plotarea.tick
+        labelFont: __plotarea.labelFont
     }
 
     Rectangle {
@@ -129,5 +133,6 @@ BasicAxes {
         anchors.right: __plotarea.left
 
         tick: __plotarea.tick
+        labelFont: __plotarea.labelFont
     }
 }
