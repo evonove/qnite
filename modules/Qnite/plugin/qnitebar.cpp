@@ -9,10 +9,21 @@
 
 QniteBar::QniteBar(QQuickItem *parent):
   QniteXYArtist(parent),
-  m_barsNode{nullptr},
-  m_selectedIndex{-1}
+  m_fixedWidth{10},
+  m_selectedIndex{-1},
+  m_barsNode{nullptr}
 {
   setFlag(ItemHasContents, true);
+}
+
+void QniteBar::setFixedWidth(qreal w)
+{
+  if (m_fixedWidth != w) {
+    m_fixedWidth = w;
+    emit fixedWidthChanged();
+
+    update();
+  }
 }
 
 void QniteBar::setCategories(const QStringList& c)
@@ -103,6 +114,6 @@ void QniteBar::updateBars()
     qreal cy = yProcessed().at(i);
 
     auto c = (i == m_selectedIndex) ? selectionColor() : color();
-    m_barsNode->appendChildNode(new QniteBarNode(cx, cy, baseline, 10, c));
+    m_barsNode->appendChildNode(new QniteBarNode(cx, cy, baseline, fixedWidth(), c));
   }
 }

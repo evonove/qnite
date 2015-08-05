@@ -7,12 +7,16 @@
 class QniteBar : public QniteXYArtist
 {
   Q_OBJECT
+  Q_PROPERTY(qreal fixedWidth READ fixedWidth WRITE setFixedWidth NOTIFY fixedWidthChanged)
   Q_PROPERTY(int selectedIndex READ selectedIndex)
   Q_PROPERTY(QStringList categories READ categories WRITE setCategories NOTIFY categoriesChanged)
 
 public:
   explicit QniteBar(QQuickItem *parent = 0);
   virtual ~QniteBar() {}
+
+  qreal fixedWidth() const { return m_fixedWidth; }
+  void setFixedWidth(qreal w);
 
   const QStringList& categories() const { return m_categories; }
   void setCategories(const QStringList& c);
@@ -24,6 +28,7 @@ public:
   int selectedIndex() const { return m_selectedIndex; }
 
 Q_SIGNALS:
+  void fixedWidthChanged();
   void categoriesChanged();
 
 protected:
@@ -33,13 +38,12 @@ protected:
   void updateBars();
 
 private:
-  QSGNode* m_barsNode;
-
+  qreal m_fixedWidth;
   int m_selectedIndex;
 
   QStringList m_categories;
+  QSGNode* m_barsNode;
 };
-
 
 #endif // QNITE_BAR_H
 
