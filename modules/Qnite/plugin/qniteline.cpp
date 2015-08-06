@@ -65,12 +65,17 @@ QSGNode* QniteLine::updatePaintNode(QSGNode* node, UpdatePaintNodeData*)
   if (!node) {
     node = new QSGNode;
 
+    m_circlesNode = new QSGNode;
+    node->appendChildNode(m_circlesNode);
+
     m_lineNode = new QniteLineNode(m_lineWidth, color());
     node->appendChildNode(m_lineNode);
 
     if (m_fill) {
       m_fillNode = new QniteFillNode(QColor(m_fillColor));
       node->prependChildNode(m_fillNode);
+    } else {
+      m_fillNode = nullptr;
     }
   }
 
@@ -82,6 +87,7 @@ QSGNode* QniteLine::updatePaintNode(QSGNode* node, UpdatePaintNodeData*)
 
   updateCircles(node);
   m_lineNode->updateGeometry(xProcessed(), yProcessed());
+
   // TODO: update material should only be called when color changes
   // e.g. when selection occurs. At the moment the guard is inside the updateMaterial
   // method
@@ -95,11 +101,6 @@ void QniteLine::updateCircles(QSGNode* node)
   int dataSize = xMapped().size();
   if (dataSize < 1)
     return;
-
-  if (m_circlesNode == nullptr) {
-    m_circlesNode = new QSGNode;
-    node->appendChildNode(m_circlesNode);
-  }
 
   // get the circle size from the lineWidth to ensure it depends
   // on device pixel density
