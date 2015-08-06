@@ -42,7 +42,6 @@ BasicAxes {
     }
 
     function majorTicksChanged(axis, labelsitem) {
-        console.log("major update", axis.majorTicks);
         var values = [];
         for(var i = 0, item; (item = axis.majorTicks[i]) !== undefined; i++) {
             values.push({
