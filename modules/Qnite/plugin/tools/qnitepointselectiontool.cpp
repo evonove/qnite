@@ -18,9 +18,8 @@ bool QnitePointSelectionTool::doSelect(QniteArtist* artist)
   return artist->select(m_selection);
 }
 
-void QnitePointSelectionTool::mousePressEvent(QMouseEvent *event)
+void QnitePointSelectionTool::mouseReleaseEvent(QMouseEvent *event)
 {
-  qDebug() << "point selection press";
   select(event->pos());
 }
 

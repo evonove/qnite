@@ -17,7 +17,8 @@ protected:
   using QniteSelectionTool::select;
 
   virtual bool doSelect(QniteArtist*);
-  virtual void mousePressEvent(QMouseEvent *event);
+  virtual void mousePressEvent(QMouseEvent *) {}
+  virtual void mouseReleaseEvent(QMouseEvent *event);
 
 private:
   QPoint m_selection;

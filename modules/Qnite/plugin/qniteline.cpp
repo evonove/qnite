@@ -96,7 +96,7 @@ QSGNode* QniteLine::updatePaintNode(QSGNode* node, UpdatePaintNodeData*)
   return node;
 }
 
-void QniteLine::updateCircles(QSGNode* node)
+void QniteLine::updateCircles(QSGNode*)
 {
   int dataSize = xMapped().size();
   if (dataSize < 1)
