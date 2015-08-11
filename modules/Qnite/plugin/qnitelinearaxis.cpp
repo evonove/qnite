@@ -36,9 +36,8 @@ void QniteLinearAxis::processData()
     m_minorTicks = m_mapper->mapTo(m_lowerBound, m_upperBound, 0, m_size,
                                    min, m_flip);
 
-    auto mticks = m_ticker->majorTicks();
-    for(auto i = 0; i < mticks.size(); ++i) {
-      m_labels.push_back(QString("%1").arg(mticks.at(i)));
+    for(auto i = 0; i < maj.size(); ++i) {
+      m_labels.push_back(QString("%1").arg(maj.at(i)));
     }
 
     // maps the axis position
