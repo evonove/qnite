@@ -71,7 +71,6 @@ bool QniteBar::select(const QList<QPoint>& path)
   return false;
 }
 
-// TODO: selection should be cleared when data change
 void QniteBar::clearSelection()
 {
   m_selectedIndex = -1;

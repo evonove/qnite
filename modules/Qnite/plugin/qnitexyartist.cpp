@@ -54,6 +54,9 @@ void QniteXYArtist::setXValues(const QList<qreal>& values)
     // TODO: transform the values here and cache
     emit xValuesChanged();
     update();
+
+    // clear the current selection after any changes on X values
+    clearSelection();
   }
 }
 
@@ -69,6 +72,9 @@ void QniteXYArtist::setYValues(const QList<qreal>& values)
     // TODO: transform the values here and cache
     emit yValuesChanged();
     update();
+
+    // clear the current selection after any changes on Y values
+    clearSelection();
   }
 }
 
