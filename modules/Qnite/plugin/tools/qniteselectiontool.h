@@ -11,6 +11,7 @@ class QniteSelectionTool: public QniteTool
 public:
   explicit QniteSelectionTool(QQuickItem* parent = 0);
   virtual ~QniteSelectionTool() {}
+  Q_INVOKABLE void reset();
 
 protected:
   void select();

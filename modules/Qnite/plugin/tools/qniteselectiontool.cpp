@@ -34,3 +34,8 @@ void QniteSelectionTool::clearSelection()
     }
   }
 }
+
+void QniteSelectionTool::reset()
+{
+  clearSelection();
+}
