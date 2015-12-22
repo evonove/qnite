@@ -99,6 +99,21 @@ private slots:
     QCOMPARE(a3.selected(), false);
     QCOMPARE(a4.selected(), false);
   }
+
+  void testReset()
+  {
+    sel.fooSelect();
+    QCOMPARE(a1.selected(), true);
+    QCOMPARE(a2.selected(), true);
+    QCOMPARE(a3.selected(), true);
+    QCOMPARE(a4.selected(), true);
+
+    sel.reset();
+    QCOMPARE(a1.selected(), false);
+    QCOMPARE(a2.selected(), false);
+    QCOMPARE(a3.selected(), false);
+    QCOMPARE(a4.selected(), false);
+  }
 };
 
 QTEST_MAIN(TestQniteSelectionTool)
