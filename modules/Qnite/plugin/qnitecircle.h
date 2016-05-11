@@ -7,21 +7,27 @@ class QniteCircle : public QniteXYArtist
 {
     Q_OBJECT
     Q_PROPERTY(qreal radius READ radius WRITE setRadius NOTIFY radiusChanged)
-  public:
+public:
     explicit QniteCircle(QQuickItem *parent = 0);
     virtual ~QniteCircle();
 
     qreal radius() const;
     void setRadius(qreal radius);
 
-  Q_SIGNALS:
+    bool select(const QList<QPoint>&);
+    bool select(const QPoint);
+    void clearSelection();
+
+Q_SIGNALS:
     void radiusChanged();
 
-  protected:
+protected:
     QSGNode* updatePaintNode(QSGNode* node, UpdatePaintNodeData*);
 
-  private:
+private:
     qreal m_radius;
+
+    QVector<int> m_selectedPoints; //! here we store the indexes of selected points
 };
 
 
