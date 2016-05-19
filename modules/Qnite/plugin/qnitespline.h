@@ -30,7 +30,7 @@ public:
   void setBias(qreal b);
 
 public Q_SLOTS:
-  virtual void processData();
+  virtual void processData() Q_DECL_OVERRIDE;
 
 Q_SIGNALS:
   void interpolationChanged();

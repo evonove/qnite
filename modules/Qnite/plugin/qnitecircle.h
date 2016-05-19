@@ -18,9 +18,9 @@ public:
 
     QList<int> selectedIndexes() const { return m_selectedPoints.toList(); }
 
-    bool select(const QList<QPoint>&);
-    bool select(const QPoint);
-    void clearSelection();
+    bool select(const QList<QPoint>&) Q_DECL_OVERRIDE;
+    bool select(const QPoint) Q_DECL_OVERRIDE;
+    void clearSelection() Q_DECL_OVERRIDE;
 
     Q_INVOKABLE void select(QList<int> indexes);
 
@@ -28,7 +28,7 @@ Q_SIGNALS:
     void radiusChanged();
 
 protected:
-    QSGNode* updatePaintNode(QSGNode* node, UpdatePaintNodeData*);
+    QSGNode* updatePaintNode(QSGNode* node, UpdatePaintNodeData*) Q_DECL_OVERRIDE;
 
 private:
     qreal m_radius;

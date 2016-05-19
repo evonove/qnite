@@ -41,7 +41,7 @@ public:
   const QList<qreal>& yProcessed() const;
 
 public Q_SLOTS:
-  virtual void processData();
+  virtual void processData() Q_DECL_OVERRIDE;
 
 Q_SIGNALS:
   void colorChanged();
@@ -50,7 +50,7 @@ Q_SIGNALS:
   void yValuesChanged();
 
 protected:
-  virtual void updateAxes();
+  virtual void updateAxes() Q_DECL_OVERRIDE;
 
   QList<qreal> m_xMapped;
   QList<qreal> m_yMapped;

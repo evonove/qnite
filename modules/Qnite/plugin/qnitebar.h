@@ -21,9 +21,9 @@ public:
   const QStringList& categories() const { return m_categories; }
   void setCategories(const QStringList& c);
 
-  bool select(QPoint);
-  bool select(const QList<QPoint>&);
-  void clearSelection();
+  bool select(const QPoint) Q_DECL_OVERRIDE;
+  bool select(const QList<QPoint>&) Q_DECL_OVERRIDE;
+  void clearSelection() Q_DECL_OVERRIDE;
 
   int selectedIndex() const { return m_selectedIndex; }
 
@@ -32,9 +32,9 @@ Q_SIGNALS:
   void categoriesChanged();
 
 protected:
-  virtual bool isSelected() const;
+  virtual bool isSelected() const Q_DECL_OVERRIDE;
 
-  QSGNode* updatePaintNode(QSGNode* node, UpdatePaintNodeData*);
+  QSGNode* updatePaintNode(QSGNode* node, UpdatePaintNodeData*) Q_DECL_OVERRIDE;
   void updateBars();
 
 private:

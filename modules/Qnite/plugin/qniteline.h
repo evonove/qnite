@@ -26,9 +26,9 @@ public:
     qreal lineWidth() const { return m_lineWidth; }
     void setLineWidth(qreal lineWidth);
 
-    bool select(const QList<QPoint>&);
-    bool select(const QPoint);
-    void clearSelection();
+    bool select(const QList<QPoint>&) Q_DECL_OVERRIDE;
+    bool select(const QPoint) Q_DECL_OVERRIDE;
+    void clearSelection() Q_DECL_OVERRIDE;
 
 Q_SIGNALS:
     void fillChanged();
@@ -36,9 +36,9 @@ Q_SIGNALS:
     void lineWidthChanged();
 
 protected:
-    QSGNode* updatePaintNode(QSGNode* node, UpdatePaintNodeData*);
+    QSGNode* updatePaintNode(QSGNode* node, UpdatePaintNodeData*) Q_DECL_OVERRIDE;
     void updateCircles(QSGNode* node);
-    virtual bool isSelected() const { return m_selected; }
+    virtual bool isSelected() const Q_DECL_OVERRIDE { return m_selected; }
 
 private:
     QniteLineNode* m_lineNode;
