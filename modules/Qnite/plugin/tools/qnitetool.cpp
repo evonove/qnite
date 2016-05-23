@@ -2,8 +2,9 @@
 #include "qniteaxes.h"
 
 
-QniteTool::QniteTool(QQuickItem* parent):
-  QQuickItem(parent)
+QniteTool::QniteTool(QQuickItem* parent)
+    : QQuickItem(parent)
+    , m_axes{nullptr}
 {
 }
 
