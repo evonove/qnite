@@ -64,6 +64,9 @@ HEADERS += \
     tools/qnitepointselectiontool.h \
     tools/qnitepathselectiontool.h
 
+# including qnanopainter
+include(../../../3rdparty/qnanopainter/libqnanopainter/include.pri)
+
 isEmpty(DESTDIR) {
     DESTDIR = ..
 } else {
