@@ -15,14 +15,16 @@ public:
     void paint(QNanoPainter* painter) Q_DECL_OVERRIDE;
 
 private:
-    void drawCircles();
+    // base artist data
+    bool m_selected;
+    QnitePen::PenData m_pen;
+    QnitePen::PenData m_selectedPen;
 
     // xy artist data
     QList<qreal> m_xs;
     QList<qreal> m_ys;
-    QColor m_selectionColor;
-    QnitePen::PenData m_pen;
 
+    // line data
     qreal m_baseline;
 };
 

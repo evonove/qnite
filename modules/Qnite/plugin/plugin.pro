@@ -33,6 +33,8 @@ SOURCES += \
     qnitelinearticker.cpp \
     items/qnitecircle.cpp \
     items/qnitecirclepainter.cpp \
+    items/qnitegrid.cpp \
+    items/qnitegridpainter.cpp \
     items/qniteline.cpp \
     items/qnitelinepainter.cpp \
     items/qnitepen.cpp \
@@ -52,7 +54,6 @@ HEADERS += \
     qniteaxes.h \
     qnitebar.h \
     qnitebarnode.h \
-    qnitecircle.h \
     qnitecirclenode.h \
     qnitefillnode.h \
     qnitelinenode.h \
@@ -65,6 +66,8 @@ HEADERS += \
     items/qnitecircle.h \
     items/qnitecirclepainter.h \
     items/qniteline.h \
+    items/qnitegrid.h \
+    items/qnitegridpainter.h \
     items/qnitelinepainter.h \
     items/qnitepen.h \
     tools/qnitetool.h \

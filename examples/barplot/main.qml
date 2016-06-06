@@ -31,7 +31,7 @@ ApplicationWindow {
                 yValues: [-9, 3, 5, -1]
 
                 pen.fill: "red"
-                selectionColor: "green"
+                selectedPen.fill: "green"
                 selectable: true
             }
         }

@@ -11,6 +11,8 @@ Q_LOGGING_CATEGORY(qnitelinepainter, "qnite.line.painter")
 
 
 QniteLinePainter::QniteLinePainter()
+    : QNanoQuickItemPainter{}
+    , m_selected{false}
 {
 }
 
@@ -26,10 +28,11 @@ void QniteLinePainter::synchronize(QNanoQuickItem* item)
         // which is copied with all its members in a local instance.
         m_xs = lineItem->xProcessed();
         m_ys = lineItem->yProcessed();
-        m_selectionColor = lineItem->selectionColor();
 
         // make a local copy of the pen data (stroke, fill)
         m_pen = lineItem->pen()->data();
+        m_selectedPen = lineItem->selectedPen()->data();
+        m_selected = lineItem->selected();
 
         // the baseline is the position of the y axis
         // this is needed to compute a fill polygon for the line.
@@ -45,11 +48,12 @@ void QniteLinePainter::paint(QNanoPainter* painter)
     if (dataSize < 2)
         return;
 
-    painter->setStrokeStyle(QNanoColor::fromQColor(m_pen.stroke));
-    painter->setFillStyle(QNanoColor::fromQColor(m_pen.fill));
-    painter->setLineWidth(m_pen.width);
-    painter->setLineJoin(m_pen.join);
-    painter->setLineCap(m_pen.cap);
+    auto& pen = m_selected ? m_selectedPen : m_pen;
+    painter->setStrokeStyle(QNanoColor::fromQColor(pen.stroke));
+    painter->setFillStyle(QNanoColor::fromQColor(pen.fill));
+    painter->setLineWidth(pen.width);
+    painter->setLineJoin(pen.join);
+    painter->setLineCap(pen.cap);
 
     painter->beginPath();
     painter->moveTo(m_xs.at(0), m_ys.at(0));
@@ -59,7 +63,7 @@ void QniteLinePainter::paint(QNanoPainter* painter)
     painter->stroke();
 
     // draw the fill when we have a valid color
-    if (m_pen.fill.isValid()) {
+    if (pen.fill.isValid()) {
         painter->beginPath();
         painter->moveTo(m_xs.at(0), m_baseline);
         for(auto i = 0; i < dataSize; ++i) {

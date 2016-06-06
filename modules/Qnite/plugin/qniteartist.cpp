@@ -1,21 +1,24 @@
 #include "qniteartist.h"
 #include "qniteaxes.h"
 
-QniteArtist::QniteArtist(QQuickItem* parent):
-  QNanoQuickItem(parent),
-  m_axes{nullptr},
-  m_selectable{false},
-  m_propagate_selection{false},
-  m_pen{new QnitePen}
+QniteArtist::QniteArtist(QQuickItem* parent)
+    : QNanoQuickItem(parent)
+    , m_axes{nullptr}
+    , m_selectable{false}
+    , m_propagate_selection{false}
+    , m_pen{new QnitePen}
+    , m_selectedPen{new QnitePen}
 {
-    // we need to trigger a redraw of our artis when
-    // the pen attributes change.
+    // we need to trigger a redraw of the artist when
+    // the pen or selectedPen's attributes change.
     connect(m_pen, &QnitePen::penChanged, this, &QniteArtist::update);
+    connect(m_selectedPen, &QnitePen::penChanged, this, &QniteArtist::update);
 }
 
 QniteArtist::~QniteArtist()
 {
     delete m_pen;
+    delete m_selectedPen;
 }
 
 QniteAxes* QniteArtist::axes() const

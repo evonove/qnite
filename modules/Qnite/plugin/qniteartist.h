@@ -15,9 +15,10 @@ class QniteArtist: public QNanoQuickItem
   Q_PROPERTY(bool selected READ selected NOTIFY selectedChanged)
   Q_PROPERTY(bool propagateSelection READ propagateSelection WRITE setPropagateSelection NOTIFY propagateSelectionChanged)
   Q_PROPERTY(QnitePen* pen READ pen CONSTANT)
+  Q_PROPERTY(QnitePen* selectedPen READ selectedPen CONSTANT)
 
 public:
-  explicit QniteArtist(QQuickItem* parent = 0);
+  explicit QniteArtist(QQuickItem* parent = Q_NULLPTR);
   virtual ~QniteArtist();
 
   QniteAxes* axes() const;
@@ -33,6 +34,7 @@ public:
   void setPropagateSelection(bool);
 
   QnitePen* pen() const { return m_pen; }
+  QnitePen* selectedPen() const { return m_selectedPen; }
 
   QNanoQuickItemPainter* createItemPainter() const Q_DECL_OVERRIDE { return nullptr; }
 
@@ -54,6 +56,7 @@ private:
   bool m_selectable;
   bool m_propagate_selection;
   QnitePen* m_pen;
+  QnitePen* m_selectedPen;
 };
 
 #endif // QNITE_ARTIST_H
