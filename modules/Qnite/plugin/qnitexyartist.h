@@ -1,14 +1,15 @@
 #ifndef QNITE_XY_ARTIST_H
 #define QNITE_XY_ARTIST_H
 
+
 #include "qniteartist.h"
+
 
 class QniteClipper;
 class QniteMapper;
 class QniteXYArtist: public QniteArtist
 {
   Q_OBJECT
-  Q_PROPERTY(QColor color READ color WRITE setColor NOTIFY colorChanged)
   Q_PROPERTY(QColor selectionColor READ selectionColor WRITE setSelectionColor NOTIFY selectionColorChanged)
   Q_PROPERTY(QList<qreal> xValues READ xValues WRITE setXValues NOTIFY xValuesChanged)
   Q_PROPERTY(QList<qreal> yValues READ yValues WRITE setYValues NOTIFY yValuesChanged)
@@ -17,8 +18,6 @@ public:
   explicit QniteXYArtist(QQuickItem* parent = 0);
   virtual ~QniteXYArtist();
 
-  QColor color() const;
-  void setColor(const QColor& color);
   QColor selectionColor() const;
   void setSelectionColor(const QColor&);
 
@@ -44,7 +43,6 @@ public Q_SLOTS:
   virtual void processData() Q_DECL_OVERRIDE;
 
 Q_SIGNALS:
-  void colorChanged();
   void selectionColorChanged();
   void xValuesChanged();
   void yValuesChanged();
@@ -59,7 +57,6 @@ protected:
   QList<qreal> m_yProcessed;
 
 private:
-  QColor m_color;
   QColor m_selectionColor;
 
   QList<qreal> m_xValues;

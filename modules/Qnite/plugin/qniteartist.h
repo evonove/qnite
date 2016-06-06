@@ -1,16 +1,20 @@
 #ifndef QNITE_ARTIST_H
 #define QNITE_ARTIST_H
 
-#include <QQuickItem>
+
+#include "qnitepen.h"
+#include "qnanoquickitem.h"
+
 
 class QniteAxes;
-class QniteArtist: public QQuickItem
+class QniteArtist: public QNanoQuickItem
 {
   Q_OBJECT
   Q_PROPERTY(QniteAxes* axes READ axes NOTIFY axesChanged)
   Q_PROPERTY(bool selectable READ selectable WRITE setSelectable NOTIFY selectableChanged)
   Q_PROPERTY(bool selected READ selected NOTIFY selectedChanged)
   Q_PROPERTY(bool propagateSelection READ propagateSelection WRITE setPropagateSelection NOTIFY propagateSelectionChanged)
+  Q_PROPERTY(QnitePen* pen READ pen CONSTANT)
 
 public:
   explicit QniteArtist(QQuickItem* parent = 0);
@@ -27,6 +31,10 @@ public:
   void setSelectable(bool selectable);
   virtual void clearSelection() {}
   void setPropagateSelection(bool);
+
+  QnitePen* pen() const { return m_pen; }
+
+  QNanoQuickItemPainter* createItemPainter() const Q_DECL_OVERRIDE { return nullptr; }
 
 public Q_SLOTS:
   virtual void processData() = 0;
@@ -45,6 +53,7 @@ private:
   QniteAxes* m_axes;
   bool m_selectable;
   bool m_propagate_selection;
+  QnitePen* m_pen;
 };
 
 #endif // QNITE_ARTIST_H

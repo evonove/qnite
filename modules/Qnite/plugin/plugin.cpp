@@ -18,6 +18,7 @@
 #include "qnitetool.h"
 #include "qnitepointselectiontool.h"
 #include "qnitepathselectiontool.h"
+#include "qnitepen.h"
 
 #include <QtQml>
 
@@ -31,6 +32,7 @@ void QnitePlugin::registerTypes(const char *uri)
   qmlRegisterType<QniteLinearAxis>(uri, 1, 0, "LinearAxis");
   qmlRegisterType<QniteCategoryAxis>(uri, 1, 0, "CategoryAxis");
   qmlRegisterType<QniteAxisTick>(uri, 1, 0, "AxisTick");
+  qmlRegisterUncreatableType<QnitePen>(uri, 1, 0, "Pen", "Cannot create obects of type Pen");
   qmlRegisterType<QniteBar>(uri, 1, 0, "Bar");
   qmlRegisterType<QniteCircle>(uri, 1, 0, "Circle");
   qmlRegisterType<QniteLine>(uri, 1, 0, "Line");

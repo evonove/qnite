@@ -29,11 +29,11 @@ ApplicationWindow {
             axes.yBounds: [2.5, 5.8]
             axes.xBounds: [0, 10]
 
-            Grid { }
+            //Grid { }
             Circle {
                 id: circle
                 radius: 5
-                color: "#aa3f51b5"
+                pen.fill: "#aa3f51b5"
             }
         }
     }

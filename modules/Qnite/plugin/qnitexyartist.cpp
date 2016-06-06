@@ -4,29 +4,17 @@
 #include "qnitemapper.h"
 #include "qniteclipper.h"
 
-QniteXYArtist::QniteXYArtist(QQuickItem* parent):
-  QniteArtist(parent),
-  m_clipper{nullptr},
-  m_xMapper{nullptr},
-  m_yMapper{nullptr}
+
+QniteXYArtist::QniteXYArtist(QQuickItem* parent)
+    : QniteArtist(parent)
+    , m_clipper{nullptr}
+    , m_xMapper{nullptr}
+    , m_yMapper{nullptr}
 {
 }
 
 QniteXYArtist::~QniteXYArtist()
 {
-}
-
-QColor QniteXYArtist::color() const
-{
-  return m_color;
-}
-
-void QniteXYArtist::setColor(const QColor& color)
-{
-  if (color != m_color) {
-    m_color = color;
-    emit colorChanged();
-  }
 }
 
 QColor QniteXYArtist::selectionColor() const

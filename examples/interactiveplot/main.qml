@@ -20,8 +20,6 @@ ApplicationWindow {
                 }
             ]
 
-            Grid { }
-
             axes.yBounds: [-2, 10.8]
             axes.xBounds: [-5, 10]
 
@@ -31,11 +29,23 @@ ApplicationWindow {
                 xValues: [-4.8, -2, .5, 2, 3, 4,  8, 10]
                 yValues: [   3,  1, -2, 6, 3, 4, 10, 4]
                 anchors.fill: parent
-                color: "#345f6b"
+                pen {
+                    stroke: "#345f6b"
+                    fill: "#aa345f6b"
+                    width: 5
+                }
+
                 selectionColor: "#22ff22"
-                fill: true
-                fillColor: "#aa345f6b"
-                lineWidth: 5
+            }
+            Circle {
+                xValues: [-4.8, -2, .5, 2, 3, 4,  8, 10]
+                yValues: [   3,  1, -2, 6, 3, 4, 10, 4]
+                pen {
+                    stroke: "#345f6b"
+                    fill: "#aa345f6b"
+                    width: 5
+                }
+                selectionColor: "#22ff22"
             }
 
             Spline {
@@ -44,10 +54,22 @@ ApplicationWindow {
                 xValues: [-3.8, -1, 1.5, 3, 4, 5,  9, 11]
                 yValues: [   4,  2, -1, 7, 4, 5, 11, 5]
                 anchors.fill: parent
-                color: "#b01327"
+                pen {
+                    stroke: "#b01327"
+                    fill: "#aab01327"
+                    width: 5
+                }
                 selectionColor: "#22ff22"
-                fill: true
-                fillColor: "#aab01327"
+            }
+            Circle {
+                xValues: [-3.8, -1, 1.5, 3, 4, 5,  9, 11]
+                yValues: [   4,  2, -1, 7, 4, 5, 11, 5]
+                pen {
+                    stroke: "#b01327"
+                    fill: "#aab01327"
+                    width: 5
+                }
+                selectionColor: "#22ff22"
             }
         }
     }

@@ -112,7 +112,7 @@ void QniteBar::updateBars()
     qreal cx = xProcessed().at(i);
     qreal cy = yProcessed().at(i);
 
-    auto c = (i == m_selectedIndex) ? selectionColor() : color();
+    auto c = (i == m_selectedIndex) ? selectionColor() : pen()->fill();
     m_barsNode->appendChildNode(new QniteBarNode(cx, cy, baseline, fixedWidth(), c));
   }
 }

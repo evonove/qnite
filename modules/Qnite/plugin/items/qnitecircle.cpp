@@ -1,7 +1,7 @@
 #include "qnitecircle.h"
+#include "qnitecirclepainter.h"
 #include "qniteclipper.h"
 #include "qnitemapper.h"
-#include "qnitecirclenode.h"
 #include "qniteaxes.h"
 #include "qniteaxis.h"
 
@@ -129,38 +129,43 @@ void QniteCircle::select(QList<int> indexes)
     update();
 }
 
-QSGNode* QniteCircle::updatePaintNode(QSGNode* node, UpdatePaintNodeData*)
+QNanoQuickItemPainter* QniteCircle::createItemPainter() const
 {
-  if (!node) {
-    node = new QSGNode;
-  }
-
-  // TODO: processdata should be triggered only when data changes
-  processData();
-  int dataSize = xMapped().size();
-
-  // TODO: find a better approach. removing and creating all nodes is bad
-  node->removeAllChildNodes();
-
-  // we draw the unselected points first
-  for(int i = 0; i < dataSize; ++i) {
-    qreal cx = xMapped().at(i);
-    qreal cy = yMapped().at(i);
-
-    // choose the color based on the selection status
-    auto pointColor = m_selectedPoints.contains(i) ? selectionColor() : color();
-
-    // we add the nodes to render selected points at the end of the scene graph
-    // se that they are drawn above unselected points.
-    if (m_selectedPoints.contains(i)) {
-        // TODO: optimal number of segments should be  computed runtime
-        node->appendChildNode(new QniteCircleNode(cx, cy, m_radius, 32, pointColor));
-    } else {
-        // TODO: optimal number of segments should be  computed runtime
-        node->prependChildNode(new QniteCircleNode(cx, cy, m_radius, 32, pointColor));
-    }
-  }
-
-  return node;
+    return new QniteCirclePainter;
 }
+
+//QSGNode* QniteCircle::updatePaintNode(QSGNode* node, UpdatePaintNodeData*)
+//{
+  //if (!node) {
+    //node = new QSGNode;
+  //}
+
+  //// TODO: processdata should be triggered only when data changes
+  //processData();
+  //int dataSize = xMapped().size();
+
+  //// TODO: find a better approach. removing and creating all nodes is bad
+  //node->removeAllChildNodes();
+
+  //// we draw the unselected points first
+  //for(int i = 0; i < dataSize; ++i) {
+    //qreal cx = xMapped().at(i);
+    //qreal cy = yMapped().at(i);
+
+    //// choose the color based on the selection status
+    //auto pointColor = m_selectedPoints.contains(i) ? selectionColor() : color();
+
+    //// we add the nodes to render selected points at the end of the scene graph
+    //// se that they are drawn above unselected points.
+    //if (m_selectedPoints.contains(i)) {
+        //// TODO: optimal number of segments should be  computed runtime
+        //node->appendChildNode(new QniteCircleNode(cx, cy, m_radius, 32, pointColor));
+    //} else {
+        //// TODO: optimal number of segments should be  computed runtime
+        //node->prependChildNode(new QniteCircleNode(cx, cy, m_radius, 32, pointColor));
+    //}
+  //}
+
+  //return node;
+//}
 

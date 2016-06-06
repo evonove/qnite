@@ -7,7 +7,8 @@ TARGET = $$qtLibraryTarget($$TARGET)
 uri = Qnite
 
 INCLUDEPATH += \
-    tools
+    $$PWD/tools \
+    $$PWD/items
 
 # Input
 SOURCES += \
@@ -21,17 +22,20 @@ SOURCES += \
     qniteaxes.cpp \
     qnitebar.cpp \
     qnitebarnode.cpp \
-    qnitecircle.cpp \
     qnitecirclenode.cpp \
     qnitefillnode.cpp \
     qnitelinenode.cpp \
     qniteclipper.cpp \
-    qniteline.cpp \
     qnitespline.cpp \
     qnitemapper.cpp \
     qnitelinearmapper.cpp \
     qniteticker.cpp \
     qnitelinearticker.cpp \
+    items/qnitecircle.cpp \
+    items/qnitecirclepainter.cpp \
+    items/qniteline.cpp \
+    items/qnitelinepainter.cpp \
+    items/qnitepen.cpp \
     tools/qnitetool.cpp \
     tools/qniteselectiontool.cpp \
     tools/qnitepointselectiontool.cpp \
@@ -53,12 +57,16 @@ HEADERS += \
     qnitefillnode.h \
     qnitelinenode.h \
     qniteclipper.h \
-    qniteline.h \
     qnitespline.h \
     qnitemapper.h \
     qnitelinearmapper.h \
     qniteticker.h \
     qnitelinearticker.h \
+    items/qnitecircle.h \
+    items/qnitecirclepainter.h \
+    items/qniteline.h \
+    items/qnitelinepainter.h \
+    items/qnitepen.h \
     tools/qnitetool.h \
     tools/qniteselectiontool.h \
     tools/qnitepointselectiontool.h \

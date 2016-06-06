@@ -30,7 +30,7 @@ ApplicationWindow {
                 categories: ["a", "b", "c", "e"]
                 yValues: [-9, 3, 5, -1]
 
-                color: "red"
+                pen.fill: "red"
                 selectionColor: "green"
                 selectable: true
             }

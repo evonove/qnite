@@ -24,11 +24,10 @@ public:
 
     Q_INVOKABLE void select(QList<int> indexes);
 
+    QNanoQuickItemPainter* createItemPainter() const Q_DECL_OVERRIDE;
+
 Q_SIGNALS:
     void radiusChanged();
-
-protected:
-    QSGNode* updatePaintNode(QSGNode* node, UpdatePaintNodeData*) Q_DECL_OVERRIDE;
 
 private:
     qreal m_radius;

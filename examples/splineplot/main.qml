@@ -18,12 +18,12 @@ ApplicationWindow {
             axes.yBounds: [-2, 10.8]
             axes.xBounds: [-5, 10]
 
-            Grid { }
+//            Grid { }
             Spline {
                 id: spline
                 xValues: [-4.8, -2, .5, 2, 3, 4,  8, 10]
                 yValues: [   3,  1, -2, 6, 3, 4, 10, 4]
-                color: "#345f6b"
+                pen.stroke: "#345f6b"
 
                 tension: tensionSlider.value
                 bias: biasSlider.value

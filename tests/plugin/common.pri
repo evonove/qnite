@@ -3,6 +3,8 @@ QT += testlib
 CONFIG += testcase c++11
 
 INCLUDEPATH += $$PWD/../../modules/Qnite/plugin/
+INCLUDEPATH += $$PWD/../../modules/Qnite/plugin/items/
+INCLUDEPATH += $$PWD/../../3rdparty/qnanopainter/libqnanopainter/
 
 isEmpty(DESTDIR) {
     DESTDIR = ../bin
