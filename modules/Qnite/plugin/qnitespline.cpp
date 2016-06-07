@@ -3,7 +3,6 @@
 #include "qniteaxis.h"
 
 #include <QtMath>
-#include <QDebug>
 
 #include <QSGGeometry>
 #include <QSGGeometryNode>
@@ -161,9 +160,6 @@ void QniteSpline::cosineInterpolation()
     }
   }
 
-  qDebug() << "cosine input size" << xv.size();
-  qDebug() << "cosine output size" << xs.size();
-
   m_xProcessed = xs;
   m_yProcessed = ys;
 }
@@ -210,9 +206,6 @@ void QniteSpline::cubicInterpolation()
       ys.push_back(y);
     }
   }
-
-  qDebug() << "cubic input size" << xv.size();
-  qDebug() << "cubic output size" << xs.size();
 
   m_xProcessed = xs;
   m_yProcessed = ys;

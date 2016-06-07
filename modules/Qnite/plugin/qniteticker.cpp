@@ -1,7 +1,5 @@
 #include "qniteticker.h"
 
-#include <QDebug>
-
 #define DEFAULT_NUM_STEPS 0
 #define DEFAULT_LOWER_B 0
 #define DEFAULT_UPPER_B 0

@@ -1,5 +1,4 @@
 #include <QtTest/QtTest>
-#include <QDebug>
 #include <QSignalSpy>
 
 #include "qniteticker.h"

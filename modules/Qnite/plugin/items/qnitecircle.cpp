@@ -5,7 +5,6 @@
 #include "qniteaxes.h"
 #include "qniteaxis.h"
 
-#include <QDebug>
 #include <QPolygon>
 
 

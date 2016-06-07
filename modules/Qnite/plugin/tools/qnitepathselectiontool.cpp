@@ -2,8 +2,6 @@
 #include <QSGGeometry>
 #include <QSGFlatColorMaterial>
 
-#include <QDebug>
-
 #include "qnitepathselectiontool.h"
 #include "qnitepathpainter.h"
 #include "qniteartist.h"

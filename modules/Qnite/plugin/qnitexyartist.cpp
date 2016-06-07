@@ -120,12 +120,7 @@ const QList<qreal>& QniteXYArtist::yProcessed() const
 
 void QniteXYArtist::processData()
 {
-  qDebug() << "processing data";
-  if (xValues().size() != yValues().size())
-    qWarning() << "xValues and yValues size for the artists are different";
-
   if (qMin(xValues().size(), yValues().size()) < 1) {
-    qWarning() << "at least one of x/y series is empty";
     return;
   }
 

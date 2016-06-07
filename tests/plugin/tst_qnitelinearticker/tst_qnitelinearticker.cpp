@@ -1,5 +1,4 @@
 #include <QtTest/QtTest>
-#include <QDebug>
 
 #include "qnitelinearticker.h"
 

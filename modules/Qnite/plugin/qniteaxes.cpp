@@ -61,7 +61,6 @@ QList<qreal> QniteAxes::xBounds() const
 void QniteAxes::setXBounds(const QList<qreal>& bounds)
 {
   if (bounds.size() != 2) {
-    qWarning() << "bottom bounds should only contain two values";
     return;
   }
 
@@ -85,7 +84,6 @@ QList<qreal> QniteAxes::yBounds() const
 void QniteAxes::setYBounds(const QList<qreal>& bounds)
 {
   if (bounds.size() != 2) {
-    qWarning() << "left bounds should only contain two values";
     return;
   }
 

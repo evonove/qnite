@@ -4,7 +4,6 @@
 #include "qnitebarpainter.h"
 
 #include <algorithm>
-#include <QDebug>
 #include <QSGNode>
 
 

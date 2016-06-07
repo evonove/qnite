@@ -1,8 +1,9 @@
-#include "qnitelinearticker.h"
-
 #include <cmath>
 #include <algorithm>
-#include <QDebug>
+
+#include <QSet>
+
+#include "qnitelinearticker.h"
 
 // defines
 #define DEFAULT_NUM_STEPS 10
@@ -72,8 +73,6 @@ void QniteLinearTicker::buildTicks()
   qreal delta = u-l;
 
   if (delta <= 0) {
-    qWarning() << QString("Illegal values for ticker bounds: %1,%2")
-                          .arg(lower()).arg(upper());
     return;
   }
 
@@ -132,7 +131,6 @@ void QniteLinearTicker::reset()
 void QniteLinearTicker::setNumSteps(int steps)
 {
   if (steps < 2) {
-    qWarning() << "Number of steps must be at least 2";
     return;
   }
 
