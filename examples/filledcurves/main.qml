@@ -17,7 +17,7 @@ ApplicationWindow {
             axes.xBounds: [-5, 10]
             axes.yBounds: [-2, 10.8]
 
-            //Grid { }
+            Grid { }
             Line {
                 xValues: [-2, -1, 1, 3, 5, 6, 10]
                 yValues: [-2, 1, 3, 6, 3, 4, 10]

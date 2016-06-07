@@ -23,6 +23,7 @@ ApplicationWindow {
             axes.yBounds: [-2, 10.8]
             axes.xBounds: [-5, 10]
 
+            Grid {}
             Spline {
                 id: spline
                 selectable: true
@@ -36,14 +37,6 @@ ApplicationWindow {
                 selectedPen {
                     stroke: "#22ff22"
                     fill: "#aa345f6b"
-                }
-            }
-            Circle {
-                xValues: [-4.8, -2, .5, 2, 3, 4,  8, 10]
-                yValues: [   3,  1, -2, 6, 3, 4, 10, 4]
-                pen {
-                    stroke: spline.selected ? spline.selectedPen.stroke : spline.pen.stroke
-                    fill: spline.selected ? spline.selectedPen.fill : spline.pen.fill
                 }
             }
 
@@ -60,14 +53,6 @@ ApplicationWindow {
                 selectedPen {
                     stroke: "#22ff22"
                     fill: "#aab01327"
-                }
-            }
-            Circle {
-                xValues: [-3.8, -1, 1.5, 3, 4, 5,  9, 11]
-                yValues: [   4,  2, -1, 7, 4, 5, 11, 5]
-                pen {
-                    stroke: spline2.selected ? spline2.selectedPen.stroke : spline2.pen.stroke
-                    fill: "#e75868"
                 }
             }
         }
