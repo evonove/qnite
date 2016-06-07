@@ -20,10 +20,6 @@ SOURCES += \
     qnitecategoryaxis.cpp \
     qniteaxistick.cpp \
     qniteaxes.cpp \
-    qnitebarnode.cpp \
-    qnitecirclenode.cpp \
-    qnitefillnode.cpp \
-    qnitelinenode.cpp \
     qniteclipper.cpp \
     qnitespline.cpp \
     qnitemapper.cpp \
@@ -55,10 +51,6 @@ HEADERS += \
     qniteaxistick.h \
     qniteaxes.h \
     qnitebar.h \
-    qnitebarnode.h \
-    qnitecirclenode.h \
-    qnitefillnode.h \
-    qnitelinenode.h \
     qniteclipper.h \
     qnitespline.h \
     qnitemapper.h \

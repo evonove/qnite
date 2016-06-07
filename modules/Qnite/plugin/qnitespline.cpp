@@ -1,5 +1,4 @@
 #include "qnitespline.h"
-#include "qnitefillnode.h"
 #include "qniteaxes.h"
 #include "qniteaxis.h"
 
