@@ -1,19 +1,18 @@
 #include "qniteaxes.h"
 #include "qniteaxis.h"
 #include "qnitebar.h"
-#include "qnitebarnode.h"
+#include "qnitebarpainter.h"
 
 #include <algorithm>
 #include <QDebug>
 #include <QSGNode>
 
+
 QniteBar::QniteBar(QQuickItem *parent):
   QniteXYArtist(parent),
   m_fixedWidth{10},
-  m_selectedIndex{-1},
-  m_barsNode{nullptr}
+  m_selectedIndex{-1}
 {
-  setFlag(ItemHasContents, true);
 }
 
 void QniteBar::setFixedWidth(qreal w)
@@ -78,41 +77,46 @@ void QniteBar::clearSelection()
   update();
 }
 
+QNanoQuickItemPainter* QniteBar::createItemPainter() const
+{
+    return new QniteBarPainter;
+}
+
 bool QniteBar::isSelected() const
 {
   return m_selectedIndex >= 0;
 }
 
-QSGNode* QniteBar::updatePaintNode(QSGNode* node, UpdatePaintNodeData*)
-{
-  processData();
+//QSGNode* QniteBar::updatePaintNode(QSGNode* node, UpdatePaintNodeData*)
+//{
+  //processData();
 
-  auto dataSize = xProcessed().size();
-  if (dataSize < 1)
-    return nullptr;
+  //auto dataSize = xProcessed().size();
+  //if (dataSize < 1)
+    //return nullptr;
 
-  if (node == nullptr) {
-    node = new QSGNode;
-    m_barsNode = new QSGNode;
-    node->appendChildNode(m_barsNode);
-  }
-  updateBars();
+  //if (node == nullptr) {
+    //node = new QSGNode;
+    //m_barsNode = new QSGNode;
+    //node->appendChildNode(m_barsNode);
+  //}
+  //updateBars();
 
-  return node;
-}
+  //return node;
+//}
 
-void QniteBar::updateBars()
-{
-  m_barsNode->removeAllChildNodes();
+//void QniteBar::updateBars()
+//{
+  //m_barsNode->removeAllChildNodes();
 
-  qreal baseline = axes()->axisY()->position();
+  //qreal baseline = axes()->axisY()->position();
 
-  auto dataSize = xProcessed().size();
-  for(int i = 0; i < dataSize; ++i) {
-    qreal cx = xProcessed().at(i);
-    qreal cy = yProcessed().at(i);
+  //auto dataSize = xProcessed().size();
+  //for(int i = 0; i < dataSize; ++i) {
+    //qreal cx = xProcessed().at(i);
+    //qreal cy = yProcessed().at(i);
 
-    auto c = (i == m_selectedIndex) ? selectedPen()->fill() : pen()->fill();
-    m_barsNode->appendChildNode(new QniteBarNode(cx, cy, baseline, fixedWidth(), c));
-  }
-}
+    //auto c = (i == m_selectedIndex) ? selectedPen()->fill() : pen()->fill();
+    //m_barsNode->appendChildNode(new QniteBarNode(cx, cy, baseline, fixedWidth(), c));
+  //}
+//}

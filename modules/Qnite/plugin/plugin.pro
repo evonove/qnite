@@ -1,7 +1,7 @@
 TEMPLATE = lib
 TARGET = qnite
 QT += qml quick
-CONFIG += qt plugin c++11
+CONFIG += qt plugin c++14
 
 TARGET = $$qtLibraryTarget($$TARGET)
 uri = Qnite
@@ -20,7 +20,6 @@ SOURCES += \
     qnitecategoryaxis.cpp \
     qniteaxistick.cpp \
     qniteaxes.cpp \
-    qnitebar.cpp \
     qnitebarnode.cpp \
     qnitecirclenode.cpp \
     qnitefillnode.cpp \
@@ -31,6 +30,8 @@ SOURCES += \
     qnitelinearmapper.cpp \
     qniteticker.cpp \
     qnitelinearticker.cpp \
+    items/qnitebar.cpp \
+    items/qnitebarpainter.cpp \
     items/qnitecircle.cpp \
     items/qnitecirclepainter.cpp \
     items/qnitegrid.cpp \
@@ -63,6 +64,8 @@ HEADERS += \
     qnitelinearmapper.h \
     qniteticker.h \
     qnitelinearticker.h \
+    items/qnitebar.h \
+    items/qnitebarpainter.h \
     items/qnitecircle.h \
     items/qnitecirclepainter.h \
     items/qniteline.h \
