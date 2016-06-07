@@ -4,10 +4,6 @@
 
 #include <QtMath>
 
-#include <QSGGeometry>
-#include <QSGGeometryNode>
-#include <QSGFlatColorMaterial>
-
 namespace {
 
 double CosineInterpolate(
@@ -83,10 +79,6 @@ QniteSpline::QniteSpline(QQuickItem *parent):
   m_interpolation{Interpolation::Cubic},
   m_tension{0},
   m_bias{0}
-{
-}
-
-QniteSpline::~QniteSpline()
 {
 }
 

@@ -13,7 +13,6 @@ class QniteSpline : public QniteLine
 
 public:
   explicit QniteSpline(QQuickItem *parent = 0);
-  virtual ~QniteSpline();
 
   enum Interpolation {
     Cosine,

@@ -21,7 +21,6 @@ SOURCES += \
     qniteaxistick.cpp \
     qniteaxes.cpp \
     qniteclipper.cpp \
-    qnitespline.cpp \
     qnitemapper.cpp \
     qnitelinearmapper.cpp \
     qniteticker.cpp \
@@ -35,6 +34,7 @@ SOURCES += \
     items/qniteline.cpp \
     items/qnitelinepainter.cpp \
     items/qnitepen.cpp \
+    items/qnitespline.cpp \
     tools/qnitetool.cpp \
     tools/qniteselectiontool.cpp \
     tools/qnitepointselectiontool.cpp \
@@ -50,9 +50,7 @@ HEADERS += \
     qnitecategoryaxis.h \
     qniteaxistick.h \
     qniteaxes.h \
-    qnitebar.h \
     qniteclipper.h \
-    qnitespline.h \
     qnitemapper.h \
     qnitelinearmapper.h \
     qniteticker.h \
@@ -65,6 +63,7 @@ HEADERS += \
     items/qnitegrid.h \
     items/qnitegridpainter.h \
     items/qnitelinepainter.h \
+    items/qnitespline.h \
     items/qnitepen.h \
     tools/qnitetool.h \
     tools/qniteselectiontool.h \

@@ -11,7 +11,6 @@ class QniteLine : public QniteXYArtist
 
 public:
     explicit QniteLine(QQuickItem *parent = 0);
-    virtual ~QniteLine();
 
     bool select(const QList<QPoint>&) Q_DECL_OVERRIDE;
     bool select(const QPoint) Q_DECL_OVERRIDE;

@@ -19,10 +19,6 @@ QniteLine::QniteLine(QQuickItem *parent)
 {
 }
 
-QniteLine::~QniteLine()
-{
-}
-
 /*!
   Temporary implementation of the selection logic for lines.
 
