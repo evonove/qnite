@@ -4,6 +4,7 @@
 QnitePointSelectionTool::QnitePointSelectionTool(QQuickItem* parent):
   QniteSelectionTool(parent)
 {
+    setFlag(ItemHasContents, false);
 }
 
 void QnitePointSelectionTool::select(const QPoint& point)

@@ -56,6 +56,7 @@ bool QniteCircle::select(const QList<QPoint>& path)
 
     // cycle through all the points and save those contained
     // in the polygon
+    m_selectedPoints.clear();
     auto dataSize = xMapped().size();
     for(auto i = 0; i < dataSize; ++i) {
         QPoint cp(xMapped().at(i), yMapped().at(i));

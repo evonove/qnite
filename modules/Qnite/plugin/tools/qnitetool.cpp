@@ -3,7 +3,7 @@
 
 
 QniteTool::QniteTool(QQuickItem* parent)
-    : QQuickItem(parent)
+    : QNanoQuickItem{parent}
     , m_axes{nullptr}
 {
 }

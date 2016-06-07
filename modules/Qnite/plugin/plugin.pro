@@ -42,7 +42,8 @@ SOURCES += \
     tools/qnitetool.cpp \
     tools/qniteselectiontool.cpp \
     tools/qnitepointselectiontool.cpp \
-    tools/qnitepathselectiontool.cpp
+    tools/qnitepathselectiontool.cpp \
+    tools/qnitepathpainter.cpp
 
 HEADERS += \
     plugin.h \
@@ -76,7 +77,8 @@ HEADERS += \
     tools/qnitetool.h \
     tools/qniteselectiontool.h \
     tools/qnitepointselectiontool.h \
-    tools/qnitepathselectiontool.h
+    tools/qnitepathselectiontool.h \
+    tools/qnitepathpainter.h
 
 # including qnanopainter
 include(../../../3rdparty/qnanopainter/libqnanopainter/include.pri)

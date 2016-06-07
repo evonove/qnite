@@ -41,7 +41,7 @@ void QniteCirclePainter::paint(QNanoPainter* painter)
     qCDebug(qnitecirclepainter) << "painting qnitecircle";
 
     auto dataSize = m_xs.size();
-    if (dataSize < 2)
+    if (dataSize < 1)
         return;
 
     painter->setStrokeStyle(QNanoColor::fromQColor(m_pen.stroke));
