@@ -29,6 +29,11 @@ void QnitePathPainter::paint(QNanoPainter *painter)
 {
     qCDebug(qnitepathpainter) << "painting qnitepath";
 
+    // avoid drawing when there are less than 2 points
+    if (m_points.size() < 2) {
+        return;
+    }
+
     painter->setStrokeStyle(QNanoColor::fromQColor(m_pen.stroke));
     if (m_pen.fill.isValid()) {
         painter->setFillStyle(QNanoColor::fromQColor(m_pen.fill));
@@ -42,7 +47,7 @@ void QnitePathPainter::paint(QNanoPainter *painter)
     for(const auto& p : m_points) {
         painter->lineTo(p.x(), p.y());
     }
-    painter->stroke();
     painter->fill();
+    painter->stroke();
     painter->closePath();
 }

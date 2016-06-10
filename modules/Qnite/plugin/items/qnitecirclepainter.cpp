@@ -59,8 +59,8 @@ void QniteCirclePainter::paint(QNanoPainter* painter)
         }
         painter->beginPath();
         painter->circle(m_xs.at(i), m_ys.at(i), m_radius);
-        painter->stroke();
         painter->fill();
+        painter->stroke();
     }
 
     // draw selected points
@@ -74,8 +74,8 @@ void QniteCirclePainter::paint(QNanoPainter* painter)
         for(auto i : m_selectedPoints) {
             painter->beginPath();
             painter->circle(m_xs.at(i), m_ys.at(i), m_radius);
-            painter->stroke();
             painter->fill();
+            painter->stroke();
         }
     }
 }

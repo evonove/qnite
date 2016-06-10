@@ -84,6 +84,6 @@ void QniteBarPainter::drawBar(qreal x, qreal y)
     auto height = m_baseline - y;
     painter()->beginPath();
     painter()->rect(cx, m_baseline, m_fixedWidth, height);
-    painter()->stroke();
     painter()->fill();
+    painter()->stroke();
 }
