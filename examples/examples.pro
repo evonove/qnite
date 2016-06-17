@@ -1,8 +1,6 @@
-TEMPLATE = subdirs
-SUBDIRS += \
-  lineplot \
-  scatterplot \
-  splineplot \
-  filledcurves \
-  interactiveplot \
-  barplot
+TEMPLATE = app
+
+RESOURCES += examples.qrc
+
+include(common.pri)
+include(deployment.pri)

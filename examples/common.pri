@@ -1,14 +1,16 @@
 QT += qml quick
 CONFIG += c++11
 
-isEmpty(DESTDIR) {
-    DESTDIR = $$OUT_PWD/..
-} else {
+!isEmpty(DESTDIR) {
     DESTDIR = $$DESTDIR/examples
 }
 
-SOURCES += ../main.cpp
+SOURCES += \
+    $$PWD/main.cpp
 
 QML_IMPORT_PATH += $$OUT_PWD/../../modules
 
-OTHER_FILES += main.qml
+OTHER_FILES += \
+    $$PWD/main.qml
+    $$PWD/BarPlot.qml
+    $$PWD/FilledCurves.qml
