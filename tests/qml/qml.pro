@@ -3,8 +3,10 @@ TARGET = tst_qnite
 CONFIG += qmltestcase
 SOURCES += tst_qnite.cpp
 
-IMPORTPATH += $$OUT_PWD/../../modules
+IMPORTPATH = \
+    "qrc:/qml"
 
-DISTFILES += \
-    tst_selecttool.qml \
-    tst_foo.qml
+TESTDATA += \
+    $$PWD/data/tst_*
+
+include($$PWD/../../src/qnite.pri)

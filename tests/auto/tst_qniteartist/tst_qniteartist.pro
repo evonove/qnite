@@ -1,6 +1,5 @@
 include(../common.pri)
 
-QT += quick
 TARGET = tst_qniteartist
-SOURCES = \
+SOURCES += \
     tst_qniteartist.cpp

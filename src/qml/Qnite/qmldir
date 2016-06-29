@@ -1,5 +1,4 @@
 module Qnite
-plugin qnite
 Axes 1.0 Axes.qml
 Figure 1.0 Figure.qml
 
