@@ -28,11 +28,13 @@ void QniteCirclePainter::synchronize(QNanoQuickItem* item)
         // make a local copy of the pen
         m_pen = circleItem->pen()->data();
         m_selectedPen = circleItem->selectedPen()->data();
+        m_highlightedPen = circleItem->highlightedPen()->data();
         m_selected = circleItem->selected();
 
         // circle specific properties
         m_radius = circleItem->radius();
         m_selectedPoints = circleItem->selectedIndexes();
+        m_highlightedPoint = circleItem->highlightedIndex();
     }
 }
 
@@ -51,10 +53,9 @@ void QniteCirclePainter::paint(QNanoPainter* painter)
     painter->setLineCap(m_pen.cap);
 
     // draw unselected points
-    for(auto i = 1; i < dataSize; ++i) {
-        // we do not draw selected indexes because we draw
-        // them later above the unselected points.
-        if (m_selectedPoints.contains(i)) {
+    for(auto i = 0; i < dataSize; ++i) {
+        // we do not draw selected or highlighted indexes because we draw them later
+        if (m_selectedPoints.contains(i) || m_highlightedPoint == i) {
             continue;
         }
         painter->beginPath();
@@ -72,10 +73,29 @@ void QniteCirclePainter::paint(QNanoPainter* painter)
         painter->setLineCap(m_selectedPen.cap);
 
         for(auto i : m_selectedPoints) {
+            // we don't draw highlighted indexes here
+            if (i == m_highlightedPoint) {
+                continue;
+            }
+
             painter->beginPath();
             painter->circle(m_xs.at(i), m_ys.at(i), m_radius);
             painter->fill();
             painter->stroke();
         }
+    }
+
+    // draw highlighted points
+    if (m_highlightedPoint > -1) {
+        painter->setStrokeStyle(QNanoColor::fromQColor(m_highlightedPen.stroke));
+        painter->setFillStyle(QNanoColor::fromQColor(m_highlightedPen.fill));
+        painter->setLineWidth(m_highlightedPen.width);
+        painter->setLineJoin(m_highlightedPen.join);
+        painter->setLineCap(m_highlightedPen.cap);
+
+        painter->beginPath();
+        painter->circle(m_xs.at(m_highlightedPoint), m_ys.at(m_highlightedPoint), m_radius);
+        painter->fill();
+        painter->stroke();
     }
 }

@@ -19,6 +19,7 @@ private:
     bool m_selected;
     QnitePen::PenData m_pen;
     QnitePen::PenData m_selectedPen;
+    QnitePen::PenData m_highlightedPen;
 
     // xy artist data
     QList<qreal> m_xs;
@@ -27,6 +28,7 @@ private:
     // circle data
     qreal m_radius;
     QList<int> m_selectedPoints;
+    int m_highlightedPoint;
 };
 
 #endif /* QNITECIRCLEPAINTER_H */

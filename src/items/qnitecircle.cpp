@@ -110,6 +110,7 @@ bool QniteCircle::select(const QPoint p)
 void QniteCircle::clearSelection()
 {
     m_selectedPoints.clear();
+    m_highlightedPoint = -1;
     emit selectedChanged();
     update();
 }
@@ -126,6 +127,18 @@ void QniteCircle::select(QList<int> indexes)
         }
     }
     // TODO: should emit selectedChanged???
+    update();
+}
+
+void QniteCircle::highlight(int index)
+{
+    auto dataSize = xMapped().size();
+
+    // we only highlight a valid index
+    if (index >= 0 && index < dataSize) {
+        m_highlightedPoint = index;
+    }
+
     update();
 }
 

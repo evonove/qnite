@@ -8,17 +8,20 @@ QniteArtist::QniteArtist(QQuickItem* parent)
     , m_propagate_selection{false}
     , m_pen{new QnitePen}
     , m_selectedPen{new QnitePen}
+    , m_highlightedPen{new QnitePen}
 {
     // we need to trigger a redraw of the artist when
     // the pen or selectedPen's attributes change.
     connect(m_pen, &QnitePen::penChanged, this, &QniteArtist::update);
     connect(m_selectedPen, &QnitePen::penChanged, this, &QniteArtist::update);
+    connect(m_highlightedPen, &QnitePen::penChanged, this, &QniteArtist::update);
 }
 
 QniteArtist::~QniteArtist()
 {
     delete m_pen;
     delete m_selectedPen;
+    delete m_highlightedPen;
 }
 
 QniteAxes* QniteArtist::axes() const
