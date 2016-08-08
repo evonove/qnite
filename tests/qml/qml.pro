@@ -1,7 +1,9 @@
 TEMPLATE = app
 TARGET = tst_qnite
 CONFIG += qmltestcase
-SOURCES += tst_qnite.cpp
+
+SOURCES += \
+    $$PWD/tst_qnite.cpp
 
 IMPORTPATH = \
     "qrc:/qml"

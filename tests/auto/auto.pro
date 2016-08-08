@@ -8,4 +8,5 @@ SUBDIRS +=\
     tst_qnitetool \
     tst_qniteaxes \
     tst_qniteartist \
-    tst_qniteselectiontool
+    tst_qniteselectiontool \
+    tst_qnitecircle

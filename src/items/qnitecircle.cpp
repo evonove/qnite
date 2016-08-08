@@ -11,9 +11,10 @@
 constexpr auto SELECTION_TOLERANCE = 20;
 
 
-QniteCircle::QniteCircle(QQuickItem *parent):
-  QniteXYArtist(parent),
-  m_radius{5}
+QniteCircle::QniteCircle(QQuickItem *parent)
+    : QniteXYArtist(parent)
+    , m_radius{5}
+    , m_highlightedPoint{-1}
 {
   setFlag(ItemHasContents, true);
   setClipper(new QniteClipper(this));
