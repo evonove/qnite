@@ -14,6 +14,8 @@ class QniteAxes: public QQuickItem
   Q_PROPERTY(QQuickItem* canvas READ canvas CONSTANT)
   Q_PROPERTY(QList<qreal> xBounds READ xBounds WRITE setXBounds NOTIFY xBoundsChanged)
   Q_PROPERTY(QList<qreal> yBounds READ yBounds WRITE setYBounds NOTIFY yBoundsChanged)
+  Q_PROPERTY(qreal xPadding READ xPadding WRITE setXPadding NOTIFY xPaddingChanged)
+  Q_PROPERTY(qreal yPadding READ yPadding WRITE setYPadding NOTIFY yPaddingChanged)
 
   Q_PROPERTY(QQmlListProperty<QniteArtist> artists READ artists)
   Q_PROPERTY(QQmlListProperty<QniteTool> tools READ tools)
@@ -35,8 +37,13 @@ public:
 
   QList<qreal> xBounds() const;
   void setXBounds(const QList<qreal>& bounds);
+  qreal xPadding() const { return m_xPadding; }
+  void setXPadding(qreal padding);
+
   QList<qreal> yBounds() const;
   void setYBounds(const QList<qreal>& bounds);
+  qreal yPadding() const { return m_yPadding; }
+  void setYPadding(qreal padding);
 
   QniteAxis* axisY() const;
   void setAxisY(QniteAxis* axisY);
@@ -46,6 +53,8 @@ public:
 Q_SIGNALS:
   void xBoundsChanged();
   void yBoundsChanged();
+  void xPaddingChanged();
+  void yPaddingChanged();
   void axisYChanged();
   void axisXChanged();
 
@@ -66,8 +75,10 @@ private:
 
   qreal m_lowerXBound;
   qreal m_upperXBound;
+  qreal m_xPadding;
   qreal m_lowerYBound;
   qreal m_upperYBound;
+  qreal m_yPadding;
 
   QQuickItem* m_canvas;
 

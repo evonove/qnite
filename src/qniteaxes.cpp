@@ -8,8 +8,10 @@ QniteAxes::QniteAxes(QQuickItem* parent) :
   QQuickItem(parent),
   m_lowerXBound{0},
   m_upperXBound{0},
+  m_xPadding{0},
   m_lowerYBound{0},
   m_upperYBound{0},
+  m_yPadding{0},
   m_canvas{new QQuickItem},
   m_axisX{nullptr},
   m_axisY{nullptr}
@@ -76,6 +78,17 @@ void QniteAxes::setXBounds(const QList<qreal>& bounds)
   }
 }
 
+void QniteAxes::setXPadding(qreal padding)
+{
+  if (m_xPadding != padding) {
+    m_xPadding = padding;
+
+    emit xPaddingChanged();
+
+    initAxisX();
+  }
+}
+
 QList<qreal> QniteAxes::yBounds() const
 {
   return {m_lowerYBound, m_upperYBound};
@@ -94,6 +107,17 @@ void QniteAxes::setYBounds(const QList<qreal>& bounds)
     m_lowerYBound = lowerBound;
     m_upperYBound = upperBound;
     emit yBoundsChanged();
+
+    initAxisY();
+  }
+}
+
+void QniteAxes::setYPadding(qreal padding)
+{
+  if (m_yPadding != padding) {
+    m_yPadding = padding;
+
+    emit yPaddingChanged();
 
     initAxisY();
   }
@@ -136,8 +160,8 @@ void QniteAxes::initAxisY()
   if (m_axisY == nullptr)
     return;
 
-  m_axisY->setLowerBound(m_lowerYBound);
-  m_axisY->setUpperBound(m_upperYBound);
+  m_axisY->setLowerBound(m_lowerYBound - m_yPadding);
+  m_axisY->setUpperBound(m_upperYBound + m_yPadding);
 }
 
 void QniteAxes::initAxisX()
@@ -145,8 +169,8 @@ void QniteAxes::initAxisX()
   if (m_axisX == nullptr)
     return;
 
-  m_axisX->setLowerBound(m_lowerXBound);
-  m_axisX->setUpperBound(m_upperXBound);
+  m_axisX->setLowerBound(m_lowerXBound - m_xPadding);
+  m_axisX->setUpperBound(m_upperXBound + m_xPadding);
 }
 
 void QniteAxes::append_artists(QQmlListProperty<QniteArtist>* property, QniteArtist* value)
