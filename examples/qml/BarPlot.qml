@@ -6,6 +6,9 @@ Figure {
     }
     axes.yBounds: [-10, 10]
 
+    axes.yAxisName: "Y"
+    axes.xAxisName: "X"
+
     tools: [
         PointSelectionTool {
             anchors.fill: parent // TODO: remove boilerplate

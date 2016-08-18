@@ -22,6 +22,10 @@ BasicAxes {
     }
     property alias tick: __axistick
 
+    // Optional names for the plot axis
+    property string yAxisName: ""
+    property string xAxisName: ""
+
     property font labelFont
 
     TextMetrics {
@@ -35,10 +39,12 @@ BasicAxes {
         left: parent.left
         right: parent.right
 
-        topMargin: __metrics.height / 2
+        // We add left axis name height and bottom axis name width so that
+        // if names are not empty they are correctly visualized
+        topMargin: __metrics.height / 2 + __leftAxisName.height
         bottomMargin: __metrics.height + tick.majSize + 5
         leftMargin: __metrics.width + tick.majSize + 5
-        rightMargin: __metrics.width / 2
+        rightMargin: __metrics.width / 2 + __bottomAxisName.width
     }
 
     function majorTicksChanged(axis, labelsitem) {
@@ -114,6 +120,16 @@ BasicAxes {
 
         tick: __plotarea.tick
         labelFont: __plotarea.labelFont
+
+    }
+    // Name for the x Axis that the user can optionally set
+    Text {
+        id: __bottomAxisName
+        anchors.left: __bottomlabels.right
+        anchors.verticalCenter: __bottomlabels.bottom
+        anchors.margins: 10
+        text: __plotarea.xAxisName
+        font: __plotarea.labelFont
     }
 
     Rectangle {
@@ -133,5 +149,14 @@ BasicAxes {
 
         tick: __plotarea.tick
         labelFont: __plotarea.labelFont
+    }
+    // Name for the y Axis that the user can optionally set
+    Text {
+        id: __leftAxisName
+        anchors.bottom: __leftlabels.top
+        anchors.horizontalCenter: __leftlabels.left
+        anchors.margins: 10
+        text: __plotarea.yAxisName
+        font: __plotarea.labelFont
     }
 }
