@@ -27,6 +27,8 @@ private:
 
     // circle data
     qreal m_radius;
+    qreal m_selectedRadius;
+    qreal m_highlightedRadius;
     QList<int> m_selectedPoints;
     int m_highlightedPoint;
 };

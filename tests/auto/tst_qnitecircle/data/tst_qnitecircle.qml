@@ -28,7 +28,6 @@ TestCase {
                 id: __circle
                 objectName: "__circle"
 
-                radius: 6
                 selectable: true
                 pen.fill: "#aa90caf9"
                 selectedPen.fill: "#ef5350"
@@ -111,5 +110,29 @@ TestCase {
         // Check that no point is selected or highlighted
         compare(circle.selectedIndexes, []);
         compare(circle.highlightedIndex, -1);
+    }
+
+    // Tests that various radius are set correctly
+    function test_circle_radius() {
+        var fig = figure.createObject(testCase);
+        var circle = findChild(fig, '__circle');
+
+        // Does some operations on the circle dataset
+        circle.processData();
+
+        // Tests default radii
+        compare(circle.radius, 5);
+        compare(circle.selectedRadius, 5);
+        compare(circle.highlightedRadius, 5);
+
+        // Sets the various circle radii
+        circle.radius = 6;
+        circle.selectedRadius = 8;
+        circle.highlightedRadius = 9;
+
+        // Tests radii are set correctly
+        compare(circle.radius, 6);
+        compare(circle.selectedRadius, 8);
+        compare(circle.highlightedRadius, 9);
     }
 }
