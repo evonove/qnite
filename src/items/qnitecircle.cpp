@@ -13,9 +13,6 @@ constexpr auto SELECTION_TOLERANCE = 20;
 
 QniteCircle::QniteCircle(QQuickItem *parent)
     : QniteXYArtist(parent)
-    , m_radius{5}
-    , m_selectedRadius{5}
-    , m_highlightedRadius{5}
     , m_highlightedPoint{-1}
 {
   setFlag(ItemHasContents, true);
@@ -24,45 +21,6 @@ QniteCircle::QniteCircle(QQuickItem *parent)
 
 QniteCircle::~QniteCircle()
 {
-}
-
-qreal QniteCircle::radius() const
-{
-  return m_radius;
-}
-
-qreal QniteCircle::selectedRadius() const
-{
-    return m_selectedRadius;
-}
-
-qreal QniteCircle::highlightedRadius() const
-{
-    return m_highlightedRadius;
-}
-
-void QniteCircle::setRadius(qreal radius)
-{
-  if (m_radius != radius) {
-    m_radius = radius;
-    emit radiusChanged();
-  }
-}
-
-void QniteCircle::setSelectedRadius(qreal radius)
-{
-    if (m_selectedRadius != radius) {
-        m_selectedRadius = radius;
-        emit selectedRadiusChanged();
-    }
-}
-
-void QniteCircle::setHighlightedRadius(qreal radius)
-{
-    if (m_highlightedRadius != radius) {
-        m_highlightedRadius = radius;
-        emit highlightedRadiusChanged();
-    }
 }
 
 bool QniteCircle::select(const QList<QPoint>& path)

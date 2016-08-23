@@ -14,6 +14,7 @@ class QnitePen : public QObject
     Q_PROPERTY(qreal width READ width WRITE setWidth NOTIFY widthChanged)
     Q_PROPERTY(LineJoin join READ join WRITE setJoin NOTIFY joinChanged)
     Q_PROPERTY(LineCap cap READ cap WRITE setCap NOTIFY capChanged)
+    Q_PROPERTY(qreal radius READ radius WRITE setRadius NOTIFY radiusChanged)
 
 public:
 
@@ -40,6 +41,9 @@ public:
     LineCap cap() const { return m_data.cap; }
     void setCap(LineCap cap);
 
+    qreal radius() const { return m_data.radius; }
+    void setRadius(qreal radius);
+
     // An instance of PenData is shared with the painter
     // class associated with each artist.
     // this has been moved to a separate inner class to allow
@@ -54,6 +58,7 @@ public:
         qreal width;
         LineJoin join;
         LineCap cap;
+        qreal radius;
     };
 
     const PenData& data() const { return m_data; }
@@ -64,6 +69,7 @@ Q_SIGNALS:
     void widthChanged();
     void joinChanged();
     void capChanged();
+    void radiusChanged();
     void penChanged();
 
 private:

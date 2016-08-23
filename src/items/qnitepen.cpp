@@ -7,6 +7,7 @@ QnitePen::PenData::PenData()
     , width{2}
     , join{LineJoin::JOIN_MITER}
     , cap{LineCap::CAP_SQUARE}
+    , radius{5}
 {
 }
 
@@ -56,6 +57,15 @@ void QnitePen::setCap(LineCap cap)
    if (m_data.cap != cap) {
        m_data.cap = cap;
        emit capChanged();
+       emit penChanged();
+   }
+}
+
+void QnitePen::setRadius(qreal radius)
+{
+   if (m_data.radius != radius) {
+       m_data.radius = radius;
+       emit radiusChanged();
        emit penChanged();
    }
 }

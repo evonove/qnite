@@ -32,9 +32,6 @@ void QniteCirclePainter::synchronize(QNanoQuickItem* item)
         m_selected = circleItem->selected();
 
         // circle specific properties
-        m_radius = circleItem->radius();
-        m_selectedRadius = circleItem->selectedRadius();
-        m_highlightedRadius = circleItem->highlightedRadius();\
         m_selectedPoints = circleItem->selectedIndexes();
         m_highlightedPoint = circleItem->highlightedIndex();
     }
@@ -61,7 +58,7 @@ void QniteCirclePainter::paint(QNanoPainter* painter)
             continue;
         }
         painter->beginPath();
-        painter->circle(m_xs.at(i), m_ys.at(i), m_radius);
+        painter->circle(m_xs.at(i), m_ys.at(i), m_pen.radius);
         painter->fill();
         painter->stroke();
     }
@@ -81,7 +78,7 @@ void QniteCirclePainter::paint(QNanoPainter* painter)
             }
 
             painter->beginPath();
-            painter->circle(m_xs.at(i), m_ys.at(i), m_selectedRadius);
+            painter->circle(m_xs.at(i), m_ys.at(i), m_selectedPen.radius);
             painter->fill();
             painter->stroke();
         }
@@ -96,7 +93,7 @@ void QniteCirclePainter::paint(QNanoPainter* painter)
         painter->setLineCap(m_highlightedPen.cap);
 
         painter->beginPath();
-        painter->circle(m_xs.at(m_highlightedPoint), m_ys.at(m_highlightedPoint), m_highlightedRadius);
+        painter->circle(m_xs.at(m_highlightedPoint), m_ys.at(m_highlightedPoint), m_highlightedPen.radius);
         painter->fill();
         painter->stroke();
     }

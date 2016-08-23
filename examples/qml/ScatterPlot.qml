@@ -15,9 +15,13 @@ Figure {
     Circle {
         id: circle
         selectable: true
-        pen.fill: "#aa3f51b5"
+        pen {
+            fill: "#aa3f51b5"
+            radius: 5
+        }
         selectedPen {
             fill: "#aab01325"
+            radius: 6
         }
     }
 
