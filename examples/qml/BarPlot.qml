@@ -9,6 +9,11 @@ Figure {
     axes.yAxisName: "Y"
     axes.xAxisName: "X"
 
+    axes.xLabelsColor: "navy"
+    axes.yLabelsColor: "navy"
+
+    axes.backgroundColor: "ivory"
+
     tools: [
         PointSelectionTool {
             anchors.fill: parent // TODO: remove boilerplate

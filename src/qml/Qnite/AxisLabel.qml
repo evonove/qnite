@@ -12,6 +12,8 @@ Item {
     property var major;
     property var minor;
 
+    property color color;
+
     Item {
         id: ticksnlabels
         anchors.fill: parent
@@ -62,6 +64,8 @@ Item {
                 anchors.verticalCenter: __tick.verticalCenter
                 font: axis.labelFont
                 text: label
+
+                color: axis.color
             }
 
             Rectangle {
@@ -97,6 +101,8 @@ Item {
                 anchors.horizontalCenter: __tick.horizontalCenter
                 font: axis.labelFont
                 text: label
+
+                color: axis.color
             }
         }
     }

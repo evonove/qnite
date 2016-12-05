@@ -26,6 +26,13 @@ BasicAxes {
     property string yAxisName: ""
     property string xAxisName: ""
 
+    // Color for the plot labels, defaults to black
+    property color xLabelsColor: "black"
+    property color yLabelsColor: "black"
+
+    // Plot background color, defaults to white
+    property color backgroundColor: "white"
+
     property font labelFont
 
     TextMetrics {
@@ -99,7 +106,7 @@ BasicAxes {
     Rectangle {
         id: background
         anchors.fill: parent
-        color: "#FAFAFA"
+        color: __plotarea.backgroundColor
         z: -1
     }
 
@@ -120,6 +127,7 @@ BasicAxes {
 
         tick: __plotarea.tick
         labelFont: __plotarea.labelFont
+        color: __plotarea.xLabelsColor
 
     }
     // Name for the x Axis that the user can optionally set
@@ -130,6 +138,7 @@ BasicAxes {
         anchors.margins: 10
         text: __plotarea.xAxisName
         font: __plotarea.labelFont
+        color: __plotarea.xLabelsColor
     }
 
     Rectangle {
@@ -149,6 +158,7 @@ BasicAxes {
 
         tick: __plotarea.tick
         labelFont: __plotarea.labelFont
+        color: __plotarea.yLabelsColor
     }
     // Name for the y Axis that the user can optionally set
     Text {
@@ -158,5 +168,6 @@ BasicAxes {
         anchors.margins: 10
         text: __plotarea.yAxisName
         font: __plotarea.labelFont
+        color: __plotarea.yLabelsColor
     }
 }
