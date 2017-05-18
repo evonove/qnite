@@ -40,3 +40,5 @@ compile_commands.json
 # other
 *.pyc
 .tmp
+
+build/
