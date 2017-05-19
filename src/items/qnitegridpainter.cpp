@@ -30,6 +30,9 @@ void QniteGridPainter::synchronize(QNanoQuickItem* item)
 
         m_xsize = grid->axes()->axisX()->size();
         m_ysize = grid->axes()->axisY()->size();
+
+        m_drawX = grid->drawXAxes();
+        m_drawY = grid->drawYAxes();
     }
 }
 
@@ -44,13 +47,27 @@ void QniteGridPainter::paint(QNanoPainter *painter)
     painter->setLineCap(m_pen.cap);
 
     painter->beginPath();
-    for(auto x : m_xs) {
-        painter->moveTo(x, 0);
-        painter->lineTo(x, m_ysize);
+    if(!m_drawX && !m_drawY) {
+        for(auto x : m_xs) {
+            painter->moveTo(x, 0);
+            painter->lineTo(x, m_ysize);
+        }
+        for(auto y : m_ys) {
+            painter->moveTo(0, y);
+            painter->lineTo(m_xsize, y);
+        }
+        painter->stroke();
+    } else if(m_drawX && !m_drawY) { //draw x axes
+        for(auto y : m_ys) {
+            painter->moveTo(0, y);
+            painter->lineTo(m_xsize, y);
+        }
+        painter->stroke();
+    }else if(m_drawY && !m_drawX) { //draw y axes
+        for(auto x : m_xs) {
+            painter->moveTo(x, 0);
+            painter->lineTo(x, m_ysize);
+        }
+        painter->stroke();
     }
-    for(auto y : m_ys) {
-        painter->moveTo(0, y);
-        painter->lineTo(m_xsize, y);
-    }
-    painter->stroke();
 }
