@@ -30,6 +30,9 @@ void QniteGridPainter::synchronize(QNanoQuickItem* item)
 
         m_xsize = grid->axes()->axisX()->size();
         m_ysize = grid->axes()->axisY()->size();
+
+        m_drawX = grid->drawXAxes();
+        m_drawY = grid->drawYAxes();
     }
 }
 
@@ -43,14 +46,26 @@ void QniteGridPainter::paint(QNanoPainter *painter)
     painter->setLineJoin(m_pen.join);
     painter->setLineCap(m_pen.cap);
 
+    /*
+     * if m_drawX and m_drawY are true, the painter draw the full grid
+     * if m_drawX is false, the painter draw only the grid axes parallel to the y axis
+     * if m_drawY is false, the painter draw only the grid axes parallel to the x axis
+     */
     painter->beginPath();
-    for(auto x : m_xs) {
-        painter->moveTo(x, 0);
-        painter->lineTo(x, m_ysize);
+    if(m_drawX) { //draw x axes
+        for(auto y : m_ys) {
+            painter->moveTo(0, y);
+            painter->lineTo(m_xsize, y);
+        }
+        painter->stroke();
     }
-    for(auto y : m_ys) {
-        painter->moveTo(0, y);
-        painter->lineTo(m_xsize, y);
+
+    painter->beginPath();
+    if(m_drawY) { //draw y axes
+        for(auto x : m_xs) {
+            painter->moveTo(x, 0);
+            painter->lineTo(x, m_ysize);
+        }
+        painter->stroke();
     }
-    painter->stroke();
 }

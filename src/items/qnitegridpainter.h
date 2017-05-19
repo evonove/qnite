@@ -21,6 +21,8 @@ private:
     QnitePen::PenData m_pen;
     qreal m_xsize;
     qreal m_ysize;
-};
 
+    bool m_drawX;
+    bool m_drawY;
+};
 #endif // QNITEGRIDPAINTER_H
