@@ -12,11 +12,11 @@ class QniteGrid : public QniteArtist
     Q_PROPERTY(bool drawYAxes READ drawYAxes WRITE setDrawYAxes NOTIFY drawYAxesChanged)
 
 public:
-    bool drawXAxes() const { return m_drawXAxes; } // dafault value is false and allows you to draw axes x if the value changes to true
-    bool drawYAxes() const { return m_drawYAxes; } // dafault value is false and allows you to draw axes y if the value changes to true
+    bool drawXAxes() const { return m_drawXAxes; } // get the m_drawXAxes value
+    bool drawYAxes() const { return m_drawYAxes; } // get the m_drawYAxes value
 
-    void setDrawXAxes(bool value);
-    void setDrawYAxes(bool value);
+    void setDrawXAxes(bool value); // set the drawXAxes value
+    void setDrawYAxes(bool value); // set the drawYAxes value
 
     QniteGrid(QQuickItem* parent = Q_NULLPTR);
 

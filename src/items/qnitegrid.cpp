@@ -9,8 +9,8 @@ Q_LOGGING_CATEGORY(qnitegrid, "qnite.grid")
 
 QniteGrid::QniteGrid(QQuickItem* parent)
     : QniteArtist{parent}
-    , m_drawXAxes{false} // Initialization of the m_drawXAxes variable
-    , m_drawYAxes{false} // Initialization of the m_drawYAxes variable
+    , m_drawXAxes{true}
+    , m_drawYAxes{true}
 {
     // we set a nicer default for a background grid
     pen()->setWidth(1);
