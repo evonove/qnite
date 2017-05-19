@@ -9,8 +9,8 @@ Q_LOGGING_CATEGORY(qnitegrid, "qnite.grid")
 
 QniteGrid::QniteGrid(QQuickItem* parent)
     : QniteArtist{parent}
-    , m_drawXAxes{false}
-    , m_drawYAxes{false}
+    , m_drawXAxes{false} // Initialization of the m_drawXAxes variable
+    , m_drawYAxes{false} // Initialization of the m_drawYAxes variable
 {
     // we set a nicer default for a background grid
     pen()->setWidth(1);
@@ -22,14 +22,20 @@ QNanoQuickItemPainter* QniteGrid::createItemPainter() const
     return new QniteGridPainter;
 }
 
+/* When the value variable has a different value the m_drawXAxes variable, signal is emitted  */
 void QniteGrid::setDrawXAxes(bool value)
 {
-    m_drawXAxes = value;
-    emit drawXAxesChanged();
+    if (m_drawXAxes != value) {
+        m_drawXAxes = value;
+        emit drawXAxesChanged();
+    }
 }
 
+/* When the value variable has a different value the m_drawYAxes variable, signal is emitted  */
 void QniteGrid::setDrawYAxes(bool value)
 {
-    m_drawYAxes = value;
-    emit drawYAxesChanged();
+    if(m_drawYAxes != value) {
+        m_drawYAxes = value;
+        emit drawYAxesChanged();
+    }
 }

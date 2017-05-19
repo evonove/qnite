@@ -12,8 +12,8 @@ class QniteGrid : public QniteArtist
     Q_PROPERTY(bool drawYAxes READ drawYAxes WRITE setDrawYAxes NOTIFY drawYAxesChanged)
 
 public:
-    bool drawXAxes() const { return m_drawXAxes; }
-    bool drawYAxes() const { return m_drawYAxes; }
+    bool drawXAxes() const { return m_drawXAxes; } // dafault value is false and allows you to draw axes x if the value changes to true
+    bool drawYAxes() const { return m_drawYAxes; } // dafault value is false and allows you to draw axes y if the value changes to true
 
     void setDrawXAxes(bool value);
     void setDrawYAxes(bool value);
@@ -26,8 +26,8 @@ public Q_SLOTS:
   virtual void processData() Q_DECL_OVERRIDE {}
 
 Q_SIGNALS:
-    void drawXAxesChanged();
-    void drawYAxesChanged();
+    void drawXAxesChanged(); // this signal is emitted when the m_drawXaxes value changes
+    void drawYAxesChanged(); // this signal is emitted when the m_drawYaxes value changes
 
 private:
     bool m_drawXAxes;

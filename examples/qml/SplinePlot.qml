@@ -10,7 +10,7 @@ Figure {
         }
     ]
 
-    Grid { }
+    Grid { drawXAxes: true }
     Spline {
         xValues: [-5, -1.5, -0.1, .4, 2.3, 3.4, 5, 6, 9, 10]
         yValues: [-3, 0, 2, -1.3, .9, -.2, -.6, 4, 5, 9]
