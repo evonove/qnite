@@ -21,36 +21,31 @@
 
 #include <QtQml>
 
-class Qnite
-{
-public:
-    Qnite() {
-        auto uri = "Qnite";
+static void registerQniteQmlTypes() {
+    auto uri = "Qnite";
 
-        // @uri qnite
-        qmlRegisterUncreatableType<QniteArtist>(uri, 1, 0, "Artist", "Cannot create objects of basetype Artist");
-        qmlRegisterType<QniteXYArtist>(uri, 1, 0, "XYArtist");
-        qmlRegisterType<QniteAxes>(uri, 1, 0, "BasicAxes");
-        qmlRegisterUncreatableType<QniteAxis>(uri, 1, 0, "Axis", "Cannot create obects of base type Axis");
-        qmlRegisterType<QniteLinearAxis>(uri, 1, 0, "LinearAxis");
-        qmlRegisterType<QniteCategoryAxis>(uri, 1, 0, "CategoryAxis");
-        qmlRegisterType<QniteAxisTick>(uri, 1, 0, "AxisTick");
-        qmlRegisterUncreatableType<QnitePen>(uri, 1, 0, "Pen", "Cannot create obects of type Pen");
-        qmlRegisterType<QniteBar>(uri, 1, 0, "Bar");
-        qmlRegisterType<QniteCircle>(uri, 1, 0, "Circle");
-        qmlRegisterType<QniteLine>(uri, 1, 0, "Line");
-        qmlRegisterType<QniteSpline>(uri, 1, 0, "Spline");
-        qmlRegisterType<QniteGrid>(uri, 1, 0, "Grid");
+    qmlRegisterUncreatableType<QniteArtist>(uri, 1, 0, "Artist", "Cannot create objects of basetype Artist");
+    qmlRegisterType<QniteXYArtist>(uri, 1, 0, "XYArtist");
+    qmlRegisterType<QniteAxes>(uri, 1, 0, "BasicAxes");
+    qmlRegisterUncreatableType<QniteAxis>(uri, 1, 0, "Axis", "Cannot create obects of base type Axis");
+    qmlRegisterType<QniteLinearAxis>(uri, 1, 0, "LinearAxis");
+    qmlRegisterType<QniteCategoryAxis>(uri, 1, 0, "CategoryAxis");
+    qmlRegisterType<QniteAxisTick>(uri, 1, 0, "AxisTick");
+    qmlRegisterUncreatableType<QnitePen>(uri, 1, 0, "Pen", "Cannot create obects of type Pen");
+    qmlRegisterType<QniteBar>(uri, 1, 0, "Bar");
+    qmlRegisterType<QniteCircle>(uri, 1, 0, "Circle");
+    qmlRegisterType<QniteLine>(uri, 1, 0, "Line");
+    qmlRegisterType<QniteSpline>(uri, 1, 0, "Spline");
+    qmlRegisterType<QniteGrid>(uri, 1, 0, "Grid");
 
-        qmlRegisterUncreatableType<QniteTool>(uri, 1, 0, "Tool", "Cannot create objects of basetype Tool");
-        qmlRegisterType<QnitePointSelectionTool>(uri, 1, 0, "PointSelectionTool");
-        qmlRegisterType<QnitePathSelectionTool>(uri, 1, 0, "PathSelectionTool");
+    qmlRegisterUncreatableType<QniteTool>(uri, 1, 0, "Tool", "Cannot create objects of basetype Tool");
+    qmlRegisterType<QnitePointSelectionTool>(uri, 1, 0, "PointSelectionTool");
+    qmlRegisterType<QnitePathSelectionTool>(uri, 1, 0, "PathSelectionTool");
 
-        qmlRegisterUncreatableType<QniteMapper>(uri, 1, 0, "Mapper", "Cannot create objects of basetype Mapper");
-        qmlRegisterType<QniteLinearMapper>(uri, 1, 0, "LinearMapper");
-        qmlRegisterUncreatableType<QniteTicker>(uri, 1, 0, "Ticker", "Cannot create objects of base type Ticker");
-        qmlRegisterType<QniteLinearTicker>(uri, 1, 0, "LinearTicker");
-    }
-};
+    qmlRegisterUncreatableType<QniteMapper>(uri, 1, 0, "Mapper", "Cannot create objects of basetype Mapper");
+    qmlRegisterType<QniteLinearMapper>(uri, 1, 0, "LinearMapper");
+    qmlRegisterUncreatableType<QniteTicker>(uri, 1, 0, "Ticker", "Cannot create objects of base type Ticker");
+    qmlRegisterType<QniteLinearTicker>(uri, 1, 0, "LinearTicker");
+}
 
-static Qnite registerTypes;
+Q_COREAPP_STARTUP_FUNCTION(registerQniteQmlTypes)
