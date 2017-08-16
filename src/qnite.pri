@@ -8,7 +8,6 @@ INCLUDEPATH += \
 
 # Input
 SOURCES += \
-    $$PWD/qnite.cpp \
     $$PWD/qniteartist.cpp \
     $$PWD/qnitexyartist.cpp \
     $$PWD/qniteaxis.cpp \
@@ -38,6 +37,7 @@ SOURCES += \
     $$PWD/tools/qnitepathpainter.cpp
 
 HEADERS += \
+    $$PWD/qnite.h \
     $$PWD/qniteartist.h \
     $$PWD/qnitexyartist.h \
     $$PWD/qniteaxis.h \

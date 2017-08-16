@@ -1,3 +1,5 @@
+#include <QtQml>
+
 #include "qniteartist.h"
 #include "qnitexyartist.h"
 #include "qniteaxis.h"
@@ -19,7 +21,6 @@
 #include "qnitepathselectiontool.h"
 #include "qnitepen.h"
 
-#include <QtQml>
 
 static void registerQniteQmlTypes() {
     auto uri = "Qnite";
