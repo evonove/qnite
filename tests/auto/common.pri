@@ -2,5 +2,5 @@ TEMPLATE = app
 QT += testlib
 CONFIG += testcase
 
-include($$PWD/../../src/qnite.pri)
+include($$QNITE_SOURCE_TREE/src/qnite.pri)
 

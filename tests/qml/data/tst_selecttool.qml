@@ -15,8 +15,8 @@ Item {
                 'import Qnite 1.0; PathSelectionTool {id: selectTool; width: 300; height: 300}',
                 container, '');
 
-            mousePress(tmp);
-            mouseMove(tmp, 1, 1);
+            mousePress(tmp, 0, 0);
+            mouseMove(tmp, 0, 1);
 
             compare(tmp.selectionPath.length, 2);
             compare(tmp.selectionPath, [Qt.point(0,0), Qt.point(0,1)]);

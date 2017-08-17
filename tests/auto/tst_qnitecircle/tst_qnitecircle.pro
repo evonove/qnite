@@ -9,9 +9,9 @@ TESTDATA += \
     $$PWD/data/tst_qnitecircle.qml
 
 IMPORTPATH += \
-    $$PWD/../../../src/ \
-    $$PWD/../../../src/qml/ \
-    $$PWD/../../../src/tools/ \
-    $$PWD/../../../src/items
+    $$QNITE_SOURCE_TREE/src/ \
+    $$QNITE_SOURCE_TREE/src/qml/ \
+    $$QNITE_SOURCE_TREE/src/tools/ \
+    $$QNITE_SOURCE_TREE/src/items
 
-include($$PWD/../../../src/qnite.pri)
+include($$QNITE_SOURCE_TREE/src/qnite.pri)

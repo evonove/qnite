@@ -11,4 +11,4 @@ IMPORTPATH = \
 TESTDATA += \
     $$PWD/data/tst_*
 
-include($$PWD/../../src/qnite.pri)
+include($$QNITE_SOURCE_TREE/src/qnite.pri)

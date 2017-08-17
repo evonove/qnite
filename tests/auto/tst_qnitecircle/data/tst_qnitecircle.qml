@@ -121,18 +121,18 @@ TestCase {
         circle.processData();
 
         // Tests default radii
-        compare(circle.radius, 5);
-        compare(circle.selectedRadius, 5);
-        compare(circle.highlightedRadius, 5);
+        compare(circle.pen.radius, 5);
+        compare(circle.selectedPen.radius, 5);
+        compare(circle.highlightedPen.radius, 5);
 
         // Sets the various circle radii
-        circle.radius = 6;
-        circle.selectedRadius = 8;
-        circle.highlightedRadius = 9;
+        circle.pen.radius = 6;
+        circle.selectedPen.radius = 8;
+        circle.highlightedPen.radius = 9;
 
         // Tests radii are set correctly
-        compare(circle.radius, 6);
-        compare(circle.selectedRadius, 8);
-        compare(circle.highlightedRadius, 9);
+        compare(circle.pen.radius, 6);
+        compare(circle.selectedPen.radius, 8);
+        compare(circle.highlightedPen.radius, 9);
     }
 }
