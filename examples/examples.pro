@@ -1,6 +1,8 @@
-TEMPLATE = app
+TEMPLATE = subdirs
+SUBDIRS += \
+    qnitelib \
+    example_include \
+    example_library
 
-RESOURCES += examples.qrc
+example_library.depends = qnitelib
 
-include(common.pri)
-include(deployment.pri)

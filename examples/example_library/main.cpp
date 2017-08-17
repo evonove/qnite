@@ -1,9 +1,13 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 
+#include "qnite.h"
+
 
 int main(int argc, char *argv[])
 {
+  Q_INIT_RESOURCE(qnite);
+
   #ifdef Q_OS_WIN
     QCoreApplication::setAttribute(Qt::AA_UseOpenGLES);
   #endif
