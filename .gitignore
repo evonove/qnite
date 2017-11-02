@@ -43,3 +43,7 @@ compile_commands.json
 .tmp
 
 build/
+
+default/
+debug/
+release/
