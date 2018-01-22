@@ -13,7 +13,17 @@ StaticLibrary {
     ]
     cpp.cxxLanguageVersion: "c++14"
     cpp.defines: ["QNANO_QT_GL_INCLUDE"]
-    cpp.dynamicLibraries: ["GL"]
+    cpp.dynamicLibraries: {
+        if (qbs.targetOS.contains("windows")) {
+            if (qbs.debugInformation) {
+                return ["libGLESV2d"];
+            } else {
+                return ["libGLESV2"];
+            }
+        } else {
+            return ["GL"];
+        }
+    }
 
     Depends { name: "Qt.qml" }
     Depends { name: "Qt.quick" }
