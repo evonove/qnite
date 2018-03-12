@@ -1,4 +1,5 @@
 module Qnite
 Axes 1.0 Axes.qml
 Figure 1.0 Figure.qml
+AxisLabel 1.0 AxisLabel.qml
 

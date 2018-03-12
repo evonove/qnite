@@ -11,6 +11,4 @@
              "example_library/main.cpp",
          ]
      }
-
-     references: [ "../qnite.qbs" ]
  }

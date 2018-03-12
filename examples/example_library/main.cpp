@@ -1,7 +1,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 
-#include "qnite.h"
+#include <qnite.h>
 
 
 int main(int argc, char *argv[])
