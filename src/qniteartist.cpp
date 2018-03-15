@@ -1,5 +1,7 @@
 #include "qniteartist.h"
 #include "qniteaxes.h"
+#include "qnitepen.h"
+
 
 QniteArtist::QniteArtist(QQuickItem* parent)
     : QNanoQuickItem(parent)

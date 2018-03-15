@@ -13,6 +13,10 @@ Project {
     }
 
     SubProject {
+        filePath: "3rdparty/qnanopainter.qbs"
+    }
+
+    SubProject {
         filePath: "tests/tests.qbs"
         Properties {
             condition: parent.withTests

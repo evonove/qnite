@@ -2,10 +2,10 @@
 #define QNITE_ARTIST_H
 
 
-#include "qnitepen.h"
 #include "qnanoquickitem.h"
 
 
+class QnitePen;
 class QniteAxes;
 class QniteArtist: public QNanoQuickItem
 {
