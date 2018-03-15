@@ -7,8 +7,8 @@
          Depends { name: "Qt.quick" }
 
          files: [
-             "example_library/example_library.qrc",
-             "example_library/main.cpp",
+             "examples.qrc",
+             "main.cpp",
          ]
      }
  }

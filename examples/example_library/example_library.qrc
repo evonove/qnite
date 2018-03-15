@@ -1,9 +1,0 @@
-<RCC>
-    <qresource prefix="/">
-        <file>qml/main.qml</file>
-        <file>qml/BarPlot.qml</file>
-        <file>qml/LinePlot.qml</file>
-        <file>qml/ScatterPlot.qml</file>
-        <file>qml/SplinePlot.qml</file>
-    </qresource>
-</RCC>
