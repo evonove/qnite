@@ -13,6 +13,7 @@ Q_LOGGING_CATEGORY(qnitelinepainter, "qnite.line.painter")
 QniteLinePainter::QniteLinePainter()
     : QNanoQuickItemPainter{}
     , m_selected{false}
+    , m_drawSymbols{false}
 {
 }
 
@@ -43,6 +44,8 @@ void QniteLinePainter::synchronize(QNanoQuickItem* item)
         // the baseline is the position of the y axis
         // this is needed to compute a fill polygon for the line.
         m_baseline = lineItem->axes()->axisY()->position();
+
+        m_drawSymbols = lineItem->drawSymbols();
     }
 }
 
@@ -82,18 +85,20 @@ void QniteLinePainter::paint(QNanoPainter* painter)
     painter->stroke();
 
     // draw symbols
-    // we force a solid color so that the line under the symbol
-    // is hidden
-    if (pen.fill.isValid()) {
-        auto symbolColor = pen.fill;
-        symbolColor.setAlphaF(1.0);
-        painter->setFillStyle(QNanoColor::fromQColor(symbolColor));
-    }
-    dataSize = m_mappedXs.size();
-    for(auto i = 0; i < dataSize; ++i) {
-        painter->beginPath();
-        painter->circle(m_mappedXs.at(i), m_mappedYs.at(i), pen.width * 2.5);
-        painter->fill();
-        painter->stroke();
+    if (m_drawSymbols) {
+        // we force a solid color so that the line under the symbol
+        // is hidden
+        if (pen.fill.isValid()) {
+            auto symbolColor = pen.fill;
+            symbolColor.setAlphaF(1.0);
+            painter->setFillStyle(QNanoColor::fromQColor(symbolColor));
+        }
+        dataSize = m_mappedXs.size();
+        for(auto i = 0; i < dataSize; ++i) {
+            painter->beginPath();
+            painter->circle(m_mappedXs.at(i), m_mappedYs.at(i), pen.width * 2.5);
+            painter->fill();
+            painter->stroke();
+        }
     }
 }

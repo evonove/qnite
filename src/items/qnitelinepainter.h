@@ -29,6 +29,9 @@ private:
 
     // line data
     qreal m_baseline;
+
+    // draw symbols flag
+    bool m_drawSymbols;
 };
 
 #endif /* QNITELINEPAINTER_H */

@@ -4,5 +4,6 @@
  Project {
      references: [
          "plots/plots.qbs",
+         "line/line.qbs",
      ]
  }

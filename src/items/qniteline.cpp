@@ -16,8 +16,10 @@ constexpr auto SELECTION_TOLERANCE = 50;
 QniteLine::QniteLine(QQuickItem *parent)
     : QniteXYArtist(parent)
     , m_selected{false}
+    , m_drawSymbols{true}
 {
 }
+
 
 /*!
   Temporary implementation of the selection logic for lines.
@@ -47,6 +49,7 @@ bool QniteLine::select(QPoint p)
     return accepted;
 }
 
+
 bool QniteLine::select(const QList<QPoint>& path)
 {
     if (path.size()) {
@@ -56,11 +59,22 @@ bool QniteLine::select(const QList<QPoint>& path)
     return false;
 }
 
+
 void QniteLine::clearSelection()
 {
     m_selected = false;
     emit selectedChanged();
     update();
+}
+
+
+void QniteLine::setDrawSymbols(bool drawSymbols)
+{
+    if (this->m_drawSymbols != drawSymbols) {
+        this->m_drawSymbols = drawSymbols;
+        emit drawSymbolsChanged();
+        update();
+    }
 }
 
 
