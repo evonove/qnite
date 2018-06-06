@@ -71,6 +71,7 @@ StaticLibrary {
 
     Export {
         Depends { name: "qnanopainter" }
+        Depends { name: "Qt.quick" }
         Depends { name: "cpp" }
         cpp.includePaths: [ ".", "tools", "items" ]
     }

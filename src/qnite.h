@@ -23,6 +23,8 @@
 
 
 static void registerQniteQmlTypes() {
+    Q_INIT_RESOURCE(qnite);
+
     auto uri = "Qnite";
 
     qmlRegisterUncreatableType<QniteArtist>(uri, 1, 0, "Artist", "Cannot create objects of basetype Artist");
