@@ -5,7 +5,12 @@
 #include "qniteaxes.h"
 #include "qniteaxis.h"
 
+
+#include <QLoggingCategory>
 #include <QPolygon>
+
+
+Q_LOGGING_CATEGORY(qnitecircle, "qnite.circle")
 
 
 constexpr auto SELECTION_TOLERANCE = 20;
@@ -104,7 +109,7 @@ void QniteCircle::clearSelection()
 
 void QniteCircle::select(QList<int> indexes)
 {
-    auto dataSize = xMapped().size();
+    auto dataSize = xValues().size();
 
     m_selectedPoints.clear();
     for(auto i: indexes) {
@@ -119,7 +124,7 @@ void QniteCircle::select(QList<int> indexes)
 
 void QniteCircle::highlight(int index)
 {
-    auto dataSize = xMapped().size();
+    auto dataSize = xValues().size();
 
     // we only highlight a valid index
     if (index >= 0 && index < dataSize) {
