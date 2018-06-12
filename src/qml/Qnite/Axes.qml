@@ -38,7 +38,15 @@ BasicAxes {
     TextMetrics {
         id: __metrics
         font: __plotarea.labelFont
-        text: axisY.labels.reduce(function (a, b) { return a.length > b.length ? a : b; })
+        text: {
+            if (axisY && axisY.labels && axisY.labels.length > 0) {
+                return axisY.labels.reduce(function (a, b) {
+                    return a.length > b.length ? a : b;
+                });
+            } else {
+                return "0";
+            }
+        }
     }
     anchors {
         top: parent.top
