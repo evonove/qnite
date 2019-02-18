@@ -1,0 +1,72 @@
+
+
+include ( 3rdparty/qnanopainter/libqnanopainter/include.pri )
+
+CONFIG += c++14
+QT += qml quick
+
+INCLUDEPATH += $$PWD/src/
+INCLUDEPATH += $$PWD/src/items
+INCLUDEPATH += $$PWD/src/tools
+
+#DEFINES += QNANO_USE_RENDERNODE # Qt 5.8 and up
+
+SOURCES += $$PWD/src/qniteartist.cpp \
+        $$PWD/src/qnitexyartist.cpp \
+        $$PWD/src/qniteaxis.cpp \
+        $$PWD/src/qnitelinearaxis.cpp \
+        $$PWD/src/qnitecategoryaxis.cpp \
+        $$PWD/src/qniteaxistick.cpp \
+        $$PWD/src/qniteaxes.cpp \
+        $$PWD/src/qniteclipper.cpp \
+        $$PWD/src/qnitemapper.cpp \
+        $$PWD/src/qnitelinearmapper.cpp \
+        $$PWD/src/qniteticker.cpp \
+        $$PWD/src/qnitelinearticker.cpp \
+        $$PWD/src/items/qnitebar.cpp \
+        $$PWD/src/items/qnitebarpainter.cpp \
+        $$PWD/src/items/qnitecircle.cpp \
+        $$PWD/src/items/qnitecirclepainter.cpp \
+        $$PWD/src/items/qnitegrid.cpp \
+        $$PWD/src/items/qnitegridpainter.cpp \
+        $$PWD/src/items/qniteline.cpp \
+        $$PWD/src/items/qnitelinepainter.cpp \
+        $$PWD/src/items/qnitepen.cpp \
+        $$PWD/src/items/qnitespline.cpp \
+        $$PWD/src/tools/qnitetool.cpp \
+        $$PWD/src/tools/qniteselectiontool.cpp \
+        $$PWD/src/tools/qnitepointselectiontool.cpp \
+        $$PWD/src/tools/qnitepathselectiontool.cpp \
+        $$PWD/src/tools/qnitepathpainter.cpp \
+
+HEADERS += $$PWD/src/qnite.h \
+        $$PWD/src/qniteartist.h \
+        $$PWD/src/qnitexyartist.h \
+        $$PWD/src/qniteaxis.h \
+        $$PWD/src/qnitelinearaxis.h \
+        $$PWD/src/qnitecategoryaxis.h \
+        $$PWD/src/qniteaxistick.h \
+        $$PWD/src/qniteaxes.h \
+        $$PWD/src/qniteclipper.h \
+        $$PWD/src/qnitemapper.h \
+        $$PWD/src/qnitelinearmapper.h \
+        $$PWD/src/qniteticker.h \
+        $$PWD/src/qnitelinearticker.h \
+        $$PWD/src/items/qnitebar.h \
+        $$PWD/src/items/qnitebarpainter.h \
+        $$PWD/src/items/qnitecircle.h \
+        $$PWD/src/items/qnitecirclepainter.h \
+        $$PWD/src/items/qniteline.h \
+        $$PWD/src/items/qnitegrid.h \
+        $$PWD/src/items/qnitegridpainter.h \
+        $$PWD/src/items/qnitelinepainter.h \
+        $$PWD/src/items/qnitespline.h \
+        $$PWD/src/items/qnitepen.h \
+        $$PWD/src/tools/qnitetool.h \
+        $$PWD/src/tools/qniteselectiontool.h \
+        $$PWD/src/tools/qnitepointselectiontool.h \
+        $$PWD/src/tools/qnitepathselectiontool.h \
+        $$PWD/src/tools/qnitepathpainter.h \
+
+RESOURCES += $$PWD/src/qnite.qrc
+
