@@ -1,0 +1,13 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/git-commands/git-subrepo#readme
+;
+[subrepo]
+	remote = git@github.com:QUItCoding/qnanopainter.git
+	branch = master
+	commit = 967d3c28359d679c0c0413ac85e77aa3a767d2bd
+	parent = 197a593395b4e17ea0bdbbd144b7e1835b498d17
+	method = merge
+	update = auto
+	cmdver = 0.4.1

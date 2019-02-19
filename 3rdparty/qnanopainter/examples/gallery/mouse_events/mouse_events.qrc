@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/mouse_events">
+        <file>main.qml</file>
+        <file>ToggleButton.qml</file>
+    </qresource>
+</RCC>
