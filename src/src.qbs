@@ -38,6 +38,8 @@ StaticLibrary {
         "tools/qnitepointselectiontool.cpp",
         "tools/qnitepathselectiontool.cpp",
         "tools/qnitepathpainter.cpp",
+        "tools/qnitezoomtool.cpp",
+        "tools/qnitezoompainter.cpp",
         "qnite.h",
         "qniteartist.h",
         "qnitexyartist.h",
@@ -66,6 +68,8 @@ StaticLibrary {
         "tools/qnitepointselectiontool.h",
         "tools/qnitepathselectiontool.h",
         "tools/qnitepathpainter.h",
+        "tools/qnitezoomtool.h",
+        "tools/qnitezoompainter.h",
         "qnite.qrc",
     ]
 

@@ -40,7 +40,7 @@ void QnitePathPainter::paint(QNanoPainter *painter) {
   for (const auto &p : m_points) {
     painter->lineTo(p.x(), p.y());
   }
+  painter->closePath();
   painter->fill();
   painter->stroke();
-  painter->closePath();
 }

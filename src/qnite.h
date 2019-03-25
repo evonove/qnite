@@ -20,6 +20,7 @@
 #include "qniteticker.h"
 #include "qnitetool.h"
 #include "qnitexyartist.h"
+#include "qnitezoomtool.h"
 
 static void registerQniteQmlTypes() {
   Q_INIT_RESOURCE(qnite);
@@ -47,6 +48,7 @@ static void registerQniteQmlTypes() {
       uri, 1, 0, "Tool", "Cannot create objects of basetype Tool");
   qmlRegisterType<QnitePointSelectionTool>(uri, 1, 0, "PointSelectionTool");
   qmlRegisterType<QnitePathSelectionTool>(uri, 1, 0, "PathSelectionTool");
+  qmlRegisterType<QniteZoomTool>(uri, 1, 0, "ZoomTool");
 
   qmlRegisterUncreatableType<QniteMapper>(
       uri, 1, 0, "Mapper", "Cannot create objects of basetype Mapper");

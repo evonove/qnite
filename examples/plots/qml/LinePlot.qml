@@ -4,6 +4,12 @@ Figure {
     axes.yBounds: [-0.2, 0.65]
     axes.xBounds: [0.0001, 0.0006]
 
+    tools: [
+        ZoomTool {
+            anchors.fill: parent
+        }
+    ]
+
     Grid { }
     Line {
         xValues: [0.0001, 0.00013, 0.0003, 0.0004, 0.00052]
