@@ -5,29 +5,30 @@
 
 class QniteAxes;
 class QniteArtist;
-class QniteTool: public QNanoQuickItem
-{
+class QniteTool : public QNanoQuickItem {
   Q_OBJECT
-  Q_PROPERTY(QniteAxes* axes READ axes NOTIFY axesChanged) // TODO: axes needs to be a property?
+  Q_PROPERTY(QniteAxes *axes READ axes NOTIFY
+                 axesChanged) // TODO: axes needs to be a property?
 
 public:
-  explicit QniteTool(QQuickItem* parent = 0);
+  explicit QniteTool(QQuickItem *parent = 0);
   virtual ~QniteTool() {}
 
-  QniteAxes* axes() const { return m_axes; }
-  void setAxes(QniteAxes* axes);
+  QniteAxes *axes() const { return m_axes; }
+  void setAxes(QniteAxes *axes);
 
-  virtual QNanoQuickItemPainter* createItemPainter() const Q_DECL_OVERRIDE { return nullptr; }
+  virtual QNanoQuickItemPainter *createItemPainter() const Q_DECL_OVERRIDE {
+    return nullptr;
+  }
 
 Q_SIGNALS:
   void axesChanged();
 
 protected:
-  QList<QniteArtist*> artists();
+  QList<QniteArtist *> artists();
 
 private:
-  QniteAxes* m_axes;
-
+  QniteAxes *m_axes;
 };
 
 #endif // QNITE_TOOL_H

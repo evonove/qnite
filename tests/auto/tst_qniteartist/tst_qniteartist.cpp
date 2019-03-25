@@ -1,41 +1,32 @@
 #include <QtTest/QtTest>
 
-
 #include "qniteartist.h"
 
-
-class FooArtist : public QniteArtist
-{
+class FooArtist : public QniteArtist {
   Q_OBJECT
 
 public Q_SLOTS:
-    void processData() {}
+  void processData() {}
 
 public:
   bool sel;
 
-  FooArtist(QQuickItem * p=0) : QniteArtist(p), sel(false) {}
+  FooArtist(QQuickItem *p = 0) : QniteArtist(p), sel(false) {}
   void clearSelection() { sel = false; }
   bool isSelected() const { return sel; }
 };
 
-class TestQniteArtist: public QObject
-{
+class TestQniteArtist : public QObject {
   Q_OBJECT
 
-  FooArtist  artist;
+  FooArtist artist;
 
 private slots:
-  void initTestCase()
-  {
-  }
+  void initTestCase() {}
 
-  void cleanupTestCase()
-  {
-  }
+  void cleanupTestCase() {}
 
-  void testSelectableFlag()
-  {
+  void testSelectableFlag() {
     QCOMPARE(artist.selectable(), false);
 
     artist.setSelectable(true);
@@ -47,8 +38,7 @@ private slots:
     QCOMPARE(artist.sel, false);
   }
 
-  void testSelected()
-  {
+  void testSelected() {
     artist.sel = true;
 
     artist.setSelectable(true);
@@ -58,8 +48,7 @@ private slots:
     QCOMPARE(artist.selected(), false);
   }
 
-  void testPropagateSelection()
-  {
+  void testPropagateSelection() {
     QCOMPARE(artist.propagateSelection(), false);
     QCOMPARE(artist.select(QPoint()), true); // accepted
 

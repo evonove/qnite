@@ -9,21 +9,15 @@
 
     TODO: add a long description
 */
-QniteMapper::QniteMapper(QObject *parent):
-  QObject(parent)
-{
-}
+QniteMapper::QniteMapper(QObject *parent) : QObject(parent) {}
 
-QniteMapper::~QniteMapper()
-{
-}
+QniteMapper::~QniteMapper() {}
 
 QList<qreal> QniteMapper::mapTo(qreal sourceLower, qreal sourceUpper,
                                 qreal destLower, qreal destUpper,
-                                const QList<qreal>& values, bool flip)
-{
+                                const QList<qreal> &values, bool flip) {
   QList<qreal> out;
-  for(const auto& value: values) {
+  for (const auto &value : values) {
     auto v = mapTo(sourceLower, sourceUpper, destLower, destUpper, value, flip);
     out.append(v);
   }

@@ -5,23 +5,24 @@
 
 class QniteMapper;
 class QniteTicker;
-class QniteAxis: public QniteArtist
-{
+class QniteAxis : public QniteArtist {
   Q_OBJECT
   Q_PROPERTY(qreal size READ size WRITE setSize NOTIFY sizeChanged)
-  Q_PROPERTY(qreal lowerBound READ lowerBound WRITE setLowerBound NOTIFY lowerBoundChanged)
-  Q_PROPERTY(qreal upperBound READ upperBound WRITE setUpperBound NOTIFY upperBoundChanged)
+  Q_PROPERTY(qreal lowerBound READ lowerBound WRITE setLowerBound NOTIFY
+                 lowerBoundChanged)
+  Q_PROPERTY(qreal upperBound READ upperBound WRITE setUpperBound NOTIFY
+                 upperBoundChanged)
   Q_PROPERTY(bool flip READ flip WRITE setFlip NOTIFY flipChanged)
 
-  Q_PROPERTY(QniteMapper* mapper READ mapper CONSTANT)
-  Q_PROPERTY(QniteTicker* ticker READ ticker CONSTANT)
+  Q_PROPERTY(QniteMapper *mapper READ mapper CONSTANT)
+  Q_PROPERTY(QniteTicker *ticker READ ticker CONSTANT)
 
   Q_PROPERTY(QList<qreal> majorTicks READ majorTicks NOTIFY majorTicksChanged)
   Q_PROPERTY(QList<qreal> minorTicks READ minorTicks NOTIFY minorTicksChanged)
   Q_PROPERTY(QStringList labels READ labels NOTIFY labelsChanged)
 
 public:
-  explicit QniteAxis(QQuickItem* parent = 0);
+  explicit QniteAxis(QQuickItem *parent = 0);
   virtual ~QniteAxis() {}
 
   qreal size() const { return m_size; }
@@ -33,10 +34,10 @@ public:
   bool flip() const { return m_flip; }
   void setFlip(bool flip);
 
-  QniteTicker* ticker() const { return m_ticker; }
-  void setTicker(QniteTicker* ticker);
-  QniteMapper* mapper() const { return m_mapper; }
-  void setMapper(QniteMapper* mapper);
+  QniteTicker *ticker() const { return m_ticker; }
+  void setTicker(QniteTicker *ticker);
+  QniteMapper *mapper() const { return m_mapper; }
+  void setMapper(QniteMapper *mapper);
 
   QList<qreal> majorTicks() const;
   QList<qreal> minorTicks() const;
@@ -69,8 +70,8 @@ protected:
   QList<qreal> m_majorTicks;
   QList<qreal> m_minorTicks;
 
-  QniteMapper* m_mapper;
-  QniteTicker* m_ticker;
+  QniteMapper *m_mapper;
+  QniteTicker *m_ticker;
 
   QStringList m_labels;
 };

@@ -3,17 +3,15 @@
 
 #include "qnanoquickitempainter.h"
 
-template<typename Artist>
-class QniteArtistPainter : public QNanoQuickItemPainter
-{
+template <typename Artist>
+class QniteArtistPainter : public QNanoQuickItemPainter {
 public:
-    QniteArtistPainter();
+  QniteArtistPainter();
 
 protected:
-    virtual void synchronize(QNanoQuickItem* item) Q_DECL_OVERRIDE;
+  virtual void synchronize(QNanoQuickItem *item) Q_DECL_OVERRIDE;
 
 private:
-
 };
 
 #endif /* QNITEARTISTPAINTER_H */

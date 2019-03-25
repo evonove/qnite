@@ -13,22 +13,13 @@
 
 TODO: add a long description
 */
-QniteTicker::QniteTicker(QObject * parent):
-  QObject(parent),
-  m_lowerBound{DEFAULT_LOWER_B},
-  m_upperBound{DEFAULT_UPPER_B},
-  m_numSteps{DEFAULT_NUM_STEPS}
-{
+QniteTicker::QniteTicker(QObject *parent)
+    : QObject(parent), m_lowerBound{DEFAULT_LOWER_B},
+      m_upperBound{DEFAULT_UPPER_B}, m_numSteps{DEFAULT_NUM_STEPS} {}
 
-}
+QList<qreal> QniteTicker::values() const { return m_values; }
 
-QList<qreal> QniteTicker::values() const
-{
-  return m_values;
-}
-
-void QniteTicker::setValues(const QList<qreal>& values)
-{
+void QniteTicker::setValues(const QList<qreal> &values) {
   if (m_values != values) {
 
     m_values = values;
@@ -40,34 +31,25 @@ void QniteTicker::setValues(const QList<qreal>& values)
   }
 }
 
-QList<qreal> QniteTicker::minorTicks() const
-{
-  return m_minorTicks;
-}
+QList<qreal> QniteTicker::minorTicks() const { return m_minorTicks; }
 
-void QniteTicker::setMinorTicks(const QList<qreal>& ticks)
-{
+void QniteTicker::setMinorTicks(const QList<qreal> &ticks) {
   if (m_minorTicks != ticks) {
     m_minorTicks = ticks;
     emit minorTicksChanged();
   }
 }
 
-const QList<qreal>& QniteTicker::majorTicks() const
-{
-  return m_majorTicks;
-}
+const QList<qreal> &QniteTicker::majorTicks() const { return m_majorTicks; }
 
-void QniteTicker::setMajorTicks(const QList<qreal>& ticks)
-{
+void QniteTicker::setMajorTicks(const QList<qreal> &ticks) {
   if (m_majorTicks != ticks) {
     m_majorTicks = ticks;
     emit majorTicksChanged();
   }
 }
 
-void QniteTicker::setNumSteps(int steps)
-{
+void QniteTicker::setNumSteps(int steps) {
   if (m_numSteps != steps) {
     m_numSteps = steps;
     emit numStepsChanged();
@@ -77,8 +59,7 @@ void QniteTicker::setNumSteps(int steps)
   }
 }
 
-void QniteTicker::setBoundaries(qreal lower, qreal upper)
-{
+void QniteTicker::setBoundaries(qreal lower, qreal upper) {
   bool modified = false;
 
   if (m_lowerBound != lower) {
@@ -99,8 +80,7 @@ void QniteTicker::setBoundaries(qreal lower, qreal upper)
   }
 }
 
-void QniteTicker::reset()
-{
+void QniteTicker::reset() {
   m_lowerBound = DEFAULT_LOWER_B;
   m_upperBound = DEFAULT_UPPER_B;
   m_numSteps = DEFAULT_NUM_STEPS;
@@ -109,15 +89,13 @@ void QniteTicker::reset()
   m_majorTicks.clear();
 }
 
-QList<qreal> QniteTicker::boundaries() const
-{
-    QList<qreal> ret;
-    ret << m_lowerBound << m_upperBound;
-    return ret;
+QList<qreal> QniteTicker::boundaries() const {
+  QList<qreal> ret;
+  ret << m_lowerBound << m_upperBound;
+  return ret;
 }
 
-void QniteTicker::doBuildTicks()
-{
+void QniteTicker::doBuildTicks() {
   buildTicks();
   emit tickersBuilt();
 }

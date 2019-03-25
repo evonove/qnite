@@ -1,6 +1,5 @@
 #include "qnitelinearmapper.h"
 
-
 /*!
     \qmltype LinearMapper
     \instantiates QniteLinearMapper
@@ -10,25 +9,18 @@
 
     TODO: add a long description
 */
-QniteLinearMapper::QniteLinearMapper(QObject *parent):
-  QniteMapper(parent)
-{
-}
+QniteLinearMapper::QniteLinearMapper(QObject *parent) : QniteMapper(parent) {}
 
-QniteLinearMapper::~QniteLinearMapper()
-{
-}
-
+QniteLinearMapper::~QniteLinearMapper() {}
 
 qreal QniteLinearMapper::mapTo(qreal sourceLower, qreal sourceUpper,
-                               qreal destLower, qreal destUpper,
-                               qreal value, bool flip)
-{
+                               qreal destLower, qreal destUpper, qreal value,
+                               bool flip) {
   qreal sourceSize = qAbs(sourceUpper - sourceLower);
   qreal destSize = qAbs(destLower - destUpper);
 
   if (sourceSize == 0.0 || destSize == 0.0)
-    return 0.0;  // TODO: size is invalid. return 0 or raise exception?
+    return 0.0; // TODO: size is invalid. return 0 or raise exception?
 
   qreal f = destSize / sourceSize;
   qreal v = f * qAbs(sourceLower - value);
@@ -42,4 +34,3 @@ qreal QniteLinearMapper::mapTo(qreal sourceLower, qreal sourceUpper,
 
   return v;
 }
-

@@ -6,9 +6,7 @@
 
 #include "qniteartist.h"
 
-
-class FooArtist : public QniteArtist
-{
+class FooArtist : public QniteArtist {
   Q_OBJECT
 
 public Q_SLOTS:
@@ -17,25 +15,22 @@ public Q_SLOTS:
 public:
   bool sel;
 
-  FooArtist(QQuickItem * p=0) : QniteArtist(p), sel(false) {}
+  FooArtist(QQuickItem *p = 0) : QniteArtist(p), sel(false) {}
   void clearSelection() { sel = false; }
   bool isSelected() const { return sel; }
 };
 
-class FooAxis : public QniteAxis
-{
+class FooAxis : public QniteAxis {
   Q_OBJECT
 
 public Q_SLOTS:
   void processData() {}
 
 public:
-  FooAxis(QQuickItem* p=0) : QniteAxis(p) {}
+  FooAxis(QQuickItem *p = 0) : QniteAxis(p) {}
 };
 
-
-class TestQniteAxes: public QObject
-{
+class TestQniteAxes : public QObject {
   Q_OBJECT
 
 private slots:
@@ -46,14 +41,12 @@ private slots:
   void testPadding();
 };
 
-void TestQniteAxes::testDefaults()
-{
+void TestQniteAxes::testDefaults() {
   QniteAxes axes;
   QCOMPARE(axes.canvas()->clip(), true);
 }
 
-void TestQniteAxes::testAppendTool()
-{
+void TestQniteAxes::testAppendTool() {
   QniteAxes axes;
   QniteTool tool;
 
@@ -66,8 +59,7 @@ void TestQniteAxes::testAppendTool()
   QCOMPARE(axes.canvas(), tool.parentItem());
 }
 
-void TestQniteAxes::testSetOnTop()
-{
+void TestQniteAxes::testSetOnTop() {
   QniteAxes axes;
   FooArtist a1, a2;
 
@@ -75,17 +67,16 @@ void TestQniteAxes::testSetOnTop()
   prop.append(&prop, &a1);
   prop.append(&prop, &a2);
 
-  QList<QQuickItem*> l{&a1, &a2};
+  QList<QQuickItem *> l{&a1, &a2};
   QCOMPARE(l, axes.canvas()->childItems());
 
   axes.setOnTop(&a1);
 
-  QList<QQuickItem*> l2{&a2, &a1};
+  QList<QQuickItem *> l2{&a2, &a1};
   QCOMPARE(l2, axes.canvas()->childItems());
 }
 
-void TestQniteAxes::testPadding()
-{
+void TestQniteAxes::testPadding() {
   QniteAxes axes;
 
   // Axes bounds

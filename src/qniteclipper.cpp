@@ -1,22 +1,16 @@
 #include "qniteclipper.h"
 
-QniteClipper::QniteClipper(QObject* parent):
-  QObject(parent)
-{
-}
+QniteClipper::QniteClipper(QObject *parent) : QObject(parent) {}
 
-QniteClipper::~QniteClipper()
-{
-}
+QniteClipper::~QniteClipper() {}
 
-void QniteClipper::clip(const QList<qreal>& xValues, const QList<qreal>& yValues,
-                        qreal xLower, qreal xUpper,
-                        qreal yLower, qreal yUpper,
-                        QList<qreal>& outX, QList<qreal>& outY)
-{
+void QniteClipper::clip(const QList<qreal> &xValues,
+                        const QList<qreal> &yValues, qreal xLower, qreal xUpper,
+                        qreal yLower, qreal yUpper, QList<qreal> &outX,
+                        QList<qreal> &outY) {
   int size = qMin(xValues.size(), yValues.size());
 
-  for(int i = 0; i < size; ++i) {
+  for (int i = 0; i < size; ++i) {
     auto x = xValues.at(i);
     auto y = yValues.at(i);
     if (x >= xLower && x <= xUpper)
@@ -27,11 +21,10 @@ void QniteClipper::clip(const QList<qreal>& xValues, const QList<qreal>& yValues
   }
 }
 
-void QniteClipper::clip(const QList<qreal>& values, qreal lower, qreal upper, QList<qreal>& out)
-{
-  for(const auto& v: values) {
+void QniteClipper::clip(const QList<qreal> &values, qreal lower, qreal upper,
+                        QList<qreal> &out) {
+  for (const auto &v : values) {
     if (v >= lower && v <= upper)
       out.append(v);
   }
 }
-

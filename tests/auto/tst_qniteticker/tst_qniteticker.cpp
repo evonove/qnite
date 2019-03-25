@@ -1,19 +1,16 @@
-#include <QtTest/QtTest>
 #include <QSignalSpy>
+#include <QtTest/QtTest>
 
 #include "qniteticker.h"
 
-
-class FooTicker : public QniteTicker
-{
+class FooTicker : public QniteTicker {
   Q_OBJECT
 
 public:
-  FooTicker(QObject * p=0) : QniteTicker(p) {}
-  void buildTicks()
-  {
+  FooTicker(QObject *p = 0) : QniteTicker(p) {}
+  void buildTicks() {
     QList<qreal> t;
-    for (int i=0; i<numSteps(); ++i) {
+    for (int i = 0; i < numSteps(); ++i) {
       t << i * 1.5;
     }
 
@@ -21,9 +18,7 @@ public:
   }
 };
 
-
-class TestQniteTicker: public QObject
-{
+class TestQniteTicker : public QObject {
   Q_OBJECT
 
   FooTicker ticker;
@@ -32,15 +27,13 @@ class TestQniteTicker: public QObject
   QList<qreal> anotherlistagain;
 
 private slots:
-  void initTestCase()
-  {
+  void initTestCase() {
     alist << 1. << 2. << 3. << 4.;
     anotherlist << -1. << 1.1 << 1.2;
     anotherlistagain << -1. << 1.1 << 1.2 << 2. << 2.2;
   }
 
-  void testBoundaries()
-  {
+  void testBoundaries() {
     ticker.reset();
 
     QSignalSpy spy(&ticker, SIGNAL(boundariesChanged()));
@@ -59,8 +52,7 @@ private slots:
     QCOMPARE(buildSpy.count(), 2);
   }
 
-  void testSetValues()
-  {
+  void testSetValues() {
     ticker.reset();
 
     QSignalSpy spy(&ticker, SIGNAL(valuesChanged()));
@@ -79,8 +71,7 @@ private slots:
     QCOMPARE(buildSpy.count(), 1);
   }
 
-  void testSetTicks()
-  {
+  void testSetTicks() {
     ticker.reset();
 
     QSignalSpy spy1(&ticker, SIGNAL(minorTicksChanged()));
@@ -95,8 +86,7 @@ private slots:
     QCOMPARE(spy1.count(), 1);
   }
 
-  void testReset()
-  {
+  void testReset() {
     ticker.setValues(alist);
     ticker.setNumSteps(5);
     ticker.buildTicks();
@@ -111,8 +101,7 @@ private slots:
     QCOMPARE(ticker.majorTicks(), QList<qreal>());
   }
 
-  void testDefaults()
-  {
+  void testDefaults() {
     FooTicker foo;
     QCOMPARE(foo.numSteps(), 0);
     QCOMPARE(foo.lower(), 0.);
@@ -122,8 +111,7 @@ private slots:
     QCOMPARE(foo.majorTicks(), QList<qreal>());
   }
 
-  void testSetNumSteps()
-  {
+  void testSetNumSteps() {
     ticker.reset();
 
     QSignalSpy spy(&ticker, SIGNAL(numStepsChanged()));
@@ -139,7 +127,6 @@ private slots:
     QCOMPARE(ticker.majorTicks().size(), 6);
     QCOMPARE(spy.count(), 2);
   }
-
 };
 QTEST_MAIN(TestQniteTicker)
 #include "tst_qniteticker.moc"

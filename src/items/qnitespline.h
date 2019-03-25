@@ -3,23 +3,18 @@
 
 #include "qniteline.h"
 
-class QniteSpline : public QniteLine
-{
+class QniteSpline : public QniteLine {
   Q_OBJECT
   Q_ENUMS(Interpolation)
-  Q_PROPERTY(Interpolation interpolation READ interpolation WRITE setInterpolation NOTIFY interpolationChanged)
+  Q_PROPERTY(Interpolation interpolation READ interpolation WRITE
+                 setInterpolation NOTIFY interpolationChanged)
   Q_PROPERTY(qreal tension READ tension WRITE setTension NOTIFY tensionChanged)
   Q_PROPERTY(qreal bias READ bias WRITE setBias NOTIFY biasChanged)
 
 public:
   explicit QniteSpline(QQuickItem *parent = 0);
 
-  enum Interpolation {
-    Cosine,
-    Cubic,
-    CatmullRom,
-    Hermite
-  };
+  enum Interpolation { Cosine, Cubic, CatmullRom, Hermite };
   Interpolation interpolation() const { return m_interpolation; }
   void setInterpolation(Interpolation i);
 
@@ -45,6 +40,4 @@ private:
   qreal m_bias;
 };
 
-
 #endif // QNITE_SPLINE_H
-

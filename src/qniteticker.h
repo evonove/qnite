@@ -3,12 +3,14 @@
 
 #include <QObject>
 
-class QniteTicker : public QObject
-{
+class QniteTicker : public QObject {
   Q_OBJECT
-  Q_PROPERTY(QList<qreal> values READ values WRITE setValues NOTIFY valuesChanged)
-  Q_PROPERTY(QList<qreal> minorTicks READ minorTicks WRITE setMinorTicks NOTIFY minorTicksChanged)
-  Q_PROPERTY(QList<qreal> majorTicks READ majorTicks WRITE setMajorTicks NOTIFY majorTicksChanged)
+  Q_PROPERTY(
+      QList<qreal> values READ values WRITE setValues NOTIFY valuesChanged)
+  Q_PROPERTY(QList<qreal> minorTicks READ minorTicks WRITE setMinorTicks NOTIFY
+                 minorTicksChanged)
+  Q_PROPERTY(QList<qreal> majorTicks READ majorTicks WRITE setMajorTicks NOTIFY
+                 majorTicksChanged)
   Q_PROPERTY(int numSteps READ numSteps WRITE setNumSteps)
 
 Q_SIGNALS:
@@ -20,19 +22,19 @@ Q_SIGNALS:
   void tickersBuilt();
 
 public:
-  explicit QniteTicker(QObject * parent=0);
+  explicit QniteTicker(QObject *parent = 0);
   virtual ~QniteTicker() {}
 
   virtual void reset();
-  void setValues(const QList<qreal>&);
+  void setValues(const QList<qreal> &);
   void setBoundaries(qreal lower, qreal upper);
-  void setMinorTicks(const QList<qreal>&);
-  void setMajorTicks(const QList<qreal>&);
+  void setMinorTicks(const QList<qreal> &);
+  void setMajorTicks(const QList<qreal> &);
   virtual void setNumSteps(int);
 
   QList<qreal> values() const;
   QList<qreal> minorTicks() const;
-  const QList<qreal>& majorTicks() const;
+  const QList<qreal> &majorTicks() const;
   QList<qreal> boundaries() const;
   qreal lower() const { return m_lowerBound; }
   qreal upper() const { return m_upperBound; }
@@ -55,4 +57,3 @@ private:
 };
 
 #endif // QNITETICKER_H
-

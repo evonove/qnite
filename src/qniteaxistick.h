@@ -1,11 +1,10 @@
 #ifndef QNITE_AXIS_TICK_H
 #define QNITE_AXIS_TICK_H
 
-#include <QObject>
 #include <QColor>
+#include <QObject>
 
-class QniteAxisTick: public QObject
-{
+class QniteAxisTick : public QObject {
   Q_OBJECT
 
   Q_PROPERTY(qreal thick READ thick WRITE setThick NOTIFY thickChanged)
@@ -14,7 +13,7 @@ class QniteAxisTick: public QObject
   Q_PROPERTY(QColor color READ color WRITE setColor NOTIFY colorChanged)
 
 public:
-  explicit QniteAxisTick(QObject* parent = 0);
+  explicit QniteAxisTick(QObject *parent = 0);
   virtual ~QniteAxisTick();
 
   qreal thick() const;
@@ -25,7 +24,7 @@ public:
   void setMinSize(qreal size);
 
   QColor color() const;
-  void setColor(const QColor& color);
+  void setColor(const QColor &color);
 
 Q_SIGNALS:
   void thickChanged();
@@ -40,4 +39,4 @@ private:
   QColor m_color;
 };
 
-#endif  // QNITE_AXIS_TICK_H
+#endif // QNITE_AXIS_TICK_H

@@ -1,10 +1,8 @@
 #include "tools/qniteselectiontool.h"
-#include "qniteaxes.h"
 #include "qniteartist.h"
+#include "qniteaxes.h"
 
-QniteSelectionTool::QniteSelectionTool(QQuickItem* parent):
-  QniteTool(parent)
-{
+QniteSelectionTool::QniteSelectionTool(QQuickItem *parent) : QniteTool(parent) {
   setAcceptedMouseButtons(Qt::LeftButton);
 }
 
@@ -13,20 +11,17 @@ QniteSelectionTool::QniteSelectionTool(QQuickItem* parent):
   perform selection and break iteration if some artist accepts the selection
   event.
  */
-void QniteSelectionTool::select()
-{
+void QniteSelectionTool::select() {
   for (auto artist : artists()) {
     if (!artist->selectable()) {
       continue;
-    }
-    else if (doSelect(artist)) {
+    } else if (doSelect(artist)) {
       break;
     }
   }
 }
 
-void QniteSelectionTool::clearSelection()
-{
+void QniteSelectionTool::clearSelection() {
   for (auto artist : artists()) {
     if (artist->selectable()) {
       artist->clearSelection();
@@ -34,7 +29,4 @@ void QniteSelectionTool::clearSelection()
   }
 }
 
-void QniteSelectionTool::reset()
-{
-  clearSelection();
-}
+void QniteSelectionTool::reset() { clearSelection(); }

@@ -3,17 +3,17 @@
 
 #include "qniteaxis.h"
 
-class QniteCategoryAxis: public QniteAxis
-{
+class QniteCategoryAxis : public QniteAxis {
   Q_OBJECT
-  Q_PROPERTY(QStringList values READ values WRITE setValues NOTIFY valuesChanged)
+  Q_PROPERTY(
+      QStringList values READ values WRITE setValues NOTIFY valuesChanged)
 
 public:
-  explicit QniteCategoryAxis(QQuickItem* parent = 0);
+  explicit QniteCategoryAxis(QQuickItem *parent = 0);
   virtual ~QniteCategoryAxis() {}
 
   QStringList values() const { return m_values; }
-  void setValues(const QStringList& v);
+  void setValues(const QStringList &v);
 
 Q_SIGNALS:
   void valuesChanged();
@@ -25,5 +25,4 @@ private:
   QStringList m_values;
 };
 
-#endif  // QNITE_CATEGORY_AXIS_H
-
+#endif // QNITE_CATEGORY_AXIS_H
