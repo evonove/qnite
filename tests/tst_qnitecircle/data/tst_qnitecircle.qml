@@ -13,7 +13,6 @@ TestCase {
     Component {
         id: figure
 
-        // Plot
         Figure {
             axes.yBounds: [0, 10]
             axes.xBounds: [0, 10]
@@ -60,11 +59,14 @@ TestCase {
         verify(circle.selectedIndexes.indexOf(1) !== -1);
         verify(circle.selectedIndexes.indexOf(2) !== -1);
         verify(circle.selectedIndexes.indexOf(3) !== -1);
+
+
     }
 
     // Tests highlighting of a single plotted point
     function test_highlight_circle() {
         var fig = figure.createObject(testCase);
+
         var circle = findChild(fig, '__circle');
 
         // Does some operations on the circle dataset
