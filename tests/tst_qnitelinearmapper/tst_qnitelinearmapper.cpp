@@ -34,6 +34,14 @@ void TestQniteLinearMapper::testMapTo_data() {
       << 0.0 << 10.0 << 0.0 << 100.0 << true << 1.5 << 85.0;
   QTest::newRow("flipped negative")
       << -10.0 << -5.0 << 0.0 << 100.0 << true << -9.0 << 80.0;
+  QTest::newRow("positive dest not 0")
+      << 0.0 << 200.0 << 10.0 << 20.0 << false << 150.0 << 17.5;
+  QTest::newRow("positive dest not 0 flipped")
+      << 0.0 << 200.0 << 10.0 << 20.0 << true << 150.0 << 22.5;
+  QTest::newRow("negative dest not 0")
+      << 0.0 << 200.0 << -10.0 << -20.0 << false << 150.0 << -2.5;
+  QTest::newRow("negative dest not 0 flipped")
+      << 0.0 << 200.0 << -10.0 << -20.0 << true << 150.0 << -37.5;
 }
 
 void TestQniteLinearMapper::testMapTo() {
