@@ -29,8 +29,9 @@ qreal QniteLinearMapper::mapTo(qreal sourceLower, qreal sourceUpper,
   if (value < sourceLower)
     v *= -1;
 
-  if (flip)
-    v = destUpper - v;
+  if (flip) {
+    return destUpper - v;
+  }
 
   return destLower + v;
 }
