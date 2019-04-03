@@ -123,6 +123,12 @@ void QniteAxes::setAxisX(QniteAxis *axisX) {
   }
 }
 
+void QniteAxes::updateArtists() {
+  for (auto artist : m_artists) {
+    artist->update();
+  }
+}
+
 void QniteAxes::initAxisY() {
   if (m_axisY == nullptr)
     return;

@@ -33,6 +33,8 @@ void QniteZoomTool::resetZoom() {
   yAxis->setLowerBound(m_baseZoomRect.y());
   yAxis->setUpperBound(m_baseZoomRect.height());
   setEnabled(true);
+  update();
+  axes()->updateArtists();
 }
 
 void QniteZoomTool::setMinZoomFactor(qreal factor) {
@@ -100,6 +102,7 @@ void QniteZoomTool::mouseReleaseEvent(QMouseEvent *event) {
   m_zoomRect = QRectF{};
 
   update();
+  axes()->updateArtists();
 
   if (!m_limitZoom) {
     return;

@@ -53,6 +53,8 @@ public:
   QniteAxis *axisX() const;
   void setAxisX(QniteAxis *axisX);
 
+  void updateArtists();
+
 Q_SIGNALS:
   void xBoundsChanged();
   void yBoundsChanged();
