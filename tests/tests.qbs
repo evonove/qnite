@@ -14,6 +14,7 @@ Project {
         "tst_qniteselectiontool/tst_qniteselectiontool.qbs",
         "tst_qniteticker/tst_qniteticker.qbs",
         "tst_qnitetool/tst_qnitetool.qbs",
+        "tst_qnitezoomtool/tst_qnitezoomtool.qbs",
     ]
 
 }

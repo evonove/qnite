@@ -1,12 +1,13 @@
-#include "qnitezoomtool.h"
+#include <cmath>
+
 #include "qniteaxes.h"
 #include "qniteaxis.h"
 #include "qnitemapper.h"
 #include "qnitezoompainter.h"
+#include "qnitezoomtool.h"
 
 QniteZoomTool::QniteZoomTool(QQuickItem *parent)
-    : QniteTool{parent}, m_minZoomFactor{10e4},
-      m_limitZoom{true}, m_pen{new QnitePen} {
+    : QniteTool{parent}, m_minZoomFactor{4}, m_pen{new QnitePen} {
   setAcceptedMouseButtons(Qt::RightButton);
 
   // Default pen style
@@ -16,6 +17,9 @@ QniteZoomTool::QniteZoomTool(QQuickItem *parent)
 
   connect(this, &QniteZoomTool::axesChanged, this,
           &QniteZoomTool::connectAxesBoundsSignals);
+
+  connect(this, &QniteZoomTool::minZoomFactorChanged, this,
+          &QniteZoomTool::updateEnabled);
 }
 
 QniteZoomTool::~QniteZoomTool() {}
@@ -24,7 +28,7 @@ QNanoQuickItemPainter *QniteZoomTool::createItemPainter() const {
   return new QniteZoomPainter;
 }
 
-void QniteZoomTool::resetZoom() {
+void QniteZoomTool::reset() {
   auto xAxis = axes()->axisX();
   auto yAxis = axes()->axisY();
 
@@ -37,17 +41,10 @@ void QniteZoomTool::resetZoom() {
   axes()->updateArtists();
 }
 
-void QniteZoomTool::setMinZoomFactor(qreal factor) {
-  if (qFuzzyCompare(1 + m_minZoomFactor, 1 + factor)) {
+void QniteZoomTool::setMinZoomFactor(int factor) {
+  if (m_minZoomFactor != factor) {
     m_minZoomFactor = factor;
     emit minZoomFactorChanged();
-  }
-}
-
-void QniteZoomTool::setLimitZoom(bool limit) {
-  if (m_limitZoom != limit) {
-    m_limitZoom = limit;
-    emit limitZoomChanged();
   }
 }
 
@@ -104,11 +101,7 @@ void QniteZoomTool::mouseReleaseEvent(QMouseEvent *event) {
   update();
   axes()->updateArtists();
 
-  if (!m_limitZoom) {
-    return;
-  }
-
-  // Disables zoom if a certain amount of zoom is reached
+  // Disables tool if calculated bounds are smaller than the minimum zoom size
   auto minSize = minimumZoomSize();
   auto axisYSize = qAbs(yMapped.first() - yMapped.last());
   auto axisXSize = qAbs(xMapped.first() - xMapped.last());
@@ -144,6 +137,23 @@ void QniteZoomTool::updateBaseZoomRectYBounds() {
 }
 
 QSizeF QniteZoomTool::minimumZoomSize() const {
-  return {qAbs(m_baseZoomRect.width() / m_minZoomFactor),
-          qAbs(m_baseZoomRect.height() / m_minZoomFactor)};
+  qreal factor = std::pow(10, m_minZoomFactor);
+  return {qAbs(m_baseZoomRect.width() / factor),
+          qAbs(m_baseZoomRect.height() / factor)};
+}
+
+void QniteZoomTool::updateEnabled() {
+  // Disables tool if current bounds are smaller than the minimum zoom size,
+  // enables it otherwise
+  auto axisX = axes()->axisX();
+  auto axisY = axes()->axisY();
+
+  auto axisXSize = qAbs(axisX->lowerBound() - axisX->upperBound());
+  auto axisYSize = qAbs(axisY->lowerBound() - axisY->upperBound());
+
+  auto minSize = minimumZoomSize();
+  qDebug() << "Xs" << axisXSize << "w" << minSize.width();
+  qDebug() << "Ys" << axisYSize << "h" << minSize.height();
+  auto enable = axisXSize > minSize.width() || axisYSize > minSize.height();
+  setEnabled(enable);
 }

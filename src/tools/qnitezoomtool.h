@@ -6,10 +6,8 @@
 class QniteZoomTool : public QniteTool {
   Q_OBJECT
   Q_PROPERTY(QnitePen *pen READ pen CONSTANT)
-  Q_PROPERTY(qreal minZoomFactor READ minZoomFactor WRITE setMinZoomFactor
-                 NOTIFY minZoomFactorChanged)
-  Q_PROPERTY(
-      bool limitZoom READ limitZoom WRITE setLimitZoom NOTIFY limitZoomChanged)
+  Q_PROPERTY(int minZoomFactor READ minZoomFactor WRITE setMinZoomFactor NOTIFY
+                 minZoomFactorChanged)
 
 public:
   explicit QniteZoomTool(QQuickItem *parent = nullptr);
@@ -20,13 +18,10 @@ public:
   QRectF rect() const { return m_zoomRect; }
   QnitePen *pen() const { return m_pen.data(); }
 
-  qreal minZoomFactor() const { return m_minZoomFactor; }
-  void setMinZoomFactor(qreal factor);
+  int minZoomFactor() const { return m_minZoomFactor; }
+  void setMinZoomFactor(int factor);
 
-  bool limitZoom() const { return m_limitZoom; }
-  void setLimitZoom(bool limit);
-
-  Q_INVOKABLE void resetZoom();
+  Q_INVOKABLE void reset();
 
 signals:
   void minZoomFactorChanged() const;
@@ -41,12 +36,12 @@ private slots:
   void connectAxesBoundsSignals() const;
   void updateBaseZoomRectXBounds();
   void updateBaseZoomRectYBounds();
+  void updateEnabled();
 
 private:
   QRectF m_zoomRect;
   QRectF m_baseZoomRect;
-  qreal m_minZoomFactor;
-  bool m_limitZoom;
+  int m_minZoomFactor;
   QScopedPointer<QnitePen> m_pen;
 
   QSizeF minimumZoomSize() const;
