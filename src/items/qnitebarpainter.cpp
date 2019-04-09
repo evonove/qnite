@@ -52,7 +52,7 @@ void QniteBarPainter::paint(QNanoPainter *painter) {
   // draw unselected points
   auto ids = m_xs.keys();
   for (auto id : ids) {
-    // we do not draw selected index because we draw it later
+    // we do not draw selected ids because we draw it later
     // with a different pen
     if (id == m_selectedId) {
       continue;
@@ -60,7 +60,8 @@ void QniteBarPainter::paint(QNanoPainter *painter) {
     drawBar(m_xs.value(id), m_ys.value(id));
   }
 
-  if (m_selectedId >= 0) {
+  // Draw selected items only they're currently visible
+  if (m_selectedId >= 0 && ids.contains(m_selectedId)) {
     // use the selectedPen
     painter->setStrokeStyle(QNanoColor::fromQColor(m_selectedPen.stroke));
     painter->setFillStyle(QNanoColor::fromQColor(m_selectedPen.fill));
