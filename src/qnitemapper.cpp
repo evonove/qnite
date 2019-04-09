@@ -13,14 +13,17 @@ QniteMapper::QniteMapper(QObject *parent) : QObject(parent) {}
 
 QniteMapper::~QniteMapper() {}
 
-QList<qreal> QniteMapper::mapTo(qreal sourceLower, qreal sourceUpper,
-                                qreal destLower, qreal destUpper,
-                                const QList<qreal> &values, bool flip) {
-  QList<qreal> out;
-  for (const auto &value : values) {
-    auto v = mapTo(sourceLower, sourceUpper, destLower, destUpper, value, flip);
-    out.append(v);
-  }
+QMap<int, qreal> QniteMapper::mapTo(qreal sourceLower, qreal sourceUpper,
+                                    qreal destLower, qreal destUpper,
+                                    const QMap<int, qreal> &values, bool flip) {
+  QMap<int, qreal> out;
 
+  auto it = values.constBegin();
+  while (it != values.constEnd()) {
+    auto v =
+        mapTo(sourceLower, sourceUpper, destLower, destUpper, it.value(), flip);
+    out.insert(it.key(), v);
+    it++;
+  }
   return out;
 }

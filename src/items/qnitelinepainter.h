@@ -21,8 +21,8 @@ private:
   QList<qreal> m_xs;
   QList<qreal> m_ys;
 
-  QList<qreal> m_mappedXs;
-  QList<qreal> m_mappedYs;
+  QMap<int, qreal> m_mappedXs;
+  QMap<int, qreal> m_mappedYs;
 
   // line data
   qreal m_baseline;

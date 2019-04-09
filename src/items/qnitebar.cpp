@@ -7,7 +7,8 @@
 #include <algorithm>
 
 QniteBar::QniteBar(QQuickItem *parent)
-    : QniteXYArtist(parent), m_fixedWidth{10}, m_selectedIndex{-1} {}
+    : QniteXYArtist(parent), m_fixedWidth{10}, m_selectedId{-1},
+      m_selectedIndex{-1} {}
 
 void QniteBar::setFixedWidth(qreal w) {
   if (m_fixedWidth != w) {
@@ -37,13 +38,16 @@ void QniteBar::setCategories(const QStringList &c) {
 bool QniteBar::select(QPoint p) {
   auto accepted = false;
 
-  if (xProcessed().size() < 1) {
-    m_selectedIndex = -1;
+  if (m_xMapped.size() < 1) {
+    m_selectedId = -1;
   } else {
-    auto upper =
-        std::upper_bound(xProcessed().begin(), xProcessed().end(), p.x());
-    auto i = static_cast<int>(std::distance(xProcessed().begin(), upper) - 1);
-    m_selectedIndex = std::max(0, i);
+    auto upper = std::upper_bound(m_xMapped.cbegin(), m_xMapped.cend(), p.x());
+    if (upper != m_xMapped.cbegin()) {
+      upper--;
+    }
+    m_selectedId = upper.key();
+    m_selectedIndex = static_cast<int>(std::distance(upper, m_xMapped.cend()));
+
     accepted = true;
   }
 
@@ -62,6 +66,7 @@ bool QniteBar::select(const QList<QPoint> &path) {
 }
 
 void QniteBar::clearSelection() {
+  m_selectedId = -1;
   m_selectedIndex = -1;
   emit selectedChanged();
   update();
@@ -71,39 +76,4 @@ QNanoQuickItemPainter *QniteBar::createItemPainter() const {
   return new QniteBarPainter;
 }
 
-bool QniteBar::isSelected() const { return m_selectedIndex >= 0; }
-
-// QSGNode* QniteBar::updatePaintNode(QSGNode* node, UpdatePaintNodeData*)
-//{
-// processData();
-
-// auto dataSize = xProcessed().size();
-// if (dataSize < 1)
-// return nullptr;
-
-// if (node == nullptr) {
-// node = new QSGNode;
-// m_barsNode = new QSGNode;
-// node->appendChildNode(m_barsNode);
-//}
-// updateBars();
-
-// return node;
-//}
-
-// void QniteBar::updateBars()
-//{
-// m_barsNode->removeAllChildNodes();
-
-// qreal baseline = axes()->axisY()->position();
-
-// auto dataSize = xProcessed().size();
-// for(int i = 0; i < dataSize; ++i) {
-// qreal cx = xProcessed().at(i);
-// qreal cy = yProcessed().at(i);
-
-// auto c = (i == m_selectedIndex) ? selectedPen()->fill() : pen()->fill();
-// m_barsNode->appendChildNode(new QniteBarNode(cx, cy, baseline, fixedWidth(),
-// c));
-//}
-//}
+bool QniteBar::isSelected() const { return m_selectedId >= 0; }

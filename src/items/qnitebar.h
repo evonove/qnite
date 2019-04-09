@@ -27,6 +27,7 @@ public:
   void clearSelection() Q_DECL_OVERRIDE;
 
   int selectedIndex() const { return m_selectedIndex; }
+  int selectedId() const { return m_selectedId; }
 
   QNanoQuickItemPainter *createItemPainter() const Q_DECL_OVERRIDE;
 
@@ -39,6 +40,7 @@ protected:
 
 private:
   qreal m_fixedWidth;
+  int m_selectedId;
   int m_selectedIndex;
 
   QStringList m_categories;

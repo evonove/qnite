@@ -20,13 +20,13 @@ private:
   QnitePen::PenData m_selectedPen;
 
   // xy artist data
-  QList<qreal> m_xs;
-  QList<qreal> m_ys;
+  QMap<int, qreal> m_xs;
+  QMap<int, qreal> m_ys;
 
   // bar data
   qreal m_baseline;
   qreal m_fixedWidth;
-  int m_selectedIndex;
+  int m_selectedId;
 };
 
 #endif /* QNITEBARPAINTER_H */

@@ -1,3 +1,4 @@
+import QtQuick.Controls 2.0
 import QtQuick 2.6
 import Qnite 1.0
 
@@ -8,10 +9,23 @@ Figure {
     tools: [
         PathSelectionTool {
             anchors.fill: parent
+        },
+        ZoomTool {
+            id: zoom
+            anchors.fill: parent
         }
     ]
 
-    Grid { }
+    Grid {
+        Button {
+            anchors.top: parent.top
+            anchors.right: parent.right
+
+            text: "Reset Zoom"
+
+            onClicked: zoom.reset()
+        }
+    }
     Circle {
         id: circle
         selectable: true

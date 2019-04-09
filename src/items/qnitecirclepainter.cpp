@@ -16,8 +16,8 @@ void QniteCirclePainter::synchronize(QNanoQuickItem *item) {
 
     // TODO: here we could share painting data using a class
     // which is copied with all its members in a local instance.
-    m_xs = circleItem->xProcessed();
-    m_ys = circleItem->yProcessed();
+    m_xs = circleItem->xMapped();
+    m_ys = circleItem->yMapped();
 
     // make a local copy of the pen
     m_pen = circleItem->pen()->data();
@@ -26,17 +26,17 @@ void QniteCirclePainter::synchronize(QNanoQuickItem *item) {
     m_selected = circleItem->selected();
 
     // circle specific properties
-    m_selectedPoints = circleItem->selectedIndexes();
-    m_highlightedPoint = circleItem->highlightedIndex();
+    m_selectedIds = circleItem->selectedIds();
+    m_highlightedId = circleItem->highlightedId();
   }
 }
 
 void QniteCirclePainter::paint(QNanoPainter *painter) {
   qCDebug(qnitecirclepainter) << "painting qnitecircle";
 
-  auto dataSize = m_xs.size();
-  if (dataSize < 1)
+  if (m_xs.size() < 1) {
     return;
+  }
 
   painter->setStrokeStyle(QNanoColor::fromQColor(m_pen.stroke));
   painter->setFillStyle(QNanoColor::fromQColor(m_pen.fill));
@@ -45,40 +45,41 @@ void QniteCirclePainter::paint(QNanoPainter *painter) {
   painter->setLineCap(m_pen.cap);
 
   // draw unselected points
-  for (auto i = 0; i < dataSize; ++i) {
+  auto ids = m_xs.keys();
+  for (auto id : ids) {
     // we do not draw selected or highlighted indexes because we draw them later
-    if (m_selectedPoints.contains(i) || m_highlightedPoint == i) {
+    if (m_selectedIds.contains(id) || m_highlightedId == id) {
       continue;
     }
     painter->beginPath();
-    painter->circle(m_xs.at(i), m_ys.at(i), m_pen.radius);
+    painter->circle(m_xs.value(id), m_ys.value(id), m_pen.radius);
     painter->fill();
     painter->stroke();
   }
 
   // draw selected points
-  if (m_selectedPoints.size() > 0) {
+  if (m_selectedIds.size() > 0) {
     painter->setStrokeStyle(QNanoColor::fromQColor(m_selectedPen.stroke));
     painter->setFillStyle(QNanoColor::fromQColor(m_selectedPen.fill));
     painter->setLineWidth(m_selectedPen.width);
     painter->setLineJoin(m_selectedPen.join);
     painter->setLineCap(m_selectedPen.cap);
 
-    for (auto i : m_selectedPoints) {
+    for (auto i : m_selectedIds) {
       // we don't draw highlighted indexes here
-      if (i == m_highlightedPoint) {
+      if (i == m_highlightedId) {
         continue;
       }
 
       painter->beginPath();
-      painter->circle(m_xs.at(i), m_ys.at(i), m_selectedPen.radius);
+      painter->circle(m_xs.value(i), m_ys.value(i), m_selectedPen.radius);
       painter->fill();
       painter->stroke();
     }
   }
 
   // draw highlighted points
-  if (m_highlightedPoint > -1) {
+  if (m_highlightedId > -1) {
     painter->setStrokeStyle(QNanoColor::fromQColor(m_highlightedPen.stroke));
     painter->setFillStyle(QNanoColor::fromQColor(m_highlightedPen.fill));
     painter->setLineWidth(m_highlightedPen.width);
@@ -86,7 +87,7 @@ void QniteCirclePainter::paint(QNanoPainter *painter) {
     painter->setLineCap(m_highlightedPen.cap);
 
     painter->beginPath();
-    painter->circle(m_xs.at(m_highlightedPoint), m_ys.at(m_highlightedPoint),
+    painter->circle(m_xs.value(m_highlightedId), m_ys.value(m_highlightedId),
                     m_highlightedPen.radius);
     painter->fill();
     painter->stroke();

@@ -10,11 +10,14 @@ QniteXYArtist::QniteXYArtist(QQuickItem *parent)
 
 QniteXYArtist::~QniteXYArtist() {}
 
-const QList<qreal> &QniteXYArtist::xValues() { return m_xValues; }
+QList<qreal> QniteXYArtist::xValues() { return m_xValues.values(); }
 
 void QniteXYArtist::setXValues(const QList<qreal> &values) {
-  if (m_xValues != values) {
-    m_xValues = values;
+  if (m_xValues.values() != values) {
+    m_xValues.clear();
+    for (int i = 0; i < values.size(); i++) {
+      m_xValues.insert(i, values.at(i));
+    }
     // TODO: transform the values here and cache
     emit xValuesChanged();
     update();
@@ -24,11 +27,14 @@ void QniteXYArtist::setXValues(const QList<qreal> &values) {
   }
 }
 
-const QList<qreal> &QniteXYArtist::yValues() { return m_yValues; }
+QList<qreal> QniteXYArtist::yValues() { return m_yValues.values(); }
 
 void QniteXYArtist::setYValues(const QList<qreal> &values) {
-  if (m_yValues != values) {
-    m_yValues = values;
+  if (m_yValues.values() != values) {
+    m_yValues.clear();
+    for (int i = 0; i < values.size(); i++) {
+      m_yValues.insert(i, values.at(i));
+    }
     // TODO: transform the values here and cache
     emit yValuesChanged();
     update();
@@ -71,13 +77,13 @@ void QniteXYArtist::setClipper(QniteClipper *clipper) {
   }
 }
 
-const QList<qreal> &QniteXYArtist::xMapped() const { return m_xMapped; }
+QMap<int, qreal> QniteXYArtist::xMapped() const { return m_xMapped; }
 
-const QList<qreal> &QniteXYArtist::yMapped() const { return m_yMapped; }
+QMap<int, qreal> QniteXYArtist::yMapped() const { return m_yMapped; }
 
-const QList<qreal> &QniteXYArtist::xProcessed() const { return m_xProcessed; }
+QList<qreal> QniteXYArtist::xProcessed() const { return m_xProcessed; }
 
-const QList<qreal> &QniteXYArtist::yProcessed() const { return m_yProcessed; }
+QList<qreal> QniteXYArtist::yProcessed() const { return m_yProcessed; }
 
 void QniteXYArtist::processData() {
   if (qMin(xValues().size(), yValues().size()) < 1) {
@@ -92,15 +98,15 @@ void QniteXYArtist::processData() {
 
   // TODO: this should be improved. clipping should be done only when bounds
   // changes and tranforsm should always be performed
-  QList<qreal> xClipped;
-  QList<qreal> yClipped;
+  QMap<int, qreal> xClipped;
+  QMap<int, qreal> yClipped;
   // clip non visible data
   if (clipper() != nullptr) {
-    clipper()->clip(xValues(), yValues(), xLower, xUpper, yLower, yUpper,
+    clipper()->clip(m_xValues, m_yValues, xLower, xUpper, yLower, yUpper,
                     xClipped, yClipped);
   } else {
-    xClipped = xValues();
-    yClipped = yValues();
+    xClipped = m_xValues;
+    yClipped = m_yValues;
   }
 
   // map to display
@@ -109,8 +115,8 @@ void QniteXYArtist::processData() {
 
   // TODO: this is ugly and inefficient. move into a pipelino or something
   // similar move to the output area
-  m_xProcessed = m_xMapped;
-  m_yProcessed = m_yMapped;
+  m_xProcessed = m_xMapped.values();
+  m_yProcessed = m_yMapped.values();
 }
 
 void QniteXYArtist::updateAxes() {
@@ -125,8 +131,8 @@ void QniteXYArtist::updateAxes() {
     if (axes->axisY() != nullptr)
       this->setYMapper(axes->axisY()->mapper());
 
-    disconnect(axes, SIGNAL(axisXChanged()), this, 0);
-    disconnect(axes, SIGNAL(axisYChanged()), this, 0);
+    disconnect(axes, SIGNAL(axisXChanged()), this, nullptr);
+    disconnect(axes, SIGNAL(axisYChanged()), this, nullptr);
 
     connect(axes, &QniteAxes::axisXChanged, this,
             [=]() { this->setXMapper(axes->axisX()->mapper()); });

@@ -19,8 +19,8 @@ void QniteBarPainter::synchronize(QNanoQuickItem *item) {
 
     // TODO: here we could share painting data using a class
     // which is copied with all its members in a local instance.
-    m_xs = barItem->xProcessed();
-    m_ys = barItem->yProcessed();
+    m_xs = barItem->xMapped();
+    m_ys = barItem->yMapped();
 
     // make a local copy of the pen
     m_pen = barItem->pen()->data();
@@ -29,7 +29,7 @@ void QniteBarPainter::synchronize(QNanoQuickItem *item) {
 
     // bar specific properties
     m_fixedWidth = barItem->fixedWidth();
-    m_selectedIndex = barItem->selectedIndex();
+    m_selectedId = barItem->selectedId();
     // the baseline is the position of the y axis
     // this is needed to compute a the starting point of the bar
     m_baseline = barItem->axes()->axisY()->position();
@@ -50,16 +50,17 @@ void QniteBarPainter::paint(QNanoPainter *painter) {
   painter->setLineCap(m_pen.cap);
 
   // draw unselected points
-  for (auto i = 0; i < dataSize; ++i) {
+  auto ids = m_xs.keys();
+  for (auto id : ids) {
     // we do not draw selected index because we draw it later
     // with a different pen
-    if (i == m_selectedIndex) {
+    if (id == m_selectedId) {
       continue;
     }
-    drawBar(m_xs.at(i), m_ys.at(i));
+    drawBar(m_xs.value(id), m_ys.value(id));
   }
 
-  if (m_selectedIndex >= 0) {
+  if (m_selectedId >= 0) {
     // use the selectedPen
     painter->setStrokeStyle(QNanoColor::fromQColor(m_selectedPen.stroke));
     painter->setFillStyle(QNanoColor::fromQColor(m_selectedPen.fill));
@@ -67,7 +68,7 @@ void QniteBarPainter::paint(QNanoPainter *painter) {
     painter->setLineJoin(m_selectedPen.join);
     painter->setLineCap(m_selectedPen.cap);
 
-    drawBar(m_xs.at(m_selectedIndex), m_ys.at(m_selectedIndex));
+    drawBar(m_xs.value(m_selectedId), m_ys.value(m_selectedId));
   }
 }
 

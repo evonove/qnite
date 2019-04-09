@@ -19,15 +19,15 @@ private:
   QnitePen::PenData m_highlightedPen;
 
   // xy artist data
-  QList<qreal> m_xs;
-  QList<qreal> m_ys;
+  QMap<int, qreal> m_xs;
+  QMap<int, qreal> m_ys;
 
   // circle data
   qreal m_radius;
   qreal m_selectedRadius;
   qreal m_highlightedRadius;
-  QList<int> m_selectedPoints;
-  int m_highlightedPoint;
+  QList<int> m_selectedIds;
+  int m_highlightedId;
 };
 
 #endif /* QNITECIRCLEPAINTER_H */

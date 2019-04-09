@@ -106,8 +106,8 @@ void QniteSpline::cosineInterpolation() {
   QList<qreal> xs;
   QList<qreal> ys;
 
-  const auto &xv = xMapped();
-  const auto &yv = yMapped();
+  const auto &xv = xMapped().values();
+  const auto &yv = yMapped().values();
 
   int n = xv.size() - 1;
   int res = 2;
@@ -135,8 +135,8 @@ void QniteSpline::cubicInterpolation() {
   QList<qreal> xs;
   QList<qreal> ys;
 
-  auto xv = xMapped();
-  auto yv = yMapped();
+  auto xv = xMapped().values();
+  auto yv = yMapped().values();
 
   auto n = xv.size();
   auto res = 2;

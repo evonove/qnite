@@ -59,9 +59,9 @@ void TestQniteLinearMapper::testMapTo() {
 }
 
 void TestQniteLinearMapper::testMapToMulti() {
-  auto r = mapper.mapTo(0.0, 10.0, 0.0, 100.0, {1.5, 3.5});
-  QCOMPARE(r.at(0), 15.0);
-  QCOMPARE(r.at(1), 35.0);
+  auto r = mapper.mapTo(0.0, 10.0, 0.0, 100.0, {{0, 1.5}, {3, 3.5}});
+  QCOMPARE(r.value(0), 15.0);
+  QCOMPARE(r.value(3), 35.0);
 }
 
 QTEST_MAIN(TestQniteLinearMapper)

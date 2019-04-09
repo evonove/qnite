@@ -23,11 +23,12 @@ bool QniteLine::select(QPoint p) {
   bool accepted = false;
 
   // get the distance from the first point on the path
-  int dataSize = xMapped().size();
-  for (int i = 0; i < dataSize; ++i) {
-    QPoint cp(xMapped().at(i), yMapped().at(i));
-    QPoint d = p - cp;
-    if (d.manhattanLength() < SELECTION_TOLERANCE) {
+  auto ids = m_xMapped.keys();
+  for (auto id : ids) {
+    QPointF cp(m_xMapped.value(id), m_yMapped.value(id));
+    QPointF d = p - cp;
+    auto distance = d.manhattanLength();
+    if (distance < SELECTION_TOLERANCE) {
       m_selected = true;
       accepted = true;
       axes()->setOnTop(this);

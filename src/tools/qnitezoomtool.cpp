@@ -74,27 +74,30 @@ void QniteZoomTool::mouseReleaseEvent(QMouseEvent *event) {
   auto yMin = qMin(m_zoomRect.top(), m_zoomRect.bottom());
   auto yMax = qMax(m_zoomRect.top(), m_zoomRect.bottom());
 
-  QList<qreal> yValues{{yMin, yMax}};
-
   auto yAxis = axes()->axisY();
-  auto yMapped =
+  auto yMappedMin =
       yAxis->mapper()->mapTo(0, axes()->height(), yAxis->lowerBound(),
-                             yAxis->upperBound(), yValues, yAxis->flip());
+                             yAxis->upperBound(), yMin, yAxis->flip());
+  auto yMappedMax =
+      yAxis->mapper()->mapTo(0, axes()->height(), yAxis->lowerBound(),
+                             yAxis->upperBound(), yMax, yAxis->flip());
 
   auto xMin = qMin(m_zoomRect.left(), m_zoomRect.right());
   auto xMax = qMax(m_zoomRect.left(), m_zoomRect.right());
 
-  QList<qreal> xValues{{xMin, xMax}};
-
   auto xAxis = axes()->axisX();
-  auto xMapped =
+  auto xMappedMin =
       xAxis->mapper()->mapTo(0, axes()->width(), xAxis->lowerBound(),
-                             xAxis->upperBound(), xValues, xAxis->flip());
+                             xAxis->upperBound(), xMin, xAxis->flip());
 
-  yAxis->setLowerBound(qMin(yMapped.first(), yMapped.last()));
-  yAxis->setUpperBound(qMax(yMapped.first(), yMapped.last()));
-  xAxis->setLowerBound(qMin(xMapped.first(), xMapped.last()));
-  xAxis->setUpperBound(qMax(xMapped.first(), xMapped.last()));
+  auto xMappedMax =
+      xAxis->mapper()->mapTo(0, axes()->width(), xAxis->lowerBound(),
+                             xAxis->upperBound(), xMax, xAxis->flip());
+
+  yAxis->setLowerBound(qMin(yMappedMin, yMappedMax));
+  yAxis->setUpperBound(qMax(yMappedMin, yMappedMax));
+  xAxis->setLowerBound(qMin(xMappedMin, xMappedMax));
+  xAxis->setUpperBound(qMax(xMappedMin, xMappedMax));
 
   m_zoomRect = QRectF{};
 
@@ -103,8 +106,8 @@ void QniteZoomTool::mouseReleaseEvent(QMouseEvent *event) {
 
   // Disables tool if calculated bounds are smaller than the minimum zoom size
   auto minSize = minimumZoomSize();
-  auto axisYSize = qAbs(yMapped.first() - yMapped.last());
-  auto axisXSize = qAbs(xMapped.first() - xMapped.last());
+  auto axisYSize = qAbs(yMappedMin - yMappedMax);
+  auto axisXSize = qAbs(xMappedMin - xMappedMax);
 
   if (axisXSize <= minSize.width() || axisYSize <= minSize.height()) {
     setEnabled(false);
