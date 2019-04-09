@@ -152,8 +152,6 @@ void QniteZoomTool::updateEnabled() {
   auto axisYSize = qAbs(axisY->lowerBound() - axisY->upperBound());
 
   auto minSize = minimumZoomSize();
-  qDebug() << "Xs" << axisXSize << "w" << minSize.width();
-  qDebug() << "Ys" << axisYSize << "h" << minSize.height();
   auto enable = axisXSize > minSize.width() || axisYSize > minSize.height();
   setEnabled(enable);
 }
