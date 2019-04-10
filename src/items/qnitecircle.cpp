@@ -119,8 +119,6 @@ void QniteCircle::select(QList<int> indexes) {
 }
 
 void QniteCircle::highlight(int index) {
-  m_selectedIds.clear();
-
   if (index >= 0 && index < m_xValues.size()) {
     auto it = m_xValues.constBegin();
     it = it + index;
