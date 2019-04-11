@@ -1,3 +1,4 @@
+import QtQuick 2.0
 import QtQuick.Controls 2.3
 import QtQuick.Layouts 1.3
 
@@ -11,9 +12,17 @@ ApplicationWindow {
     ColumnLayout {
         anchors.fill: parent
 
-        CheckBox {
-            id: _drawSymbols
-            text: "Draw Symbols"
+        RowLayout
+        {
+            CheckBox {
+                id: _drawSymbols
+                text: "Draw Symbols"
+            }
+
+            CheckBox {
+                id: _drawStepped
+                text: "Draw Stepped line"
+            }
         }
 
         Figure {
@@ -26,6 +35,7 @@ ApplicationWindow {
                 yValues: [0, 0.3, 0.6, 0.3, 0.4, 0.6]
 
                 drawSymbols: _drawSymbols.checked
+                drawStepped: _drawStepped.checked
             }
 
             Layout.fillWidth: true
