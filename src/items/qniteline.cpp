@@ -62,6 +62,14 @@ void QniteLine::setDrawSymbols(bool drawSymbols) {
   }
 }
 
+void QniteLine::setDrawStepped(bool drawStepped) {
+  if (this->m_drawStepped != drawStepped) {
+    this->m_drawStepped = drawStepped;
+    emit drawSteppedChanged();
+    update();
+  }
+}
+
 QNanoQuickItemPainter *QniteLine::createItemPainter() const {
   qCDebug(qniteline) << "creating item painter";
   return new QniteLinePainter();
