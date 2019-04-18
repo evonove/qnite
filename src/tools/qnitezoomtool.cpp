@@ -67,6 +67,7 @@ void QniteZoomTool::mouseMoveEvent(QMouseEvent *event) {
 
 void QniteZoomTool::mouseReleaseEvent(QMouseEvent *event) {
   if (m_zoomRect.isNull() || event->pos() == m_zoomRect.topLeft()) {
+    m_zoomRect = QRectF{};
     return;
   }
 
