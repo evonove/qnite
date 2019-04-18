@@ -9,7 +9,8 @@
 Q_LOGGING_CATEGORY(qnitelinepainter, "qnite.line.painter")
 
 QniteLinePainter::QniteLinePainter()
-    : QNanoQuickItemPainter{}, m_selected{false}, m_drawSymbols{false}, m_drawStepped{false} {}
+    : QNanoQuickItemPainter{}, m_selected{false}, m_drawSymbols{false},
+      m_drawStepped{false} {}
 
 void QniteLinePainter::synchronize(QNanoQuickItem *item) {
   qCDebug(qnitelinepainter) << "synchronizing qniteline";
@@ -66,11 +67,10 @@ void QniteLinePainter::paint(QNanoPainter *painter) {
     painter->moveTo(m_xs.at(0), m_baseline);
     painter->lineTo(m_xs.at(0), m_ys.at(0));
     for (auto i = 1; i < dataSize; ++i) {
-        if (m_drawStepped)
-        {
-          painter->lineTo(m_xs.at(i), m_ys.at(i - 1));
-        }
-        painter->lineTo(m_xs.at(i), m_ys.at(i));
+      if (m_drawStepped) {
+        painter->lineTo(m_xs.at(i), m_ys.at(i - 1));
+      }
+      painter->lineTo(m_xs.at(i), m_ys.at(i));
     }
     painter->lineTo(m_xs.at(dataSize - 1), m_baseline);
     painter->fill();
@@ -79,11 +79,10 @@ void QniteLinePainter::paint(QNanoPainter *painter) {
   painter->beginPath();
   painter->moveTo(m_xs.at(0), m_ys.at(0));
   for (auto i = 1; i < dataSize; ++i) {
-      if (m_drawStepped)
-      {
-        painter->lineTo(m_xs.at(i), m_ys.at(i - 1));
-      }
-      painter->lineTo(m_xs.at(i), m_ys.at(i));
+    if (m_drawStepped) {
+      painter->lineTo(m_xs.at(i), m_ys.at(i - 1));
+    }
+    painter->lineTo(m_xs.at(i), m_ys.at(i));
   }
   painter->stroke();
 

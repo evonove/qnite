@@ -11,7 +11,8 @@ Q_LOGGING_CATEGORY(qniteline, "qnite.line")
 constexpr auto SELECTION_TOLERANCE = 50;
 
 QniteLine::QniteLine(QQuickItem *parent)
-    : QniteXYArtist(parent), m_selected{false}, m_drawSymbols{true}, m_drawStepped{false} {}
+    : QniteXYArtist(parent), m_selected{false}, m_drawSymbols{true},
+      m_drawStepped{false} {}
 
 /*!
   Temporary implementation of the selection logic for lines.
