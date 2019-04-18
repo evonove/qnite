@@ -29,6 +29,8 @@ private:
 
   // draw symbols flag
   bool m_drawSymbols;
+  // draw stepped flag
+  bool m_drawStepped;
 };
 
 #endif /* QNITELINEPAINTER_H */

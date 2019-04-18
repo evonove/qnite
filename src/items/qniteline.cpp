@@ -11,7 +11,8 @@ Q_LOGGING_CATEGORY(qniteline, "qnite.line")
 constexpr auto SELECTION_TOLERANCE = 50;
 
 QniteLine::QniteLine(QQuickItem *parent)
-    : QniteXYArtist(parent), m_selected{false}, m_drawSymbols{true} {}
+    : QniteXYArtist(parent), m_selected{false}, m_drawSymbols{true},
+      m_drawStepped{false} {}
 
 /*!
   Temporary implementation of the selection logic for lines.
@@ -59,6 +60,14 @@ void QniteLine::setDrawSymbols(bool drawSymbols) {
   if (this->m_drawSymbols != drawSymbols) {
     this->m_drawSymbols = drawSymbols;
     emit drawSymbolsChanged();
+    update();
+  }
+}
+
+void QniteLine::setDrawStepped(bool drawStepped) {
+  if (this->m_drawStepped != drawStepped) {
+    this->m_drawStepped = drawStepped;
+    emit drawSteppedChanged();
     update();
   }
 }
