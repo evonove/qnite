@@ -33,6 +33,8 @@ void QniteArtist::setAxes(QniteAxes *axes) {
 void QniteArtist::updateAxes() {
   disconnect(m_axes, SIGNAL(widthChanged()), this, 0);
   disconnect(m_axes, SIGNAL(heightChanged()), this, 0);
+  disconnect(m_axes, &QniteAxes::xBoundsChanged, this, 0);
+  disconnect(m_axes, &QniteAxes::yBoundsChanged, this, 0);
 
   if (m_axes != nullptr) {
     setWidth(m_axes->width());
@@ -42,6 +44,9 @@ void QniteArtist::updateAxes() {
             [=]() { this->setWidth(m_axes->width()); });
     connect(m_axes, &QQuickItem::heightChanged, this,
             [=]() { this->setHeight(m_axes->height()); });
+
+    connect(m_axes, &QniteAxes::xBoundsChanged, this, &QniteArtist::update);
+    connect(m_axes, &QniteAxes::yBoundsChanged, this, &QniteArtist::update);
   }
 }
 
