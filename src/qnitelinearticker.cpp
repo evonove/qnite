@@ -54,7 +54,7 @@ void fill(QList<qreal> &ticks, qreal min, qreal max, int steps) {
 
   for (double x = graph_min; x <= graph_max + .5 * d; x += d) {
     // round to the "precision" decimal place
-    double val = qRound(x * precision);
+    double val = qRound64(x * precision);
     ticks.append(val / precision);
     // ticks.append(x);
   }
