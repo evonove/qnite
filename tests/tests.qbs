@@ -9,7 +9,7 @@ Project {
         "tst_qniteclipper/tst_qniteclipper.qbs",
         "tst_qnitelinearmapper/tst_qnitelinearmapper.qbs",
         "tst_qnitelinearticker/tst_qnitelinearticker.qbs",
-        "tst_qnitemapper/tst_qnitemapper.qbs",
+        //"tst_qnitemapper/tst_qnitemapper.qbs",
         "tst_qnitepathselectiontool/tst_qnitepathselectiontool.qbs",
         "tst_qniteselectiontool/tst_qniteselectiontool.qbs",
         "tst_qniteticker/tst_qniteticker.qbs",
