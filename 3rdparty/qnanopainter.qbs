@@ -19,9 +19,9 @@ Project {
         cpp.dynamicLibraries: {
             if (qbs.targetOS.contains("windows")) {
                 if (qbs.debugInformation) {
-                    return ["libGLESV2d"];
+                    return ["libGLESv2d"];
                 } else {
-                    return ["libGLESV2"];
+                    return ["libGLESv2"];
                 }
             } else {
                 return ["GL"];
