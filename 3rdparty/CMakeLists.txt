@@ -49,7 +49,7 @@ target_link_libraries(
     qnanopainter
 PRIVATE
     Qt5::Quick
-    $<$<BOOL:${WIN32}>:$<IF:$<CONFIG:Debug>,"libGLESV2d","libGLESV2">>
+    $<$<BOOL:${WIN32}>:Qt5::Gui_GLESv2>
     $<$<NOT:$<BOOL:${WIN32}>>:GL>
 )
 
