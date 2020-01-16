@@ -75,7 +75,7 @@ void QniteBarPainter::paint(QNanoPainter *painter) {
 
 void QniteBarPainter::drawBar(qreal x, qreal y) {
   auto cx = x - m_fixedWidth / 2.0;
-  auto height = m_baseline - y;
+  auto height = y - m_baseline;
   painter()->beginPath();
   painter()->rect(cx, m_baseline, m_fixedWidth, height);
   painter()->fill();
