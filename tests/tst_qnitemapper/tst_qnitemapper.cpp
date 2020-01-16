@@ -26,7 +26,7 @@ void TestQniteMapper::testMapTo() {
   auto result = mapper->mapTo(0, 0, 0, 0, 0);
   QCOMPARE(result, 1.);
 
-  auto results = mapper->mapTo(0, 0, 0, 0, {0, 0});
+  auto results = mapper->mapTo(0, 0, 0, 0, {{0, 0}, {0, 0}});
   for (auto v : results) {
     QCOMPARE(v, 1.);
   }
