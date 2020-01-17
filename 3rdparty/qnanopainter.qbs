@@ -64,6 +64,9 @@ Project {
                 // nanovg
                 "nanovg/nanovg.c",
                 "nanovg/nanovg.h",
+
+                // qrc font file
+                "libqnanopainterdata.qrc"
             ]
             prefix: "qnanopainter/libqnanopainter/"
         }
