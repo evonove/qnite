@@ -2,6 +2,7 @@
 #define QNITEBARPAINTER_H
 
 #include "qnanoquickitempainter.h"
+#include "qnitebar.h"
 #include "qnitepen.h"
 
 class QniteBarPainter : public QNanoQuickItemPainter {
@@ -13,6 +14,7 @@ public:
 
 private:
   void drawBar(qreal x, qreal y);
+  void drawText(qreal x, qreal y, const QString &text);
 
   // base artist data
   bool m_selected;
@@ -27,6 +29,8 @@ private:
   qreal m_baseline;
   qreal m_fixedWidth;
   int m_selectedId;
+  QniteBar::LabelAlign m_labelAlign;
+  QStringList m_labelsText;
 };
 
 #endif /* QNITEBARPAINTER_H */

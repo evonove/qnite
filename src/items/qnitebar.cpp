@@ -8,7 +8,7 @@
 
 QniteBar::QniteBar(QQuickItem *parent)
     : QniteXYArtist(parent), m_fixedWidth{10}, m_selectedId{-1},
-      m_selectedIndex{-1} {}
+      m_selectedIndex{-1}, m_labelAlign{NONE} {}
 
 void QniteBar::setFixedWidth(qreal w) {
   if (m_fixedWidth != w) {
@@ -32,6 +32,20 @@ void QniteBar::setCategories(const QStringList &c) {
     setXValues(values);
 
     update();
+  }
+}
+
+void QniteBar::setLabelAlign(const LabelAlign &position) {
+  if (m_labelAlign != position) {
+    m_labelAlign = position;
+    emit labelAlignChanged();
+  }
+}
+
+void QniteBar::setLabelsText(const QStringList &labels) {
+  if (m_labelsText != labels) {
+    m_labelsText = labels;
+    emit labelsTextChanged();
   }
 }
 

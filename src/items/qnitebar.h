@@ -11,6 +11,10 @@ class QniteBar : public QniteXYArtist {
   Q_PROPERTY(int selectedIndex READ selectedIndex)
   Q_PROPERTY(QStringList categories READ categories WRITE setCategories NOTIFY
                  categoriesChanged)
+  Q_PROPERTY(LabelAlign labelAlign READ labelAlign WRITE setLabelAlign NOTIFY
+                 labelAlignChanged)
+  Q_PROPERTY(QStringList labelsText READ labelsText WRITE setLabelsText NOTIFY
+                 labelsTextChanged)
 
 public:
   explicit QniteBar(QQuickItem *parent = 0);
@@ -21,6 +25,18 @@ public:
 
   const QStringList &categories() const { return m_categories; }
   void setCategories(const QStringList &c);
+
+  enum LabelAlign {
+    NONE,
+    TOP,
+  };
+  Q_ENUM(LabelAlign)
+
+  LabelAlign labelAlign() const { return m_labelAlign; };
+  void setLabelAlign(const LabelAlign &position);
+
+  const QStringList &labelsText() const { return m_labelsText; };
+  void setLabelsText(const QStringList &lables);
 
   bool select(const QPoint) Q_DECL_OVERRIDE;
   bool select(const QList<QPoint> &) Q_DECL_OVERRIDE;
@@ -34,6 +50,8 @@ public:
 Q_SIGNALS:
   void fixedWidthChanged();
   void categoriesChanged();
+  void labelAlignChanged();
+  void labelsTextChanged();
 
 protected:
   virtual bool isSelected() const Q_DECL_OVERRIDE;
@@ -42,8 +60,10 @@ private:
   qreal m_fixedWidth;
   int m_selectedId;
   int m_selectedIndex;
+  LabelAlign m_labelAlign;
 
   QStringList m_categories;
+  QStringList m_labelsText;
 };
 
 #endif // QNITE_BAR_H
