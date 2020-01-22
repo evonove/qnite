@@ -35,6 +35,9 @@ BasicAxes {
 
     property font labelFont
 
+    property bool rotateBottomLabels: false
+    property int bottomLabelHeight: 0
+
     TextMetrics {
         id: __metrics
         font: __plotarea.labelFont
@@ -57,7 +60,7 @@ BasicAxes {
         // We add left axis name height and bottom axis name width so that
         // if names are not empty they are correctly visualized
         topMargin: __metrics.height / 2 + __leftAxisName.height
-        bottomMargin: __metrics.height + tick.majSize + 5
+        bottomMargin: __metrics.height + tick.majSize + 5 + bottomLabelHeight
         leftMargin: __metrics.width + tick.majSize + 5
         rightMargin: __metrics.width / 2 + __bottomAxisName.width
     }
@@ -137,6 +140,7 @@ BasicAxes {
         labelFont: __plotarea.labelFont
         color: __plotarea.xLabelsColor
 
+        rotateBottomLabels: __plotarea.rotateBottomLabels
     }
     // Name for the x Axis that the user can optionally set
     Text {

@@ -13,6 +13,7 @@ Item {
     property var minor;
 
     property color color;
+    property bool rotateBottomLabels: false;
 
     Item {
         id: ticksnlabels
@@ -80,6 +81,7 @@ Item {
 
     Component {
         id: bottomTick
+
         Column {
             spacing: 5
 
@@ -98,11 +100,14 @@ Item {
 
             Text {
                 id: __text
-                anchors.horizontalCenter: __tick.horizontalCenter
+                anchors.horizontalCenter: axis.rotateBottomLabels ? undefined : __tick.horizontalCenter
+                anchors.right: axis.rotateBottomLabels ? __tick.horizontalCenter : undefined
                 font: axis.labelFont
                 text: label
 
                 color: axis.color
+                transformOrigin: axis.rotateBottomLabels ? Item.Right : Item.Center
+                rotation: axis.rotateBottomLabels ? -45 : 0
             }
         }
     }
