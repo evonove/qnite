@@ -12,10 +12,10 @@ public:
   explicit QniteCircle(QQuickItem *parent = nullptr);
   virtual ~QniteCircle() Q_DECL_OVERRIDE;
 
-  QList<int> selectedIndexes() const { return m_selectedIndexes.toList(); }
+  QList<int> selectedIndexes() const { return m_selectedIndexes.values(); }
   int highlightedIndex() const { return m_highlightedIndex; }
 
-  QList<int> selectedIds() const { return m_selectedIds.toList(); }
+  QList<int> selectedIds() const { return m_selectedIds.values(); }
   int highlightedId() const { return m_highlightedId; }
 
   bool select(const QList<QPoint> &) Q_DECL_OVERRIDE;
