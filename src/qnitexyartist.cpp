@@ -87,6 +87,12 @@ QList<qreal> QniteXYArtist::yProcessed() const { return m_yProcessed; }
 
 void QniteXYArtist::processData() {
   if (qMin(xValues().size(), yValues().size()) < 1) {
+    m_xMapped.clear();
+    m_yMapped.clear();
+
+    m_xProcessed.clear();
+    m_yProcessed.clear();
+
     return;
   }
 
