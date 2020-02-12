@@ -28,6 +28,9 @@ private:
   // bar data
   qreal m_baseline;
   qreal m_fixedWidth;
+  qreal m_leftPadding;
+  qreal m_rightPadding;
+
   int m_selectedId;
   QniteBar::LabelAlign m_labelAlign;
   QStringList m_labelsText;

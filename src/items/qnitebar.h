@@ -15,6 +15,10 @@ class QniteBar : public QniteXYArtist {
                  labelAlignChanged)
   Q_PROPERTY(QStringList labelsText READ labelsText WRITE setLabelsText NOTIFY
                  labelsTextChanged)
+  Q_PROPERTY(qreal leftPadding READ leftPadding WRITE setLeftPadding NOTIFY
+                 leftPaddingChanged)
+  Q_PROPERTY(qreal rightPadding READ rightPadding WRITE setRightPadding NOTIFY
+                 rightPaddingChanged)
 
 public:
   explicit QniteBar(QQuickItem *parent = 0);
@@ -22,6 +26,11 @@ public:
 
   qreal fixedWidth() const { return m_fixedWidth; }
   void setFixedWidth(qreal w);
+
+  qreal leftPadding() const { return m_leftPadding; }
+  void setLeftPadding(qreal leftPadding);
+  qreal rightPadding() const { return m_rightPadding; }
+  void setRightPadding(qreal rightPadding);
 
   const QStringList &categories() const { return m_categories; }
   void setCategories(const QStringList &c);
@@ -52,12 +61,17 @@ Q_SIGNALS:
   void categoriesChanged();
   void labelAlignChanged();
   void labelsTextChanged();
+  void leftPaddingChanged();
+  void rightPaddingChanged();
 
 protected:
   virtual bool isSelected() const Q_DECL_OVERRIDE;
 
 private:
   qreal m_fixedWidth;
+  qreal m_leftPadding;
+  qreal m_rightPadding;
+
   int m_selectedId;
   int m_selectedIndex;
   LabelAlign m_labelAlign;

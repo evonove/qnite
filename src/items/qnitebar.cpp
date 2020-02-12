@@ -7,13 +7,34 @@
 #include <algorithm>
 
 QniteBar::QniteBar(QQuickItem *parent)
-    : QniteXYArtist(parent), m_fixedWidth{10}, m_selectedId{-1},
-      m_selectedIndex{-1}, m_labelAlign{NONE} {}
+    : QniteXYArtist(parent), m_fixedWidth{10}, m_leftPadding{0},
+      m_rightPadding{0}, m_selectedId{-1}, m_selectedIndex{-1}, m_labelAlign{
+                                                                    NONE} {}
 
 void QniteBar::setFixedWidth(qreal w) {
   if (m_fixedWidth != w) {
     m_fixedWidth = w;
     emit fixedWidthChanged();
+
+    update();
+  }
+}
+
+void QniteBar::setLeftPadding(qreal leftPadding) {
+
+  if (m_leftPadding != leftPadding) {
+    m_leftPadding = leftPadding;
+    emit leftPaddingChanged();
+
+    update();
+  }
+}
+
+void QniteBar::setRightPadding(qreal rightPadding) {
+
+  if (m_rightPadding != rightPadding) {
+    m_rightPadding = rightPadding;
+    emit rightPaddingChanged();
 
     update();
   }

@@ -28,9 +28,12 @@ void QniteBarPainter::synchronize(QNanoQuickItem *item) {
 
     // bar specific properties
     m_fixedWidth = barItem->fixedWidth();
+    m_leftPadding = barItem->leftPadding();
+    m_rightPadding = barItem->rightPadding();
     m_selectedId = barItem->selectedId();
     m_labelAlign = barItem->labelAlign();
     m_labelsText = barItem->labelsText();
+
     // the baseline is the position of the y axis
     // this is needed to compute a the starting point of the bar
     m_baseline = barItem->axes()->axisY()->position();
@@ -88,7 +91,6 @@ void QniteBarPainter::paint(QNanoPainter *painter) {
     painter->setPixelAlignText(QNanoPainter::PIXEL_ALIGN_FULL);
 
     for (auto id : ids) {
-      auto cx = m_xs.value(id);
       auto height = m_ys.value(id) - m_baseline;
 
       // For now we want to see label in items that has an
@@ -102,24 +104,25 @@ void QniteBarPainter::paint(QNanoPainter *painter) {
 }
 
 void QniteBarPainter::drawBar(qreal x, qreal y) {
-  auto cx = x - m_fixedWidth / 2.0;
+  auto cx = m_leftPadding + x - m_fixedWidth / 2.0;
   auto height = y - m_baseline;
   painter()->beginPath();
-  painter()->rect(cx, m_baseline, m_fixedWidth, height);
+  painter()->rect(cx, m_baseline, m_fixedWidth - m_rightPadding - m_leftPadding,
+                  height);
   painter()->fill();
   painter()->stroke();
 }
 
 void QniteBarPainter::drawText(qreal x, qreal y, const QString &text) {
-  auto cx = x - m_fixedWidth / 2.0;
   auto height = (y - m_baseline) / 2.0;
 
   painter()->beginPath();
   m_pen.fill = QColor(255, 255, 255);
   painter()->setFillStyle(QNanoColor::fromQColor(m_pen.fill));
 
-  painter()->fillText(text,
-                      QRect(x - m_fixedWidth / 2.0, y, m_fixedWidth, height));
+  painter()->fillText(text, QRect(m_leftPadding + x - m_fixedWidth / 2.0, y,
+                                  m_fixedWidth - m_rightPadding - m_leftPadding,
+                                  height));
   painter()->fill();
   painter()->stroke();
 }
