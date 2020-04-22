@@ -38,6 +38,8 @@ SOURCES += $$PWD/src/qniteartist.cpp \
         $$PWD/src/tools/qnitepointselectiontool.cpp \
         $$PWD/src/tools/qnitepathselectiontool.cpp \
         $$PWD/src/tools/qnitepathpainter.cpp \
+        $$PWD/src/tools/qnitezoomtool.cpp \
+        $$PWD/src/tools/qnitezoompainter.cpp \
 
 HEADERS += $$PWD/src/qnite.h \
         $$PWD/src/qniteartist.h \
@@ -67,6 +69,8 @@ HEADERS += $$PWD/src/qnite.h \
         $$PWD/src/tools/qnitepointselectiontool.h \
         $$PWD/src/tools/qnitepathselectiontool.h \
         $$PWD/src/tools/qnitepathpainter.h \
+        $$PWD/src/tools/qnitezoomtool.h \
+        $$PWD/src/tools/qnitezoompainter.h \
 
 RESOURCES += $$PWD/src/qnite.qrc
 
