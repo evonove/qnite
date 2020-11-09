@@ -24,7 +24,7 @@
 
 static void registerQniteQmlTypes() {
   Q_INIT_RESOURCE(qnite);
-  Q_INIT_RESOURCE(libqnanopainterdata);
+//  Q_INIT_RESOURCE(libqnanopainterdata);
 
   auto uri = "Qnite";
 
