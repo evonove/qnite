@@ -5,6 +5,7 @@
 
 #include <QSGNode>
 #include <algorithm>
+#include <cmath>
 
 QniteBar::QniteBar(QQuickItem *parent)
     : QniteXYArtist(parent), m_fixedWidth{10}, m_leftPadding{0},
@@ -76,12 +77,15 @@ bool QniteBar::select(QPoint p) {
   if (m_xMapped.size() < 1) {
     m_selectedId = -1;
   } else {
+    // select the nearest bar
     auto upper = std::upper_bound(m_xMapped.cbegin(), m_xMapped.cend(), p.x());
-    if (upper != m_xMapped.cbegin()) {
-      upper--;
-    }
-    m_selectedId = upper.key();
-    m_selectedIndex = static_cast<int>(std::distance(upper, m_xMapped.cend()));
+    auto selected = upper;
+    if (upper != m_xMapped.cbegin() 
+        && std::fabs((upper-1).value() - p.x()) < std::fabs(upper.value() - p.x()))
+      selected = upper-1;
+    
+    m_selectedId = selected.key();
+    m_selectedIndex = static_cast<int>(std::distance(m_xMapped.cbegin(), selected));
 
     accepted = true;
   }

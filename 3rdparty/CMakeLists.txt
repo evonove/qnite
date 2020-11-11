@@ -8,6 +8,7 @@ REQUIRED
 )
 
 set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 add_library(
@@ -30,6 +31,8 @@ STATIC
     $<$<OR:$<BOOL:${ANDROID}>,$<BOOL:${IOS}>,$<BOOL:${WIN32}>>:qnanopainter/libqnanopainter/private/qnanobackendgles3.cpp>
     $<$<NOT:$<BOOL:${ANDROID}>>:qnanopainter/libqnanopainter/private/qnanobackendgl2.cpp>
     $<$<NOT:$<BOOL:${ANDROID}>>:qnanopainter/libqnanopainter/private/qnanobackendgl3.cpp>
+    
+    qnanopainter/libqnanopainter/libqnanopainterdata.qrc
 )
 
 target_compile_features(
