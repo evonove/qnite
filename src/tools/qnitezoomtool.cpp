@@ -31,11 +31,13 @@ QNanoQuickItemPainter *QniteZoomTool::createItemPainter() const {
 void QniteZoomTool::reset() {
   auto xAxis = axes()->axisX();
   auto yAxis = axes()->axisY();
+  auto xPadding = axes()->xPadding();
+  auto yPadding = axes()->yPadding();
 
-  xAxis->setLowerBound(m_baseZoomRect.x());
-  xAxis->setUpperBound(m_baseZoomRect.width());
-  yAxis->setLowerBound(m_baseZoomRect.y());
-  yAxis->setUpperBound(m_baseZoomRect.height());
+  xAxis->setLowerBound(m_baseZoomRect.x() - xPadding);
+  xAxis->setUpperBound(m_baseZoomRect.width() + xPadding);
+  yAxis->setLowerBound(m_baseZoomRect.y() - yPadding);
+  yAxis->setUpperBound(m_baseZoomRect.height() + yPadding);
   setEnabled(true);
   update();
   axes()->updateArtists();
