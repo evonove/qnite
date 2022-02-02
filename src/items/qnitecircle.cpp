@@ -77,7 +77,6 @@ bool QniteCircle::select(const QPoint p) {
       nearestId = id;
       nearestIndex = index;
       nearestDistance = distance;
-      break;
     }
     index++;
   }
