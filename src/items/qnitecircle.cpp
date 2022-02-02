@@ -62,7 +62,6 @@ bool QniteCircle::select(const QPoint p) {
   // these variables are needed to keep
   // track of the nearest point during the search
   auto nearestId = -1;
-  auto nearestIndex = -1;
   // we only evaluate points whose distance is below a
   // predefined tolerance
   qreal nearestDistance = SELECTION_TOLERANCE;
@@ -75,7 +74,6 @@ bool QniteCircle::select(const QPoint p) {
     auto distance = d.manhattanLength();
     if (distance < nearestDistance) {
       nearestId = id;
-      nearestIndex = index;
       nearestDistance = distance;
     }
     index++;
@@ -84,6 +82,7 @@ bool QniteCircle::select(const QPoint p) {
   // add the index to the selected points pool
   if (nearestId >= 0) {
     m_selectedIds.insert(nearestId);
+    auto nearestIndex = m_xValues.keys().indexOf(nearestId);
     m_selectedIndexes.insert(nearestIndex);
     emit selectedChanged();
     update();
